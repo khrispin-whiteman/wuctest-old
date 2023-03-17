@@ -1,0 +1,133 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% block title %} Score Entry | WUC {% endblock title %}
+
+
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Add Score</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Add Score</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container-fluid mt-10">
+
+            <!-- Editable table -->
+            <form method="POST" action="">{% csrf_token %}
+                <div class="card">
+                    <h6 class="card-header text-left font-weight-bold text-uppercase py-8">
+                        {{ current_semester }} - {{ assessment.course.course_name }}
+                        
+                    </h6>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-5"><br>
+                                <button id="submit" data-toggle="tooltip" title="Save Score" type="submit" class="btn btn-md btn-info float-left">
+                                    Save
+                                </button>
+                                <span data-toggle="tooltip" title="Allow editing" id="edit_btn" onclick="toggle_score_edit()" class="btn btn-md btn-info float-left">
+                                    Edit
+                                </span>
+                                <a class="white-text" target="_blank" href="">
+                                    <span data-toggle="tooltip" title="Print Result sheet" class="btn btn-md btn-info float-left">
+                                        PDF
+                                    </span>
+                                </a>
+                            </div>
+                            <!-- <div class="col-md-3">
+                                <small>{{ course.course_name }}</small>
+                            </div> -->
+                            
+                            <div class="col-md-4">
+                                <br>
+                                <div class="dropdown">
+                                    <button class="btn btn-md btn-info dropdown-toggle float-right" type="button"
+                                            id="dropdownMenu3" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        {{ assessment.assessment_name }} - {{ assessment.course.course_name}}
+                                    </button>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu3">
+                                        <h6 class="dropdown-header">Select Assessment</h6>
+                                        {% for assessment in assessments %}
+                                        <a data-toggle="tooltip" title="{{ assessment.assessment_name }} - {{ assessment.course.course_name}}" class="dropdown-item"
+                                           href="{% url 'add_score_for' assessment.id assessment.course.id %}">
+                                            {{ assessment.assessment_name }} - {{ assessment.course.course_name}}
+                                        </a>
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card-body">
+                        <div id="table" class="table-editable">
+
+                            <table class="table table-bordered table-responsive-md table-striped text-center">
+                                <tr>
+                                    <th class="text-left">Student Name</th>
+                                    <th class="text-left">Student Number</th>
+                                    <th class="text-left">Score</th>
+                                    <!-- <th class="text-center">CA 2 Score</th>
+                                    <th class="text-center">Exam Score</th>
+                                    <th class="text-center">Total</th>
+                                    <th class="text-center">Grade</th>
+                                    <th class="text-center">Comment</th> -->
+                                </tr>
+                                {% for student in students %}
+                                <tr>
+                                    <td class="pt-3-half text-left" name="{{ student.student.id }}" contenteditable="false">
+                                        {{ student.student.student_admission_details.first_name }} {{ student.student.student_admission_details.last_name }}
+                                    </td>
+                                    <td class="pt-3-half text-left" name="{{ student.student.id }}" contenteditable="false">
+                                        {{ student.student.student_admission_details.student_number }}
+                                    </td>
+                                    <td class="pt-3-half text-left" contenteditable="false">
+                                        <input id="ca" required class="score text-right" type="number" name="{{ student.student.id }}"
+                                            {% for wa in written_assessments %}
+                                                {% if wa.student.id ==  student.student.id and wa.assessment == assessment %}
+                                                    value="{{ wa.score }}"
+        
+                                                {% endif %}
+                                            {% endfor %}
+                                        >
+                                    </td>
+                                    
+                                    <!-- <input id="{{ student.course.id }}" class="score" type="number" name="{{ student.course.id }}"
+                                               value="{{ student.course.id }}"> -->
+                                    <!-- <td class="pt-3-half" contenteditable="false">
+                                        <input id="ca2" class="score" type="number" name="{{ student.id }}"
+                                               value="{{ student.ca2 }}">
+                                    </td>
+                                    <td class="pt-3-half" contenteditable="false">
+                                        <input class="score" type="number" name="{{ student.id }}"
+                                               value="{{ student.exam }}">
+                                    </td>
+                                    <td class="pt-3-half" contenteditable="false">{{ student.total }}</td>
+                                    <td class="pt-3-half" contenteditable="false">{{ student.grade }}</td>
+                                    <td class="pt-3-half" contenteditable="false">{{ student.comment }}</td> -->
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

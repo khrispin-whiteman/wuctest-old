@@ -1,0 +1,83 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% load static %}
+
+{% load custom_filters %}
+
+{% block title %}Payment History - {{ request.user | capfirst }} | WUC{% endblock %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="page-title">Payment History</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item active"><a href="{% url 'dashboard' %}"> Dashboard</a>
+                                /Payment History 
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+
+                            <p class="text-left">Balance Status: {{ current_semester }}</p>
+                            <p class="text-left">Balance Due: K {{ current_semester }}</p>
+                        </div>
+                        <div class="card-body">
+                            {% if success_message %}
+                                <i class="d-flex justify-content-center alert alert-success">{{ success_message }}</i>
+                            {% endif %}
+                            {% if error_message %}
+                                <i class="d-flex justify-content-center alert alert-danger">{{ error_message }}</i>
+                            {% endif %}
+                            <div class="table-responsive">
+                                <table id="table_student_payment_history" class="table table-bordered table-stripped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-left" rowspan='1' colspan="1">Student</th>
+                                        <th rowspan='1' colspan="1">Semester</th>
+                                        <th rowspan='1' colspan="1">Structure</th>
+                                        <th rowspan='1' colspan="1">Amt Paid</th>
+                                        <th rowspan='1' colspan="1">Balance</th>
+                                        <th rowspan='1' colspan="1">Status</th>
+                                        <th rowspan='1' colspan="1">Date</th>
+                                        <th rowspan='1' colspan="1">Amt Due</th>
+                                    </tr>
+            
+                                    </thead>
+                                    {% for ph in payment_history %}
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ ph.student }}</td>
+                                            <td>{{ ph.semester }}</td>
+                                            <td>{{ ph.paymentstructure }}</td>
+                                            <td>K{{ ph.amountpaid }}</td>
+                                            <td>K{{ ph.balance }}</td>
+                                            <td>{{ ph.paymentstatus }}</td>
+                                            <td>{{ ph.paymentdate }}</td>
+                                            <td>K{{ ph.total_amount_to_be_paid }}</td>
+                                        </tr>
+                                    </tbody>
+                                    {% empty %}
+                                        <i class="d-flex justify-content-center alert alert-info">No payment history found.</i><br>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <footer>
+            <p>Copyright © {% now 'Y' %}.</p>
+        </footer>
+    </div>
+{% endblock %}

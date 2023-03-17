@@ -1,0 +1,65 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% block title %}Add Department{% endblock %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Add Department</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'departments' %}">Department</a></li>
+                            <li class="breadcrumb-item active">Add Department</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{% url 'add_department' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h5 class="form-title"><span>Department Details</span></h5>
+                                    </div>
+
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>{{ add_department_form.department_name.label_tag }}</label>
+                                            {{ add_department_form.department_name }}
+                                            {{ add_department_form.department_name.error_messages }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                             <label>{{ add_department_form.department_description.label_tag }}</label>
+                                            {{ add_department_form.department_description }}
+                                            {{ add_department_form.department_description.error_messages }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                             <label>{{ add_department_form.hod.label_tag }}</label>
+                                            {{ add_department_form.hod }}
+                                            {{ add_department_form.hod.error_messages }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

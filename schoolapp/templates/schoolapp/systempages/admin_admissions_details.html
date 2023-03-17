@@ -1,0 +1,1262 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% load static %}
+
+{% block title %}Registrations{% endblock %}
+
+{% block content %}
+    <style>
+        .img-center {
+            text-align: center;
+            border-radius: 8px;
+            width: 100px;
+            background-color: white;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .row {
+            display: flex;
+            margin: auto;
+        }
+
+        .div1 {
+            width: 300px;
+            height: 100px;
+            border: 1px solid blue;
+            box-sizing: border-box;
+        }
+
+        .div2 {
+            width: 300px;
+            height: 100px;
+            padding: 50px;
+            border: 1px solid red;
+            box-sizing: border-box;
+        }
+    </style>
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item active"><a href="{% url 'dashboard' %}"> Dashboard</a>
+                                /<a href="{% url 'admin_admissions_list' %}">Registrations</a>/{{ admission_details.student_number }}
+                            </li>
+                        </ul>
+                    </div>
+                    
+
+                    <div class="col-sm-6">
+                        {% if admission_details.application_status == 'Approved' %}
+                            <a href="{% url 'add_student' admission_details.id %}" class="btn btn-outline-primary">Register Student</a>
+                            <a target="_blank" href="{% url 'view_pdf_for_student_application' admission_details.id  %}" type="button" class="btn btn-primary">
+                                Print Application <i class="fa fa-print"></i>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'add_student' admission_details.id %}" aria-disabled="true" class="btn btn-outline-primary">Register Student</a>
+                            <a target="_blank" href="{% url 'view_pdf_for_student_application' admission_details.id  %}" type="button" class="btn btn-primary">
+                                Print Application <i class="fa fa-print"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="text-left">
+                                <h5 class="card-title mb-2">Registration Details
+                                    for {{ admission_details.first_name | capfirst }} {{ admission_details.last_name | capfirst }}
+                                </h5>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+
+                            <ul class="nav nav-tabs nav-tabs-bottom nav-tabs-rounded">
+
+                                {% if request.user.user_group == 'Admissions Office' or request.user.is_superuser or request.user.user_group == 'Accounts Office' or request.user.user_group == 'ICT Office' or request.user.user_group == 'Registrar Office' or request.user.user_group == 'Dean Of Students Affairs Office' or request.user.user_group == 'Program Coordinator or Principal Lecturer Office' %}
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#bottom-tab1"
+                                           data-toggle="tab" title="PERSONAL PARTICULARS">Part 1</a>
+                                    </li>
+                                {% endif %}
+
+                                {% if request.user.user_group == 'Admissions Office' or request.user.is_superuser or request.user.user_group == 'Registrar Office' or request.user.user_group == 'Dean Of Students Affairs Office' or request.user.user_group == 'Program Coordinator or Principal Lecturer Office' %}
+                                    <li class="nav-item"><a class="nav-link" href="#bottom-tab2" data-toggle="tab"
+                                                            title="FAMILY PARTICULARS">Part 2</a></li>
+                                {% endif %}
+
+                                {% if request.user.user_group == 'Admissions Office' or request.user.is_superuser or request.user.user_group == 'Registrar Office' or request.user.user_group == 'Dean Of Students Affairs Office' or request.user.user_group == 'Program Coordinator or Principal Lecturer Office' %}
+                                    <li class="nav-item"><a class="nav-link" href="#bottom-tab3" data-toggle="tab"
+                                                            title="PROGRAM CHOSEN & GRADE 12 DETAILS">Part 3</a></li>
+                                {% endif %}
+
+                                {% if request.user.user_group == 'Admissions Office' or request.user.is_superuser  or request.user.user_group == 'Registrar Office' or request.user.user_group == 'Dean Of Students Affairs Office' or request.user.user_group == 'Program Coordinator or Principal Lecturer Office' %}
+                                    <li class="nav-item"><a class="nav-link" href="#bottom-tab4" data-toggle="tab"
+                                                            title="SUBJECTS & GRADES">Part 4</a></li>
+                                {% endif %}
+
+                                {% if request.user.user_group == 'Accounts Office' or request.user.is_superuser or request.user.user_group == 'Registrar Office' or request.user.user_group == 'Program Coordinator or Principal Lecturer Office' or request.user.user_group == 'Admissions Office' %}
+                                    <li class="nav-item"><a class="nav-link" href="#bottom-tab5" data-toggle="tab">
+                                        Attachments</a>
+                                    </li>
+                                {% endif %}
+
+                                {% if request.user.user_group == 'Registrar Office' or request.user.is_superuser %}
+                                    <li class="nav-item"><a class="nav-link" href="#bottom-tab7" data-toggle="tab">
+                                        Comments</a>
+                                    </li>
+                                {% endif %}
+
+                                {% if not request.user.user_group == 'Registrar Office' %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#bottom-tab6" data-toggle="tab">
+                                            Verify Registration
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if equest.user.is_superuser or request.user.user_group == 'Registrar Office' or request.user.user_group == 'Admission Office' %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#bottom-tab6" data-toggle="tab">
+                                            Approve Registration
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if request.user.is_superuser %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#bottom-tab6" data-toggle="tab">
+
+                                        </a>
+                                    </li>
+                                {% endif %}
+
+                            </ul>
+                            <div class="tab-content">
+                                {% if request.user.user_group == 'Admissions Office' or request.user.is_superuser or request.user.user_group == 'Accounts Office' or request.user.user_group == 'ICT Office' or request.user.user_group == 'Registrar Office' or request.user.user_group == 'Dean Of Students Affairs Office' or request.user.user_group == 'Program Coordinator or Principal Lecturer Office' %}
+                                    <div class="tab-pane show active" id="bottom-tab1">
+                                        <div class="card-title">
+                                            <h5><b style="color: #0e72a2; padding-left: 0px;">Personal Particulars</b>
+                                            </h5>
+                                            <hr>
+                                        </div>
+                                        {% if request.user.user_group == 'Accounts Office' %}
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <br>
+                                                    Student Number:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.student_number }}
+                                                    </b>
+                                                    <br><br>
+                                                    Full Name:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.first_name | capfirst }}
+                                                        {{ admission_details.other_names | capfirst }}
+                                                        {{ admission_details.last_name | capfirst }}
+                                                    </b>
+
+                                                    <br><br>
+                                                    Phone No:<br>
+                                                    <b style="color: #1c7430">
+                                                        <a href="tel://{{ admission_details.phone_number }}">{{ admission_details.phone_number }}</a>
+                                                    </b>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <br>
+                                                    Email Address:<br>
+                                                    <b style="color: #1c7430">
+                                                        <a href="mailto://{{ admission_details.email }}"> {{ admission_details.email }}</a>
+                                                    </b>
+                                                    <br><br>
+                                                    NRC No:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.nrc_no | capfirst }}
+                                                    </b>
+                                                    <br><br>
+                                                    Intake:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.intake }}
+                                                    </b>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <br>
+                                                    Program Of Choice:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.program_applied_for | capfirst }}
+                                                    </b>
+                                                    <br><br>
+                                                    Nationality:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.nationality | capfirst }}
+                                                    </b>
+                                                    <br><br>
+                                                    Gender:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.gender }}
+                                                    </b>
+                                                </div>
+                                            </div>
+                                        {% else %}
+
+
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <br>
+                                                    Student Number:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.student_number }}
+                                                    </b>
+                                                    <br><br>
+                                                    Full Name:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.first_name | capfirst }}
+                                                        {{ admission_details.other_names | capfirst }}
+                                                        {{ admission_details.last_name | capfirst }}
+                                                    </b>
+                                                    <br><br>
+                                                    NRC No:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.nrc_no | capfirst }}
+                                                    </b>
+                                                    <br><br>
+                                                    Phone No:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.phone_number | capfirst }}
+                                                    </b>
+                                                    <br><br>
+                                                    Intake:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.intake }}
+                                                    </b>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <br>
+                                                    Email Address:<br>
+                                                    <b style="color: #1c7430">
+                                                        <a href="mailto://{{ admission_details.email }}"> {{ admission_details.email }}</a>
+                                                    </b>
+                                                    <br><br>
+                                                    Date Of Birth:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.date_of_birth | capfirst }}
+                                                    </b>
+                                                    <br><br>
+                                                    Gender:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.gender | capfirst }}
+                                                    </b>
+                                                    <br><br>
+                                                    Marital Status:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.marital_status | capfirst }}
+                                                    </b>
+
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <br>
+                                                    Nationality:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.nationality | capfirst }}
+                                                    </b>
+                                                    <br><br>
+                                                    Physical Address:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.physical_address | capfirst }}
+                                                    </b>
+                                                    <br><br>
+                                                    Postal Address:<br>
+                                                    <b style="color: #1c7430">
+                                                        {{ admission_details.postal_address | capfirst }}
+                                                    </b>
+                                                    <br><br>
+                                                    Disabilities:<br>
+                                                    {% if admission_details.state_of_any_disabilities %}
+                                                        <b style="color: #1c7430">
+                                                            {{ admission_details.state_of_any_disabilities | capfirst }}
+                                                        </b>
+                                                    {% else %}
+                                                        <i>N/A</i>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+
+                                {% if request.user.user_group == 'Admissions Office' or request.user.is_superuser or request.user.user_group == 'Registrar Office' or request.user.user_group == 'Dean Of Students Affairs Office' or request.user.user_group == 'Program Coordinator or Principal Lecturer Office' %}
+                                    <div class="tab-pane" id="bottom-tab2">
+                                        <div class="card-title">
+                                            <h5><b style="color: #0e72a2;">Family Particulars</b></h5>
+                                            <hr>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <br>
+                                                Sponsor’s Name Or Next of Kin:<br>
+                                                <b style="color: #1c7430">
+                                                    {{ admission_details.sponsors_name_or_next_of_kin | capfirst }}
+                                                </b>
+                                                <br><br>
+                                                Relationship With Sponsor Or Next of Kin Below:<br>
+                                                <b style="color: #1c7430">
+                                                    {{ admission_details.relationship_with_sponsor_or_next_of_kin | capfirst }}
+                                                </b>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <br>
+                                                Sponsor Or Next of Kin Cell No:<br>
+                                                <b style="color: #1c7430">
+                                                    {{ admission_details.sponsor_or_next_of_kin_cell_no | capfirst }}
+                                                </b>
+                                                <br><br>
+                                                Sponsor Or Next of Kin Address:<br>
+                                                <b style="color: #1c7430">
+                                                    {{ admission_details.sponsor_or_next_of_kin_address | capfirst }}
+                                                </b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                {% if request.user.user_group == 'Admissions Office' or request.user.is_superuser or request.user.user_group == 'Registrar Office' or request.user.user_group == 'Dean Of Students Affairs Office' or request.user.user_group == 'Program Coordinator or Principal Lecturer Office' %}
+                                    <div class="tab-pane" id="bottom-tab3">
+                                        <div class="card-title">
+                                            <h5><b style="color: #0e72a2;">Program Of Choice And Schools
+                                                Attended</b>
+                                            </h5>
+                                            <hr>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <br>
+                                                Program Selected:<br>
+                                                <b style="color: #1c7430">
+                                                    {{ admission_details.program_applied_for | capfirst }}
+                                                </b>
+                                                <br><br>
+                                                <b style="color: #0e72a2;">High School Details</b>
+                                                <hr>
+                                                School Name:<br>
+                                                <b style="color: #1c7430">
+                                                    {{ admission_details.school_name | capfirst }}
+                                                </b>
+                                                <br><br>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        Started:<br>
+                                                        <b style="color: #1c7430">
+                                                            {{ admission_details.school_start_year | capfirst }}
+                                                        </b>
+                                                    </div>
+                                                    <br><br>
+                                                    <div class="col-md-6">
+                                                        Completed:<br>
+                                                        <b style="color: #1c7430">
+                                                            {{ admission_details.school_end_year | capfirst }}
+                                                        </b>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <br>
+                                                <b style="color: #0e72a2;">Professional Qualifications</b>
+                                                <hr>
+                                                <table class="table">
+                                                    <tbody>
+                                                    {% if admission_details.has_certificate %}
+                                                        <tr>
+                                                            <th>Certificate</th>
+                                                            <td>
+                                                                <button data-toggle="modal"
+                                                                        data-target="#certificatemodal"
+                                                                        class="btn btn-sm btn-outline-primary">View
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    {% else %}
+                                                    {% endif %}
+
+                                                    {% if admission_details.has_diploma %}
+                                                        <tr>
+                                                            <th>Diploma</th>
+                                                            <td>
+                                                                <button data-toggle="modal" data-target="#diplomamodal"
+                                                                        class="btn btn-sm btn-outline-primary">View
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    {% else %}
+                                                    {% endif %}
+
+                                                    {% if admission_details.has_degree %}
+                                                        <tr>
+                                                            <th>Degree</th>
+                                                            <td>
+                                                                <button data-toggle="modal" data-target="#degreemodal"
+                                                                        class="btn btn-sm btn-outline-primary">View
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    {% else %}
+                                                    {% endif %}
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                {% if request.user.user_group == 'Admissions Office' or request.user.is_superuser or request.user.user_group == 'ICT Office' or request.user.user_group == 'Registrar Office' or request.user.user_group == 'Dean Of Students Affairs Office' or request.user.user_group == 'Program Coordinator or Principal Lecturer Office' %}
+                                    <div class="tab-pane" id="bottom-tab4">
+                                        <div class="card-title">
+                                            <h5><b style="color: #0e72a2;">Subjects And Grades</b></h5>
+                                            <hr>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <br>
+                                                <table class="table">
+                                                    <tbody>
+                                                    {% if admission_details.subject_english %}
+                                                        <tr>
+                                                            <th>English</th>
+                                                            <td>
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_english | capfirst }}
+                                                                </b>
+                                                            </td>
+                                                        </tr>
+                                                    {% else %}
+                                                    {% endif %}
+
+                                                    {% if admission_details.subject_mathematics %}
+                                                        <tr>
+                                                            <th>Mathematics</th>
+                                                            <td>
+
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_mathematics | capfirst }}
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+                                                    {% else %}
+                                                    {% endif %}
+
+                                                    {% if admission_details.subject_biology_human_and_social %}
+                                                        <tr>
+                                                            <th>Biology/Human & Social</th>
+                                                            <td>
+
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_biology_human_and_social | capfirst }}
+                                                                </b>
+
+                                                            </td>
+
+                                                        </tr>
+                                                    {% else %}
+                                                    {% endif %}
+
+                                                    {% if admission_details.subject_chemistry %}
+                                                        <tr>
+                                                            <th>Chemistry</th>
+                                                            <td>
+
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_chemistry | capfirst }}
+                                                                </b>
+
+                                                            </td>
+
+                                                        </tr>
+                                                    {% else %}
+                                                    {% endif %}
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <br>
+                                                <table class="table">
+                                                    <tbody>
+                                                    {% if admission_details.subject_physics %}
+                                                        <tr>
+                                                            <th>Physics</th>
+                                                            <td>
+
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_physics | capfirst }}
+                                                                </b>
+
+                                                            </td>
+                                                        </tr>
+                                                    {% else %}
+                                                    {% endif %}
+
+                                                    {% if admission_details.subject_physical_science %}
+                                                        <tr>
+                                                            <th>Physical Science</th>
+                                                            <td>
+
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_physical_science | capfirst }}
+                                                                </b>
+
+                                                            </td>
+
+                                                        </tr>
+                                                    {% else %}
+                                                    {% endif %}
+
+                                                    {% if admission_details.subject_geography %}
+                                                        <tr>
+                                                            <th>Geography</th>
+                                                            <td>
+
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_geography | capfirst }}
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+                                                    {% else %}
+                                                    {% endif %}
+
+                                                    {% if admission_details.subject_commerce %}
+                                                        <tr>
+                                                            <th>Commerce</th>
+                                                            <td>
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_commerce | capfirst }}
+                                                                </b>
+                                                            </td>
+                                                        </tr>
+                                                    {% else %}
+                                                    {% endif %}
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <br>
+                                                <table class="table">
+                                                    <tbody>
+                                                    {% if admission_details.subject_history %}
+                                                        <tr>
+                                                            <th>History</th>
+                                                            <td>
+
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_history | capfirst }}
+                                                                </b>
+
+                                                            </td>
+
+                                                        </tr>
+                                                    {% else %}
+
+                                                    {% endif %}
+
+                                                    {% if admission_details.subject_civic_education %}
+                                                        <tr>
+                                                            <th>Civic Education</th>
+                                                            <td>
+
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_civic_education | capfirst }}
+                                                                </b>
+
+                                                            </td>
+
+                                                        </tr>
+                                                    {% else %}
+
+                                                    {% endif %}
+
+                                                    {% if admission_details.subject_religious_education %}
+                                                        <tr>
+                                                            <th>Religious Education</th>
+                                                            <td>
+
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_religious_education | capfirst }}
+                                                                </b>
+
+                                                            </td>
+
+                                                        </tr>
+                                                    {% else %}
+
+                                                    {% endif %}
+
+                                                    {% if admission_details.subject_home_economics %}
+                                                        <tr>
+                                                            <th>Home Economics</th>
+                                                            <td>
+
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_home_economics | capfirst }}
+                                                                </b>
+
+                                                            </td>
+
+                                                        </tr>
+                                                    {% else %}
+
+                                                    {% endif %}
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                {% if request.user.user_group == 'Accounts Office' or request.user.is_superuser or request.user.user_group == 'Admissions Office' or request.user.user_group == 'Registrar Office' %}
+                                    <div class="tab-pane show" id="bottom-tab5">
+                                        <div class="card-title">
+                                            <h5><b style="color: #0e72a2;">Attachments</b></h5>
+                                            <hr>
+                                        </div>
+
+                                        <div class="row">
+                                            {% if request.user.user_group == 'Accounts Office' %}
+                                                <div class="col-lg-4 d-flex align-items-stretch"></div>
+                                                <div class="col-lg-4 d-flex align-items-stretch">
+                                                    <!--CARD HERE-->
+                                                    <div class="card">
+                                                        <div style="height: 200px; width: 200px;"
+                                                             class="card-body text-center">
+                                                            {% if admission_details.scanned_deposit_slip %}
+                                                                <img style="height: 100%; width: 100%;"
+                                                                     class="img-fluid img-center"
+                                                                     src="{{ admission_details.scanned_deposit_slip.url }}">
+                                                            {% endif %}
+                                                            <br>
+                                                            <p>Deposit Slip</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <button data-toggle="modal"
+                                                                    data-target="#depositslipmodal"
+                                                                    class="btn btn-outline-primary btn-block">View
+                                                                Deposit
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 d-flex align-items-stretch"></div>
+                                            {% endif %}
+                                            {% if not request.user.user_group == 'Accounts Office' %}
+                                                <div class="col-lg-4 d-flex align-items-stretch">
+                                                    <!--CARD HERE-->
+                                                    <div class="card">
+                                                        <div style="height: 200px; width: 200px;"
+                                                             class="card-body text-center">
+                                                            {% if admission_details.scanned_deposit_slip %}
+                                                                <img style="height: 100%; width: 100%;"
+                                                                     class="img-fluid img-center"
+                                                                     src="{{ admission_details.scanned_deposit_slip.url }}">
+                                                            {% endif %}
+                                                            <br>
+                                                            <p>Deposit Slip</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <button data-toggle="modal"
+                                                                    data-target="#depositslipmodal"
+                                                                    class="btn btn-outline-primary btn-block">View
+                                                                Deposit
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 d-flex align-items-stretch">
+                                                    <!--CARD HERE-->
+                                                    <div class="card">
+                                                        <div style="height: 200px; width: 200px;"
+                                                             class="card-body text-center">
+                                                            {% if admission_details.scanned_statement_of_result %}
+                                                                <img style="height: 100%; width: 100%;"
+                                                                     class="img-fluid img-center"
+                                                                     src="{{ admission_details.scanned_statement_of_result.url }}">
+                                                            {% endif %}
+                                                            <p>Grade 12 Results</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <button data-toggle="modal" data-target="#resultsmodal"
+                                                                    class="btn btn-outline-primary btn-block">View
+                                                                Results
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 d-flex align-items-stretch">
+                                                    <!--CARD HERE-->
+                                                    <div class="card">
+                                                        <div style="height: 200px; width: 200px;"
+                                                             class="card-body text-center">
+                                                            {% if admission_details.scanned_nrc_front %}
+                                                                <img style="height: 100%; width: 100%;"
+                                                                     class="img-fluid img-center"
+                                                                     src="{{ admission_details.scanned_nrc_front.url }}">
+                                                            {% endif %}
+                                                            <p>ID Card</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <button data-toggle="modal" data-target="#nrcmodal"
+                                                                    class="btn btn-outline-primary btn-block">View
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+
+                                        {% if not request.user.user_group == 'Accounts Office' %}
+                                            <div class="row">
+                                                {#check if certificate exists/selected#}
+                                                {% if admission_details.scanned_pq_certificate %}
+                                                    <div class="col-lg-4 d-flex align-items-stretch">
+                                                        <!--CARD HERE-->
+                                                        <div class="card">
+                                                            <div style="height: 200px; width: 200px;"
+                                                                 class="card-body text-center">
+                                                                {% if admission_details.scanned_pq_certificate %}
+                                                                    <img style="height: 100%; width: 100%;"
+                                                                         class="img-fluid img-center"
+                                                                         src="{{ admission_details.scanned_pq_certificate.url }}">
+                                                                {% endif %}
+                                                                <br>
+                                                                <p>Certificate</p>
+                                                            </div>
+                                                            <div class="card-footer text-center">
+                                                                <button data-toggle="modal"
+                                                                        data-target="#certificatemodal"
+                                                                        class="btn btn-outline-primary btn-block">View
+                                                                    Certificate
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+
+                                                {#check if diploma exists/selected#}
+                                                {% if admission_details.scanned_pq_diploma %}
+                                                    <div class="col-lg-4 d-flex align-items-stretch">
+                                                        <!--CARD HERE-->
+                                                        <div class="card">
+                                                            <div style="height: 200px; width: 200px;"
+                                                                 class="card-body text-center">
+                                                                <img style="height: 100%; width: 100%;"
+                                                                     class="img-fluid img-center"
+                                                                     src="{{ admission_details.scanned_pq_diploma.url }}">
+                                                                <p>Diploma</p>
+                                                            </div>
+                                                            <div class="card-footer text-center">
+                                                                <button data-toggle="modal" data-target="#diplomamodal"
+                                                                        class="btn btn-outline-primary btn-block">View
+                                                                    Diploma
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+
+                                                {#check if degree exists/selected#}
+                                                {% if admission_details.scanned_pq_degree %}
+                                                    <div class="col-lg-4 d-flex align-items-stretch">
+                                                        <!--CARD HERE-->
+                                                        <div class="card">
+                                                            <div style="height: 200px; width: 200px;"
+                                                                 class="card-body text-center">
+                                                                <img style="height: 100%; width: 100%;"
+                                                                     class="img-fluid img-center"
+                                                                     src="{{ admission_details.scanned_pq_degree.url }}">
+                                                                <p>Degree</p>
+                                                            </div>
+                                                            <div class="card-footer text-center">
+                                                                <button data-toggle="modal" data-target="#degreemodal"
+                                                                        class="btn btn-outline-primary btn-block">View
+                                                                    Degree
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+
+
+
+                                        {% if admission_details.scanned_gce_results %}
+                                        <br>
+                                                <p>GENERAL CERTIFICATE RESULTS</p>
+                                                <hr>
+                                                    <div class="row">
+                                                        {% for gce in admission_details.scanned_gce_results.all %}
+                                                            <div class="col-lg-4 d-flex align-items-stretch">
+                                                                <div class="card">
+                                                                    <div style="height: 200px; width: 200px;"
+                                                                        class="card-body text-center">
+                                                                        
+                                                                            <img style="height: 100%; width: 100%;"
+                                                                                class="img-fluid img-center"
+                                                                                src="/media/{{ gce }}">
+                                                                            
+                                                                        
+                                                                    </div>
+
+                                                                    <div class="card-footer text-center">
+                                                                        <button data-toggle="modal" data-target=""
+                                                                                class="btn btn-outline-primary btn-block">View
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+
+
+
+                                    </div>
+                                {% endif %}
+
+                                <div class="tab-pane" id="bottom-tab7">
+                                    <div class="card-title">
+                                        <h5><b style="color: #0e72a2;">Comments</b></h5>
+                                        <hr>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <b>Admission Office Comment:</b><br>
+                                            <b>Verified By:</b> {{ admission_details.ict_office_user }}<br>
+                                            <b>Comment:</b>
+                                            <i style="color: #1c7430">
+                                                {{ admission_details.admissions_office_comment | capfirst }}
+                                            </i>
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <b>Accounts Office Comment:</b><br>
+                                            <b>Verified By:</b> {{ admission_details.accounts_office_user }}<br>
+                                            <b>Comment:</b>
+                                            <i style="color: #1c7430">
+                                                {{ admission_details.accounts_office_comment | capfirst }}
+                                            </i>
+                                        </div>
+                                        <div class="col-md-4">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="tab-pane" id="bottom-tab6">
+                                    <div class="card-title">
+                                        {% if not request.user.user_group == 'Registrar Office' or request.user.is_superuser %}
+                                            <h5><b style="color: #0e72a2;">Verify Registration</b></h5>
+                                        {% endif %}
+                                        <hr>
+                                        {% if request.user.user_group == 'Registrar Office' or request.user.is_superuser %}
+                                            <h5><b style="color: #0e72a2;">Approve Registration</b> -
+                                                <i>({{ admission_details.application_status }})</i></h5>
+                                            <hr>
+                                        {% endif %}
+                                    </div>
+                                    {% if request.user.user_group == 'Admissions Office' %}
+                                        <form id="cmtform" method="post"
+                                              action="{% url 'admin_approve_application' admission_details.id %}">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label>{{ online_admission_form.application_status.label_tag }}</label>
+                                                {#                                                {{ online_admission_form.application_status }}#}
+                                                <select required="false" id="application_status"
+                                                        name="application_status"
+                                                        class="form-control">
+                                                    {% if request.user.user_group == 'Registrar Office' %}
+                                                        <option value="Approved">Approved</option>
+                                                        <option value="Rejected">Rejected</option>
+                                                    {% endif %}
+                                                    <option value="Verified">Verified</option>
+{#                                                    {% if not request.user.user_group == 'Admissions Office' %}#}
+{#                                                    <option value="Verified">Pending</option>#}
+{#                                                    {% endif %}#}
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="form-group">
+                                                <label>{{ online_admission_form.admissions_office_comment.label_tag }}</label>
+                                                {{ online_admission_form.admissions_office_comment }}
+                                            </div>
+                                            <br>
+                                            <label class="d-flex justify-content-center">Confirm that all the required
+                                                information
+                                                and documents have been provided then click the button below to approve
+                                                the Registration.
+                                            </label>
+                                            <hr>
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btn-outline-primary" type="submit"
+                                                        value="Verify Registration">Verify Registration
+                                                </button>
+                                            </div>
+                                        </form>
+                                    {% endif %}
+
+                                    {% if request.user.user_group == 'Accounts Office' %}
+                                        <form id="cmtform" method="post"
+                                              action="{% url 'admin_approve_application' admission_details.id %}">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label>{{ online_admission_form.application_status.label_tag }}</label>
+                                                {#                                                {{ online_admission_form.application_status }}#}
+
+                                                <select required="false" id="application_status"
+                                                        name="application_status"
+                                                        class="form-control">
+                                                    {% if request.user.user_group == 'Registrar Office' %}
+                                                        <option value="Approved">Approved</option>
+                                                        <option value="Rejected">Rejected</option>
+                                                    {% endif %}
+                                                    <option value="Verified">Verified</option>
+{#                                                    {% if not request.user.user_group == 'Admissions Office' %}#}
+{#                                                    <option value="Verified">Pending</option>#}
+{#                                                    {% endif %}#}
+                                                </select>
+                                            </div>
+                                            {#                                            <div class="form-group">#}
+                                            {#                                                <label>{{ online_admission_form.balance_due.label_tag }}</label>#}
+                                            {#                                                {{ online_admission_form.balance_due }}#}
+                                            {##}
+                                            {#                                            </div>#}
+
+                                            <div class="form-group">
+                                                <label>{{ online_admission_form.accounts_office_comment.label_tag }}</label>
+                                                {{ online_admission_form.accounts_office_comment }}
+                                            </div>
+                                            <br>
+                                            <label class="d-flex justify-content-center">Confirm that all the required
+                                                information
+                                                and documents have been provided then click the button below to approve
+                                                the Registration.
+                                            </label>
+                                            <hr>
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btn-outline-primary" type="submit"
+                                                        value="Verify Registration">Verify Registration
+                                                </button>
+                                            </div>
+                                        </form>
+                                    {% endif %}
+
+                                    {% if request.user.user_group == 'ICT Office' %}
+                                        <form id="cmtform" method="post"
+                                              action="{% url 'admin_approve_application' admission_details.id %}">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label>{{ online_admission_form.application_status.label_tag }}</label>
+                                                {{ online_admission_form.application_status }}
+                                            </div>
+                                            <div class="form-group">
+                                                <label>{{ online_admission_form.ict_office_comment.label_tag }}</label>
+                                                {{ online_admission_form.ict_office_comment }}
+                                            </div>
+                                            <br>
+                                            <label class="d-flex justify-content-center">Confirm that all the required
+                                                information
+                                                and documents have been provided then click the button below to approve
+                                                the Registration.
+                                            </label>
+                                            <hr>
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btn-outline-primary" type="submit"
+                                                        value="Verify Registration">Verify Registration
+                                                </button>
+                                            </div>
+                                        </form>
+                                    {% endif %}
+
+                                    {% if request.user.user_group == 'Program Coordinator or Principal Lecturer Office' %}
+                                        <form id="cmtform" method="post"
+                                              action="{% url 'admin_approve_application' admission_details.id %}">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label>{{ online_admission_form.application_status.label_tag }}</label>
+                                                {{ online_admission_form.application_status }}
+                                            </div>
+                                            <div class="form-group">
+                                                <label>{{ online_admission_form.program_coordinator_or_principal_lecturer_office_comment.label_tag }}</label>
+                                                {{ online_admission_form.program_coordinator_or_principal_lecturer_office_comment }}
+                                            </div>
+                                            <br>
+                                            <label class="d-flex justify-content-center">Confirm that all the required
+                                                information
+                                                and documents have been provided then click the button below to approve
+                                                the Registration.
+                                            </label>
+                                            <hr>
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btn-outline-primary" type="submit"
+                                                        value="Verify Registration">Verify Registration
+                                                </button>
+                                            </div>
+                                        </form>
+                                    {% endif %}
+
+                                    {% if request.user.user_group == 'Registrar Office' %}
+                                        <form id="cmtform" method="post"
+                                              action="{% url 'admin_approve_application' admission_details.id %}">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label>{{ online_admission_form.application_status.label_tag }}</label>
+                                                {#                                                {{ online_admission_form.application_status }}#}
+
+                                                <select required="false" id="application_status"
+                                                        name="application_status"
+                                                        class="form-control">
+                                                    {% if request.user.user_group == 'Registrar Office' %}
+                                                        <option value="Approved">Approved</option>
+                                                        <option value="Rejected">Rejected</option>
+                                                    {% endif %}
+                                                    <option value="Verified">Verified</option>
+{#                                                    {% if not request.user.user_group == 'Admissions Office' %}#}
+{#                                                        <option value="Verified">Pending</option>#}
+{#                                                    {% endif %}#}
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="form-group">
+                                                <label>{{ online_admission_form.registrar_office_comment.label_tag }}</label>
+                                                {{ online_admission_form.registrar_office_comment }}
+                                            </div>
+
+                                            <br>
+                                            <label class="d-flex justify-content-center">Confirm that all the required
+                                                information
+                                                and documents have been provided then click the button below to approve
+                                                the Registration.
+                                            </label>
+                                            <hr>
+                                            <div class="d-flex justify-content-center">
+                                                <a href="{% url 'application_report' admission_details.id %}"
+                                                   class="btn btn-primary mr-2">
+                                                    <i class="fa fa-print"></i> Print Application</a>
+
+                                                <button class="btn btn-success" type="submit"
+                                                        value=""><i class="fa fa-save"></i> Save Registration
+                                                </button>
+                                            </div>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <p>Copyright © {% now 'Y' %}.</p>
+        </footer>
+    </div>
+
+    <!-- modal for certificate -->
+    <div class="modal fade" id="certificatemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Certificate</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {% if admission_details.scanned_pq_certificate %}
+                        <img class="img-fluid img-center" style="width: 100%;"
+                             src="{{ admission_details.scanned_pq_certificate.url }}">
+                    {% else %}
+                        <i>No file attached</i>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal for diploma -->
+    <div class="modal fade" id="diplomamodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Diploma</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {% if admission_details.scanned_pq_diploma %}
+                        <img class="img-fluid img-center" style="width: 100%;"
+                             src="{{ admission_details.scanned_pq_diploma.url }}">
+                    {% else %}
+                        <i>No file attached</i>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  modal for degree -->
+    <div class="modal fade" id="degreemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Degree</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {% if admission_details.scanned_pq_degree %}
+                        <img class="img-fluid img-center" style="width: 100%;"
+                             src="{{ admission_details.scanned_pq_degree.url }}">
+                    {% else %}
+                        <i>No file attached</i>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  modal for deposit slip -->
+    <div class="modal fade" id="depositslipmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Deposit Slip</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {% if admission_details.scanned_deposit_slip %}
+                        <img class="img-fluid img-center" style="width: 100%;"
+                             src="{{ admission_details.scanned_deposit_slip.url }}">
+                    {% else %}
+                        <i>No file attached</i>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  modal for nrc -->
+    <div class="modal fade" id="nrcmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Identity Card (Front & Back)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {% if admission_details.scanned_nrc_front %}
+                        <img class="img-fluid img-center" style="width: 100%;"
+                             src="{{ admission_details.scanned_nrc_front.url }}">
+                    {% else %}
+                        <i>No file attached</i>
+                    {% endif %}
+                    <hr>
+                    {% if admission_details.scanned_nrc_back %}
+                        <img class="img-fluid img-center" style="width: 100%;"
+                             src="{{ admission_details.scanned_nrc_back.url }}">
+                    {% else %}
+                        <i>No file attached</i>
+                    {% endif %}
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--  modal for nrc -->
+    <div class="modal fade" id="nrcmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Identity Card (Front & Back)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {% if admission_details.scanned_nrc_back %}
+                        <img class="img-fluid img-center" style="width: 100%;"
+                             src="{{ admission_details.scanned_nrc_back.url }}">
+                    {% else %}
+                        <i>No file attached</i>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  modal for results -->
+    <div class="modal fade" id="resultsmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Grade 12 Results</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {% if admission_details.scanned_statement_of_result %}
+                        <img class="img-fluid img-center" style="width: 100%;"
+                             src="{{ admission_details.scanned_statement_of_result.url }}">
+                    {% else %}
+                        <i>No file attached</i>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

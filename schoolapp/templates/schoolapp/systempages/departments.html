@@ -1,0 +1,66 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% block title %}Departments{% endblock %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Departments</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Departments</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-table">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-center mb-0 datatable">
+                                    <thead>
+                                    {% if success_message %}
+                                        <div class="alert alert-success">{{ success_message }}</div>
+                                    {% endif %}
+                                    {% if error_message %}
+                                        <div class="alert alert-success">{{ error_message }}</div>
+                                    {% endif %}
+                                    <tr>
+                                        <th>Department Name</th>
+                                        <th>Department Description</th>
+                                        <th class="text-right">Action</th>
+                                    </tr>
+
+                                    </thead>
+                                    <tbody>
+                                    {% for d in departments %}
+                                    <tr>
+                                        <td>{{ d.department_name }}</td>
+                                        <td>{{ d.department_description | truncatewords:10 }}</td>
+                                        <td><a href="" class="btn btn-outline-primary">View</a> </td>
+                                    </tr>
+                                    {% empty %}
+                                        No data in table
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Copyright © {% now 'Y' %}.</p>
+        </footer>
+
+    </div>
+{% endblock %}

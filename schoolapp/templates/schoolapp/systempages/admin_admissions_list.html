@@ -1,0 +1,78 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% load static %}
+
+{% block title %}Registrations{% endblock %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="page-title">Registrations</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item active"><a href="{% url 'dashboard' %}"> Dashboard</a>
+                                /Registrations
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <!-- <h5 class="card-title mb-2">Admissions Office</h5> -->
+                        </div>
+                        <div class="card-body">
+                            {% if success_message %}
+                                <i class="d-flex justify-content-center alert alert-success">{{ success_message }}</i>
+                            {% endif %}
+                            {% if error_message %}
+                                <i class="d-flex justify-content-center alert alert-danger">{{ error_message }}</i>
+                            {% endif %}
+                            <div class="table-responsive">
+                                <table id="" class="datatable table table-stripped">
+                                    <thead>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>NRC No</th>
+                                        <th>Phone No</th>
+                                        <th>Email</th>
+                                        <th>Gender</th>
+                                        <th>Program</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    {% for admission in admissions reversed %}
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ admission.first_name }}</td>
+                                            <td>{{ admission.last_name }}</td>
+                                            <td>{{ admission.nrc_no }}</td>
+                                            <td>{{ admission.phone_number }}</td>
+                                            <td>{{ admission.email }}</td>
+                                            <td>{{ admission.gender }}</td>
+                                            <td>{{ admission.program_applied_for }}</td>
+                                            <td><a href="{% url 'admin_admissions_detail' admission.id %}" class="btn btn-outline-primary">VIEW</a></td>
+                                        </tr>
+                                    </tbody>
+                                    {% empty %}
+                                        <i class="d-flex justify-content-center alert alert-info">No Registration found.</i><br>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <footer>
+            <p>Copyright © {% now 'Y' %}.</p>
+        </footer>
+    </div>
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% block title %} Generate Total Result {% endblock title %}
+
+
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Generate Total Result</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'program_details_admin' program_obj.id %}">{{ program_obj }}</a></li>
+                        <li class="breadcrumb-item"><a href="">{{ course.course_name }}</a></li>
+                        <li class="breadcrumb-item active">Generate Total Result</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container-fluid mt-10">
+
+            <!-- Editable table -->
+            <form method="POST" action="">{% csrf_token %}
+                <div class="card">
+                    <h6 class="card-header text-left font-weight-bold text-uppercase py-8">
+                        {{ current_semester }} - {{ course.course_name }}
+                        
+                    </h6>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6"><br>
+                                <a href="{% url 'admin_view_final_results_list' %}" type="button" class="btn btn-sm btn-primary float-left">Final Results List</a>
+                                <button id="submit" data-toggle="tooltip" title="Generate Total Results For" type="submit" class="btn btn-sm btn-primary float-left">
+                                    Bulk Save <i class="fa fa-save"> </i>
+                                </button>
+                                <!-- <span data-toggle="tooltip" title="Allow editing" id="edit_btn" onclick="toggle_score_edit()" class="btn btn-sm btn-primary float-left">
+                                    Edit
+                                </span> -->
+                                <!-- <a class="white-text" target="_blank" href="">
+                                    <span data-toggle="tooltip" title="Print Result sheet" class="btn btn-md btn-info float-left">
+                                        PDF
+                                    </span>
+                                </a> -->
+                            </div>
+                            <!-- <div class="col-md-3">
+                                <small>{{ course.course_name }}</small>
+                            </div> -->
+                            
+                            <div class="col-md-6">
+                                <br>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-primary dropdown-toggle float-left" type="button"
+                                            id="dropdownMenu3" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        {{ course.course_name }} - {{ course.course_code}}
+                                    </button>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu3">
+                                        <h6 class="dropdown-header">Select Course</h6>
+                                        {% for course in courses %}
+                                        <a data-toggle="tooltip" title="{{ course.course_name }} - {{ course.course_code}}" class="dropdown-item"
+                                           href="{% url 'admin_generate_final_result_for' program_obj.id course.id %}">
+                                            {{ course.course_name }} - {{ course.course_code}}
+                                        </a>
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card-body">
+                        <div id="table" class="table-editable">
+
+                            <table class="table table-bordered table-responsive-md table-striped text-center">
+                                <tr>
+                                    <th class="text-left">Student Name</th>
+                                    <th class="text-left">Student Number</th>
+                                    <!-- <th class="text-left">Score</th>
+                                    <th class="text-center">CA 2 Score</th>
+                                    <th class="text-center">Exam Score</th> -->
+                                    <!-- <th class="text-center">Total</th>
+                                    <th class="text-center">Grade</th>
+                                    <th class="text-center">Comment</th> -->
+                                    <th class="text-center">Action</th>
+                                </tr>
+                                {% for student in students %}
+                                <tr>
+                                    <td class="pt-3-half text-left" name="{{ student.student.pk }}" contenteditable="false">
+                                        {{ student.student.student_admission_details.first_name }} {{ student.student.student_admission_details.last_name }}
+                                    </td>
+                                    <td class="pt-3-half text-left" name="{{ student.student.pk }}" contenteditable="false">
+                                        {{ student.student.student_admission_details.student_number }}
+                                    </td>
+                                    <!-- <td class="pt-3-half text-left" contenteditable="false"> -->
+                                        
+                                        <!-- <input id="ca" required class="score text-right" type="number" name="{{ student.student.id }}"
+                                            {% for wa in written_assessments %}
+                                                {% if wa.student.id ==  student.student.id and wa.assessment == assessment %}
+                                                    value="{{ wa.score }}"
+        
+                                                {% endif %}
+                                            {% endfor %}
+                                        > -->
+                                    <!-- </td> -->
+                                    <!-- <td class="pt-3-half" contenteditable="false">{{ student.grade }}</td>
+                                    <td class="pt-3-half" contenteditable="false">{{ student.comment }}</td> -->
+                                    <td>
+                                        <select id="ca" name="{{ student.student.id }}" class="form-control">
+                                            <option value="1" selected>Sum Up All Assessments</option>
+                                            <option value="2">Do not Sum Up Assessments</option>
+                                        </select>
+                                    </td>
+                                    
+                                    <!-- <input id="{{ student.course.id }}" class="score" type="number" name="{{ student.course.id }}"
+                                               value="{{ student.course.id }}"> -->
+                                    <!-- <td class="pt-3-half" contenteditable="false">
+                                        <input id="ca2" class="score" type="number" name="{{ student.id }}"
+                                               value="{{ student.ca2 }}">
+                                    </td>
+                                    <td class="pt-3-half" contenteditable="false">
+                                        <input class="score" type="number" name="{{ student.id }}"
+                                               value="{{ student.exam }}">
+                                    </td>
+                                    <td class="pt-3-half" contenteditable="false">{{ student.total }}</td>
+                                    <td class="pt-3-half" contenteditable="false">{{ student.grade }}</td>
+                                    <td class="pt-3-half" contenteditable="false">{{ student.comment }}</td> -->
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

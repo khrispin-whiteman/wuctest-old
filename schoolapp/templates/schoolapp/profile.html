@@ -1,0 +1,322 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+    <div class="main-wrapper">
+        <div class="page-wrapper">
+            <div class="content container-fluid">
+
+                <div class="page-header">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="page-title">My Profile</h3>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+
+                        <!-- Card -->
+                        <div class="card">
+
+                            <!-- Card image -->
+                            <div class="view overlay">
+                                <img class="card-img-top" src="{{ request.user.get_picture }}" alt="User Image">
+                                {#                        <a class="mask" href="">#}
+                                {#                            <div class="mask white-text">Change Picture</div>#}
+                                {#                        </a>#}
+                            </div>
+
+                            {% if request.user.user_group == 'Lecturer' %}
+                                <!-- Card content -->
+                                <div class="card-body card-body-cascade text-center">
+
+                                    <small class="card-title">Name: {{ request.user.get_full_name|capfirst }}</small>
+                                    <br>
+                                    <small class="card-title">Role: Lecturer</small>
+                                    <br>
+                                    <a href="" class="btn btn-primary">Edit Profile</a>
+                                </div>
+                            {% endif %}
+
+                            {% if request.user.is_student %}
+                                <!-- Card content -->
+                                <div class="card-body card-body-cascade text-center">
+                                    <small class="card-title">Student No: {{ student_details.student_admission_details.student_number|capfirst }}</small>
+                                    <br>
+                                    <small class="card-title">Name: {{ request.user.get_full_name|capfirst }}</small>
+                                    <br>
+                                    <small class="card-title">NRC No: {{ student_details.student_admission_details.nrc_no }}</small>
+                                    <br>
+                                    <small class="card-title">Role: Student</small>
+                                    <br>
+                                    <a href="" class="btn btn-primary">Edit Profile</a>
+                                </div>
+                            {% endif %}
+
+                            {% if request.user.is_superuser %}
+                                <!-- Card content -->
+                                <div class="card-body card-body-cascade text-center">
+                                    <small>Name: {{ request.user.get_full_name|capfirst }}</small>
+                                    <br>
+                                    <small>Role: Superuser</small>
+                                    <br>
+                                    <a href="" class="btn btn-primary">Edit Profile</a>
+                                </div>
+                            {% endif %}
+
+                            {% if request.user.user_group == 'Accounts Office' %}
+                                <!-- Card content -->
+                                <div class="card-body card-body-cascade text-center">
+                                    <small>Name: {{ request.user.get_full_name|capfirst }}</small>
+                                    <br>
+                                    <small>Role: Member Of Staff</small>
+                                    <br>
+                                    <a href="" class="btn btn-primary">Edit Profile</a>
+                                </div>
+                            {% endif %}
+
+                            {% if request.user.user_group == 'Examinations Office' %}
+                                <!-- Card content -->
+                                <div class="card-body card-body-cascade text-center">
+                                    <small>Name: {{ request.user.get_full_name|capfirst }}</small>
+                                    <br>
+                                    <small>Role: Examinations Office</small>
+                                    <br>
+                                    <a href="" class="btn btn-primary">Edit Profile</a>
+                                </div>
+                            {% endif %}
+
+
+                        </div>
+                        <!-- Card -->
+                    </div>
+
+                    {% if request.user.user_group == 'Lecturer' %}
+                        <div class="col-md-7 text-center">
+                            <p>Allocated Subject</p>
+                            <div class="table-wrapper-scroll-y">
+
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Subject Code</th>
+                                        <th scope="col">Subject Title</th>
+                                        <th scope="col">Subject Unit</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for course in courses %}
+                                        <tr>
+                                            <th scope="row">{{ forloop.counter }}</th>
+                                            <td>{{ course.courseCode }}</td>
+                                            <td>{{ course }}</td>
+                                            <td>{{ course.courseUnit }}</td>
+                                            <td>
+                                                <span class="table-remove"><a href="{% url 'add_score_for' course.id %}"
+                                                                              class="btn btn-info btn-rounded btn-sm my-0">Mark</a></span>
+                                            </td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td>{{ course.courseCode }}</td>
+                                            <td></td>
+                                            <td>No course is assigned to you !</td>
+                                            <td></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if request.user.user_group == 'Examinations Office' %}
+                        <div class="col-md-7 text-center">
+                            <p>Semester Assessments</p>
+                            <div class="table-wrapper-scroll-y">
+
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Course</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Marks</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for assessment in assessments %}
+                                        <tr>
+                                            <th scope="row">{{ forloop.counter }}</th>
+                                            <td>{{ assessment.assessment_name }}</td>
+                                            <td>{{ assessment.course }}</td>
+                                            <td>{{ assessment.assessment_type }}</td>
+                                            <td>{{ assessment.total_marks }}</td>
+                                            <td>{{ assessment.date }}</td>
+                                            <td>
+                                                <span class="table-remove"><a href="{% url 'add_score_for' assessment.id assessment.course.id %}"
+                                                                              class="btn btn-info btn-rounded btn-sm my-0">Mark</a></span>
+                                            </td>
+                                        </tr>
+                                    {% empty %}
+                                        <i class="alert alert-info alert-sm">No assessment created by you!</i>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if request.user.is_student %}
+                        <div class="col-md-7 text-center">
+                            <b>PERSONAL DETAILS</b><hr>
+                            <div class="row">
+                                <div class="col-md-4 text-left">
+                                    Phone No:<br>
+                                    <b>{{ student_details.student_admission_details.phone_number }}</b>
+                                    <br><br>Email Address:<br>
+                                    <b><a href="mailto://{{ student_details.student_admission_details.email }}">{{ student_details.student_admission_details.email }}</a></b>
+                                    <br><br>Physical Address:<br>
+                                    <b>{{ student_details.student_admission_details.physical_address }}</b>
+                                </div>
+                                <div class="col-md-4 text-left">
+                                    Date Of Birth:<br>
+                                    <b>{{ student_details.student_admission_details.date_of_birth }}</b>
+                                    <br><br>Gender:<br>
+                                    <b>{{ student_details.student_admission_details.gender }}</b>
+                                    <br><br>Nationality:<br>
+                                    <b>{{ student_details.student_admission_details.nationality }}</b>
+                                    <br><br>Marital Status:<br>
+                                    <b>{{ student_details.student_admission_details.marital_status }}</b>
+                                </div>
+                                <div class="col-md-4 text-left">
+                                    Year Of Study:<br>
+                                    <b>{{ level.level }}</b>
+                                    <br><br>Intake:<br>
+                                    <b>{{ student_details.student_admission_details.intake }}</b>
+                                    <br><br>Program:<br>
+                                    <b>{{ student_details.student_admission_details.program_applied_for }}</b>
+                                </div>
+                            </div>
+                            <!-- <div class="table-wrapper-scroll-y">
+
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Course Code</th>
+                                        <th scope="col">Course Title</th>
+                                        <th scope="col">Course Unit</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for course in courses %}
+                                        <tr>
+                                            <th scope="row">{{ forloop.counter }}</th>
+                                            <td>{{ course.course.courseCode }}</td>
+                                            <td>{{ course.course.courseTitle }}</td>
+                                            <td>{{ course.course.courseUnit }}</td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td>{{ course.courseCode }}</td>
+                                            <td></td>
+                                            <td>No course is registered this session !</td>
+                                            <td></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div> -->
+                        </div>
+                    {% endif %}
+
+                    {% if request.user.is_superuser %}
+                        <div class="col-md-7 text-center">
+                            <p>All staff list</p>
+                            <div class="table-wrapper-scroll-y">
+
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Picture</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for staff in staff %}
+                                        <tr>
+                                            <th scope="row">{{ forloop.counter }}</th>
+                                            <td>{{ staff.get_full_name|capfirst }}</td>
+                                            <td>{{ staff.address }}</td>
+                                            <td>{{ staff.get_picture.url }}</td>
+                                            <td>
+                                                <span class="table-remove">
+                                                <a href="" class="btn btn-info btn-rounded btn-sm my-0">View</a>
+                                                </span>
+
+                                                                                        <span class="table-remove">
+                                                <a href="" class="btn btn-info btn-rounded btn-sm my-0">Delete</a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>No Staff to show !</td>
+                                            <td></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <!-- <div class="col-md-2 text-center">
+                        <small> Registered:<br>
+                            <date>{{ user.date_joined|timesince }}</date>
+                        </small>
+                        <hr/>
+                        <small> Last Login:<br>
+                            <date>{{ user.last_login|timesince }}</date>
+                        </small>
+                        <hr/>
+                        <small> Phone:<br>
+                            <date>
+                                {% if user.phone %}
+                                    <a href="tel://{{ user.phone }}"> {{ user.phone }}</a>
+                                {% endif %}
+                            </date>
+                        </small>
+                        <hr/>
+                        <small> Email:<br>
+                            <date><a href="mailto://{{ user.email }}"> {{ user.email }}</a></date>
+                        </small>
+                        <hr/>
+{#                        <small> Address:<br>#}
+{#                            <date>{{ user.address }}</date>#}
+{#                        </small>#}
+                    </div> -->
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

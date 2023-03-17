@@ -1,0 +1,1101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>{% block title %} Woodlands University College | Home {% endblock title %}</title>
+    <!-- Font Awesome -->
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&amp;display=swap">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'schoolapp/systempages/assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'schoolapp/systempages/assets/plugins/fontawesome/css/fontawesome.min.css' %}"
+          rel="stylesheet">
+    <link href="{% static 'schoolapp/systempages/assets/plugins/fontawesome/css/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'schoolapp/systempages/assets/css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'schoolapp/systempages/assets/plugins/datatables/datatables.min.css' %}">
+
+    {% include 'schoolapp/small-screen-navbar.html' %}
+
+    <style>
+        .dropdown-menu {
+            width: 100%;
+        }
+
+        .scrollable-menu {
+            height: auto;
+            max-height: 550px;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+<div class="main-wrapper">
+    <!--Main Navigation-->
+    <div class="header">
+        <div class="header-left">
+            <a href="index.html" class="logo">
+                <img src="{% static 'schoolapp/landingpages/images/logo.jpg' %}" alt="Logo">
+            </a>
+            <a href="{% url 'index' %}" class="logo logo-small">
+                <img src="{% static 'schoolapp/landingpages/images/logo.jpg' %}" alt="Logo" width="30" height="30">
+            </a>
+        </div>
+        <a href="javascript:void(0);" id="toggle_btn">
+            <i class="fas fa-align-left"></i>
+        </a>
+        <!-- <div class="top-nav-search">
+            <form>
+                <input type="text" class="form-control" placeholder="Search here">
+                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            {{ current_semester }}
+        </div> -->
+        <a class="mobile_btn" id="mobile_btn">
+            <i class="fas fa-bars"></i>
+        </a>
+        <ul class="nav user-menu">
+            <li class="nav-item dropdown noti-dropdown">
+                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                    <i class="far fa-bell"></i> <span class="badge badge-pill">3</span>
+                </a>
+                <div class="dropdown-menu notifications">
+                    <div class="topnav-dropdown-header">
+                        <span class="notification-title">Notifications</span>
+                        <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                    </div>
+                    <div class="noti-content">
+                        <ul class="notification-list">
+                            <li class="notification-message">
+                                <a href="#">
+                                    <div class="media">
+                                    <span class="avatar avatar-sm">
+                                    <img class="avatar-img rounded-circle" alt="User Image"
+                                         src="assets/img/profiles/avatar-02.jpg">
+                                    </span>
+                                        <div class="media-body">
+                                            <p class="noti-details"><span class="noti-title">Carlson Tech</span> has
+                                                approved <span class="noti-title">your estimate</span></p>
+                                            <p class="noti-time"><span class="notification-time">4 mins ago</span></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="notification-message">
+                                <a href="#">
+                                    <div class="media">
+                                    <span class="avatar avatar-sm">
+                                    <img class="avatar-img rounded-circle" alt="User Image"
+                                         src="assets/img/profiles/avatar-11.jpg">
+                                    </span>
+                                        <div class="media-body">
+                                            <p class="noti-details"><span
+                                                    class="noti-title">International Software Inc</span> has sent you a
+                                                invoice in the amount of <span class="noti-title">$218</span></p>
+                                            <p class="noti-time"><span class="notification-time">6 mins ago</span></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="notification-message">
+                                <a href="#">
+                                    <div class="media">
+                                    <span class="avatar avatar-sm">
+                                    <img class="avatar-img rounded-circle" alt="User Image"
+                                         src="assets/img/profiles/avatar-17.jpg">
+                                    </span>
+                                        <div class="media-body">
+                                            <p class="noti-details"><span class="noti-title">John Hendry</span> sent a
+                                                cancellation request <span class="noti-title">Apple iPhone XR</span></p>
+                                            <p class="noti-time"><span class="notification-time">8 mins ago</span></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="notification-message">
+                                <a href="#">
+                                    <div class="media">
+                                    <span class="avatar avatar-sm">
+                                    <img class="avatar-img rounded-circle" alt="User Image"
+                                         src="assets/img/profiles/avatar-13.jpg">
+                                    </span>
+                                        <div class="media-body">
+                                            <p class="noti-details"><span class="noti-title">Mercury Software Inc</span>
+                                                added a new product <span class="noti-title">Apple MacBook Pro</span>
+                                            </p>
+                                            <p class="noti-time"><span class="notification-time">12 mins ago</span></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="topnav-dropdown-footer">
+                        <a href="#">View all Notifications</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item dropdown has-arrow">
+                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                    <span class="user-img"><img class="rounded-circle"
+                                                src="{% static 'schoolapp/systempages/assets/img/profiles/avatar-01.jpg' %}"
+                                                width="31" alt="Ryan Taylor"></span>
+                </a>
+                <div class="dropdown-menu">
+                    <div class="user-header">
+                        <div class="avatar avatar-sm">
+                            <img src="{% static 'schoolapp/systempages/assets/img/profiles/avatar-01.jpg' %}"
+                                 alt="User Image" class="avatar-img rounded-circle">
+                        </div>
+                        <div class="user-text">
+                            <h6>
+                                {% if request.user.get_full_name %}
+                                    {{ request.user.get_full_name }}
+                                {% else %}
+                                    {{ request.user }}
+                                {% endif %}
+                            </h6>
+                            {#                           <p class="text-muted mb-0">Administrator</p>#}
+                        </div>
+                    </div>
+                    <a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
+                    <a class="dropdown-item" href="inbox.html">Inbox</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-inner slimscroll">
+            <div id="sidebar-menu" class="sidebar-menu">
+                <ul>
+                    <li class="menu-title">
+                        <span>Main Menu</span>
+                    </li>
+                    <li class="submenu active">
+                    <li><a href="{% url 'dashboard' %}" class="active"><i class="fas fa-chart-bar"></i>
+                        <span>Dashboard</span></a></li>
+                    </li>
+
+                    {% if request.user.is_student %}
+                        <!-- <li><a href="{% url 'student_register_course' %}" class=""><i class="fas fa-plus"></i>
+                            <span>Register Course</span></a></li>
+                        </li> -->
+                        <li><a href="{% url 'student_taken_course_list' %}" class=""><i class="fas fa-tasks"></i>
+                            <span>Course Management</span></a></li>
+                        </li>
+                        <li><a href="{% url 'student_view_written_assessments_results' %}" class=""><i class="fas fa-poll-h"></i>
+                            <span>View Results</span></a></li>
+                        </li>
+                        <li><a href="{% url 'student_view_payment_history' %}" class=""><i class="fas fa-file-invoice-dollar"></i>
+                            <span>Payment History</span></a></li>
+                        </li>
+                        <!-- <li><a href="{% url 'student_view_final_results' %}" class=""><i class="fas fa-book-reader"></i>
+                            <span>Final Results</span></a></li>
+                        </li> -->
+                    
+                        <!-- <li><a href="" class=""><i class="fa fa-bars"></i>
+                            <span>Payment History</span></a></li>
+                        </li>
+                        <li><a href="" class=""><i class="fas fa-book"></i>
+                            <span>View Results</span></a></li>
+                        </li> -->
+                    {% endif %}
+
+                    {% if request.user.is_superuser or request.user.user_group == 'Lecturer' or request.user.user_group == 'Examinations Office' or request.user.user_group == 'Admissions Office' or request.user.user_group == 'Registrar Office' or request.user.user_group == 'Program Coordinator or Principal Lecturer Office' or request.user.user_group == 'ICT Office' or request.user.user_group == 'Dean Of Students Affairs Office' %}
+                        <li class="submenu">
+                            <a href="#"><i class="fas fa-user-graduate"></i> <span><b>Manage Students</b></span> <span
+                                    class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a href="{% url 'list_students' %}"><i class="fa fa-angle-right"></i>List Students</a></li>
+                                <!-- <li><a href="{% url 'search_applicant_by_student_no' %}">Add Student</a></li> -->
+                                {% if request.user.is_superuser or request.user.user_group == 'Admissions Office' or request.user.user_group == 'ICT Office' %}
+                                    <li><a href="{% url 'admin_student_registration' %}"><i class="fa fa-angle-right"></i>Register Student</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    {% endif %}
+
+                    {% if request.user.user_group == 'Examinations Office' %}
+                        <li class="submenu">
+                            <a href="#"><i class="fas fa-book"></i> <b>Manage Assessment</b> <span
+                                    class="menu-arrow"></span></a>
+                            <ul> 
+                                <li><a href="{% url 'admin_list_assessment' %}">List All Assessments</a></li>
+                                <li><a href="{% url 'admin_list_programs' %}">Create Assessment</a></li>
+                                <li><a href="{% url 'admin_list_courses' %}">Courses / Create Assessment</a></li>
+                                
+                                <!-- <li><a href="{% url 'admin_list_years_of_study' %}"><i class="fa fa-angle-right"></i>Manage Assessments</a></li> -->
+                        
+                                <!-- <li><a href="{% url 'add_score' %}">Manage Assessment Scores</a></li> -->
+                                <!-- <li><a href="{% url 'admin_view_final_results_list' %}">Manage Final Results</a></li> -->
+                                <!-- <li><a href="{% url 'admin_list_programs' %}">Create Assessment</a></li> -->
+                            </ul>
+                        </li>
+                    {% endif %}
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                ...
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                    {% if request.user.is_superuser or request.user.user_group == 'ICT Office' %}
+                        <li class="submenu">
+                            <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span><strong>Staff</strong></span> <span
+                                    class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a href="{% url 'list_staff' %}">Staff List</a></li>
+                                <li><a href="{% url 'add_staff' %}">Staff Add</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="fas fa-building"></i> <span> <strong>Departments</strong></span> <span
+                                    class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a href="{% url 'departments' %}">Department List</a></li>
+                                <li><a href="{% url 'add_department' %}">Department Add</a></li>
+                            </ul>
+                        </li>
+
+                    <li class="submenu">
+                        <a href="#"><i class="fas fa-building"></i> <span><strong>Schools</strong></span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="{% url 'list_schools' %}">School List</a></li>
+                            <li><a href="{% url 'add_school' %}">School Add</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#"><i class="fas fa-book-reader"></i> <span><strong>Programs</strong></span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="{% url 'admin_list_programs' %}">Programs List</a></li>
+{#                            <li><a href="#">Program Add</a></li>#}
+                        </ul>
+                    </li>
+{#                    <li class="submenu">#}
+{#                        <a href="#"><i class="fas fa-book-reader"></i> <span> Courses</span> <span#}
+{#                                class="menu-arrow"></span></a>#}
+{#                        <ul>#}
+{#                            <li><a href="#">Courses List</a></li>#}
+{#                            <li><a href="#">Course Add</a></li>#}
+{#                        </ul>#}
+{#                    </li>#}
+                    {% endif %}
+
+                    {% if request.user.is_superuser or request.user.user_group == 'Lecturer' or request.user.user_group == 'Admissions Office' or request.user.user_group == 'Registrar Office' or request.user.user_group == 'Program Coordinator or Principal Lecturer Office' or request.user.user_group == 'ICT Office' or request.user.user_group == 'Accounts Office' or request.user.user_group == 'Dean Of Students Affairs Office' %}
+
+                        <li class="menu-title">
+                            <span>Management</span>
+                        </li>
+                        <li>
+                            <a href="{% url 'admin_admissions_list' %}"><i class="fas fa-holly-berry"></i> <span>Applications</span></a>
+                        </li>
+                    {% endif %}
+
+                    {% if request.user.user_group == 'Accounts Office' %}
+                        <li class="submenu">
+                            <a href="#"><i class="fas fa-file-invoice-dollar"></i> <span><strong>Accounts</strong></span> <span
+                                    class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a href="{% url 'payment_collect' %}">Add Payment</a></li>
+                                <li><a href="{% url 'payment_collections_list' %}">Collected Payments</a></li>
+                                <li><a href="{% url 'payment_types_list' %}">Payment Types</a></li>
+                                <li><a href="{% url 'payment_structures_list' %}">Payment Structures</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+
+{#                    <li class="submenu">#}
+{#                        <a href="#"><i class="fas fa-file-invoice-dollar"></i> <span> School Calendars</span> <span#}
+{#                                class="menu-arrow"></span></a>#}
+{#                        <ul>#}
+{#                            <li><a href="#">Exam List</a></li>#}
+{#                            <li><a href="#">Events</a></li>#}
+{#                            <li><a href="#">Class Timetable</a></li>#}
+{#                        </ul>#}
+{#                    </li>#}
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% block content %} {% endblock %}
+</div>
+<!-- SCRIPTS -->
+<!-- JQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+
+<!-- <script src="{% static 'schoolapp/systempages/assets/js/jquery-3.6.0.min.js' %}"></script>-->
+<script src="{% static 'schoolapp/systempages/assets/js/popper.min.js' %}"></script> 
+<script src="{% static 'schoolapp/systempages/assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'schoolapp/systempages/assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+<script src="{% static 'schoolapp/systempages/assets/plugins/apexchart/apexcharts.min.js' %}"></script>
+<script src="{% static 'schoolapp/systempages/assets/plugins/apexchart/chart-data.js' %}"></script>
+<script src="{% static 'schoolapp/systempages/assets/js/script.js' %}"></script>
+
+<style>
+    .dt-btn-form-control {
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+</style>
+
+<script>
+    $(document).ready(function () {
+        $('#table_courses').DataTable({
+            dom: 'Bfrtip',
+            lengthMenu: [10,],
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+
+            ],
+
+        });
+    });
+
+    $(document).ready(function () {
+        $('#table_programs_admin').DataTable({
+            dom: 'Bfrtip',
+            lengthMenu: [10,],
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [0, 1]
+                    }
+                },
+
+            ],
+
+        });
+    });
+
+    $(document).ready(function () {
+        $('#table_programs').DataTable({
+            dom: 'Bfrtip',
+            lengthMenu: [10,],
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+
+            ],
+
+        });
+    });
+
+
+    $(document).ready(function () {
+        $('#table_assessments').DataTable({
+            dom: 'Bfrtip',
+            lengthMenu: [10,],
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+
+            ],
+
+        });
+    });
+
+
+    $(document).ready(function () {
+        $('#table_students_list').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+
+            ],
+
+        });
+    });
+
+    $(document).ready(function () {
+        $('#table_staff_list').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+
+            ],
+
+        });
+    });
+
+
+    $(document).ready(function () {
+        $('#table_students_registered_course').DataTable({
+            dom: 'Bfrtip',
+            lengthMenu: [10,],
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [0, 1]
+                    }
+                },
+
+            ],
+
+        });
+    });
+
+
+    $(document).ready(function () {
+        $('#table_students_results').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3, 4]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3, 4]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3, 4]
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3, 4],
+                    }
+                },
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [1, 2, 3, 4]
+                    }
+                },
+
+            ],
+        });
+    });
+
+    $(document).ready(function () {
+        $('#table_courses_list').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [1, 2, 3, 4, 5]
+                    }
+                },
+
+            ],
+        });
+    });
+
+    $(document).ready(function () {
+        $('#table_student_payment_history').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    }
+                },
+
+            ],
+        });
+    });
+
+    $(document).ready(function () {
+        $('#table_payment_types').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    className: 'dt-btn-form-control',
+                    exportOptions: {
+                        columns: [0,]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0,]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0,]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [0,]
+                    }
+                },
+
+            ],
+        });
+    });
+
+    $(document).ready(function () {
+        $('#table_payment_structures').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [0, 1, 2]
+                    }
+                },
+
+            ],
+
+
+        });
+    });
+
+    $(document).ready(function () {
+        $('#table_collected_payments').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    }
+                },
+
+            ],
+        });
+    });
+
+
+
+
+    $(document).ready(function () {
+        $('#table_attendance_list').DataTable({
+            dom: 'Bfrtip',
+
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3,]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3,]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3,]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [1, 2, 3,]
+                    }
+                },
+
+            ],
+
+        });
+    });
+
+    $(document).ready(function () {
+        $('#table_feecollection_list').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+                    }
+                },
+
+            ],
+        });
+
+        $('#table_feecollection_list').append('<caption style="caption-side: top"; h2> Payments Report</caption>')
+    });
+
+ 
+
+    $(document).ready(function () {
+        $('#table_test').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8,]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8,]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8,]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8,]
+                    }
+                },
+
+            ],
+        });
+    });
+
+</script>
+
+
+
+{% block js %}
+
+{% endblock js %}
+</body>
+</html>

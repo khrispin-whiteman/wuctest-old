@@ -1,0 +1,142 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% load static %}
+
+{% load custom_filters %}
+
+{% block title %}Consolidated Results | WUC{% endblock %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="page-title">Consolidated Results</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item active"><a href="{% url 'dashboard' %}"> Dashboard</a>
+                                /Assessments 
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <p class="text-left">Showing Results for: {{ current_semester }}</p>
+                            <a class="text-right btn btn-sm btn-outline-primary" target="_blank" href="{% url 'view_results_transcript_pdf' %}">Print Transcript <i class="fa fa-print"></i></a>
+                        </div>
+                        <div class="card-body">
+                            {% if success_message %}
+                                <i class="d-flex justify-content-center alert alert-success">{{ success_message }}</i>
+                            {% endif %}
+                            {% if error_message %}
+                                <i class="d-flex justify-content-center alert alert-danger">{{ error_message }}</i>
+                            {% endif %}
+                            <div class="table-responsive">
+                                <!-- <table id="" class="datatable table table-stripped">
+                                    <thead>
+                                    <tr>
+                                        <th>Assessment Name</th>
+                                        <th>Score</th>
+                                        <th>Semester</th>
+                                        <th>Written On</th>
+                                        
+                                        <th>Action</th>
+                                       
+                                    </tr>
+                                    </thead>
+                                    {% for written_assessment in written_assessments reversed %}
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ written_assessment.assessment }}</td>
+                                            <td>{{ written_assessment.score }}</td>
+                                            <td>{{ written_assessment.semester }}</td>
+                                            <td>{{ written_assessment.written_on }}</td>
+                                    
+                                            <td><a href="" class="btn btn-sm btn-primary">View <i class="fa fa-eye"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                    {% empty %}
+                                        <i class="d-flex justify-content-center alert alert-info">No written_assessments found.</i><br>
+                                    {% endfor %}
+                                </table> -->
+
+
+                                <!-- WITH ALL ASSESSMENTS ADDED -->
+                                
+                                <table id="" class="datatable table table-bordered table-stripped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-left" rowspan='1' colspan="1">Course Name</th>
+                                        <th rowspan='1' colspan="1">Assessments</th>
+                                        <th rowspan='1' colspan="1">Total</th>
+                                        <th rowspan='1' colspan="1">Grade</th>
+                                        <th rowspan='1' colspan="1">Comment</th>
+                                        <!-- <th>Action</th> -->
+                                       
+                                    </tr>
+            
+                                    </thead>
+                                    {% for src in student_registered_courses %}
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ src.course }}</td>
+                                                {% with total=0 %}
+                                                <td>
+                                                    {% for wa in written_assessments %}
+                                                        {% if src.course == wa.assessment.course %}
+                                                            
+                                                            <div class="row">
+                                                                <div class="col-sm-8 text-left">
+                                                                    {{ wa.assessment.assessment_name }}
+                                                                </div>
+                                                                <div class="col-sm-4 text-right">
+                                                                    {{ wa.score }}
+                                                                
+                                                                </div>
+                                                            </div>
+                                                            <!-- <hr> -->
+                                                            {% with total=total|add:wa.score %}{% endwith %}
+                                                        {% endif %}
+                            
+                                                    {% endfor %}
+                                                </td>
+                                                {% endwith %}
+                                            <td class="text-right">
+                                                <!-- {% if request.COOKIES.my_score_cookie %}
+                                                    <p>The value of my_cookie is {{ request.COOKIES.my_score_cookie }}</p>
+                                                {% else %}
+                                                    <p>my_cookie is not set</p>
+                                                {% endif %} -->
+                                            </td>
+                                            <td>Test Grade</td>
+                                            <td>Test Comment</td>
+                                            <!-- <td><a href="" class="btn btn-sm btn-primary">View <i class="fa fa-eye"></i></a></td> -->
+                                        </tr>
+                                    </tbody>
+                                    {% empty %}
+                                        <i class="d-flex justify-content-center alert alert-info">No results found.</i><br>
+                                    {% endfor %}
+                                </table>
+                                <a href="" class="pull-right">View Past Results</a>
+
+
+                                <br><br>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <footer>
+            <p>Copyright © {% now 'Y' %}.</p>
+        </footer>
+    </div>
+{% endblock %}

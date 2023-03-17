@@ -1,0 +1,73 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% block title %} Score Entry | WUC {% endblock title %}
+
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row align-items-left">
+                    <div class="col">
+                        <h3 class="page-title">Add Score</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Add Score</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container-fluid mt-5">
+
+                <!-- Editable table -->
+                <div class="card">
+                    <h6 class="card-header text-left font-weight-bold py-4">{{ current_semester }}
+                    </h6>
+                    <div class="container">
+                        <div class="row">
+                            <br>
+                            <div class="col-md-5">
+
+                                <button type="button" class="btn btn-info btn-md w-25 p-3 disabled float-left">Save</button>
+                            </div>
+                            <div class="col-md-3"><i data-toggle="tooltip"
+                                                     title="click on the dropdown button to select a course">No assessment
+                                selected</i></div>
+                            <div class="col-md-4">
+                                <br>
+                                <div class="dropdown">
+                                    <button class="btn btn-info btn-md dropdown-toggle float-right" type="button"
+                                            id="dropdownMenu3" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        Select Assessment
+                                    </button>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu3">
+                                        <h6 class="dropdown-header">Select Assessment</h6>
+                                        {% for assessment in assessments %}
+                                            <a data-toggle="tooltip" title="{{ assessment.assessment_name }} - {{ assessment.course.course_name }}"
+                                               class="dropdown-item" href="{% url 'add_score_for' assessment.id assessment.course.id %}">
+                                                {{ assessment }}
+                                            </a>
+                                        {% empty %}
+                                            <h6 data-toggle="tooltip" class="text-left"
+                                                title="no courses found for the current semester">
+                                                No assessment
+                                            </h6>
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,354 @@
+<div class="list-group list-group-flush">
+     <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+               <div id="sidebar-menu" class="sidebar-menu">
+                  <ul>
+                     <li class="menu-title">
+                        <span>Main Menu</span>
+                     </li>
+                     <li class="submenu active">
+                        <a href="#"><i class="fas fa-user-graduate"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
+                        <li><a href="{% url 'dashboard' %}" class="active">Admin Dashboard</a></li>
+{#                         <ul>#}
+{#                           <li><a href="{% url 'dashboard' %}" class="active">Admin Dashboard</a></li>#}
+{#                           <li><a href="teacher-dashboard.html">Teacher Dashboard</a></li>#}
+{#                           <li><a href="student-dashboard.html">Student Dashboard</a></li>#}
+{#                        </ul>#}
+                     </li>
+                     <li class="submenu">
+                        <a href="#"><i class="fas fa-user-graduate"></i> <span> Students</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                           <li><a href="students.html">Student List</a></li>
+                           <li><a href="student-details.html">Student View</a></li>
+                           <li><a href="add-student.html">Student Add</a></li>
+                           <li><a href="edit-student.html">Student Edit</a></li>
+                        </ul>
+                     </li>
+                     <li class="submenu">
+                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Teachers</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                           <li><a href="teachers.html">Teacher List</a></li>
+                           <li><a href="teacher-details.html">Teacher View</a></li>
+                           <li><a href="add-teacher.html">Teacher Add</a></li>
+                           <li><a href="edit-teacher.html">Teacher Edit</a></li>
+                        </ul>
+                     </li>
+                     <li class="submenu">
+                        <a href="#"><i class="fas fa-building"></i> <span> Departments</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                           <li><a href="departments.html">Department List</a></li>
+                           <li><a href="add-department.html">Department Add</a></li>
+                           <li><a href="edit-department.html">Department Edit</a></li>
+                        </ul>
+                     </li>
+                     <li class="submenu">
+                        <a href="#"><i class="fas fa-book-reader"></i> <span> Subjects</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                           <li><a href="subjects.html">Subject List</a></li>
+                           <li><a href="add-subject.html">Subject Add</a></li>
+                           <li><a href="edit-subject.html">Subject Edit</a></li>
+                        </ul>
+                     </li>
+                     <li class="menu-title">
+                        <span>Management</span>
+                     </li>
+                     <li class="submenu">
+                        <a href="#"><i class="fas fa-file-invoice-dollar"></i> <span> Accounts</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                           <li><a href="fees-collections.html">Fees Collection</a></li>
+                           <li><a href="expenses.html">Expenses</a></li>
+                           <li><a href="salary.html">Salary</a></li>
+                           <li><a href="add-fees-collection.html">Add Fees</a></li>
+                           <li><a href="add-expenses.html">Add Expenses</a></li>
+                           <li><a href="add-salary.html">Add Salary</a></li>
+                        </ul>
+                     </li>
+                     <li>
+                        <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>Holiday</span></a>
+                     </li>
+                     <li>
+                        <a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>Fees</span></a>
+                     </li>
+                     <li>
+                        <a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>Exam list</span></a>
+                     </li>
+                     <li>
+                        <a href="event.html"><i class="fas fa-calendar-day"></i> <span>Events</span></a>
+                     </li>
+                     <li>
+                        <a href="time-table.html"><i class="fas fa-table"></i> <span>Time Table</span></a>
+                     </li>
+                     <li>
+                        <a href="library.html"><i class="fas fa-book"></i> <span>Library</span></a>
+                     </li>
+                     <li class="menu-title">
+                        <span>Pages</span>
+                     </li>
+                     <li class="submenu">
+                        <a href="#"><i class="fas fa-shield-alt"></i> <span> Authentication </span> <span class="menu-arrow"></span></a>
+                        <ul>
+                           <li><a href="login.html">Login</a></li>
+                           <li><a href="register.html">Register</a></li>
+                           <li><a href="forgot-password.html">Forgot Password</a></li>
+                           <li><a href="error-404.html">Error Page</a></li>
+                        </ul>
+                     </li>
+                     <li>
+                        <a href="blank-page.html"><i class="fas fa-file"></i> <span>Blank Page</span></a>
+                     </li>
+                     <li class="menu-title">
+                        <span>Others</span>
+                     </li>
+                     <li>
+                        <a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>Sports</span></a>
+                     </li>
+                     <li>
+                        <a href="hostel.html"><i class="fas fa-hotel"></i> <span>Hostel</span></a>
+                     </li>
+                     <li>
+                        <a href="transport.html"><i class="fas fa-bus"></i> <span>Transport</span></a>
+                     </li>
+                     <li class="menu-title">
+                        <span>UI Interface</span>
+                     </li>
+                     <li>
+                        <a href="components.html"><i class="fas fa-vector-square"></i> <span>Components</span></a>
+                     </li>
+                     <li class="submenu">
+                        <a href="#"><i class="fas fa-columns"></i> <span> Forms </span> <span class="menu-arrow"></span></a>
+                        <ul>
+                           <li><a href="form-basic-inputs.html">Basic Inputs </a></li>
+                           <li><a href="form-input-groups.html">Input Groups </a></li>
+                           <li><a href="form-horizontal.html">Horizontal Form </a></li>
+                           <li><a href="form-vertical.html"> Vertical Form </a></li>
+                           <li><a href="form-mask.html"> Form Mask </a></li>
+                           <li><a href="form-validation.html"> Form Validation </a></li>
+                        </ul>
+                     </li>
+                     <li class="submenu">
+                        <a href="#"><i class="fas fa-table"></i> <span> Tables </span> <span class="menu-arrow"></span></a>
+                        <ul>
+                           <li><a href="tables-basic.html">Basic Tables </a></li>
+                           <li><a href="data-tables.html">Data Table </a></li>
+                        </ul>
+                     </li>
+                     <li class="submenu">
+                        <a href="javascript:void(0);"><i class="fas fa-code"></i> <span>Multi Level</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                           <li class="submenu">
+                              <a href="javascript:void(0);"> <span>Level 1</span> <span class="menu-arrow"></span></a>
+                              <ul>
+                                 <li><a href="javascript:void(0);"><span>Level 2</span></a></li>
+                                 <li class="submenu">
+                                    <a href="javascript:void(0);"> <span> Level 2</span> <span class="menu-arrow"></span></a>
+                                    <ul>
+                                       <li><a href="javascript:void(0);">Level 3</a></li>
+                                       <li><a href="javascript:void(0);">Level 3</a></li>
+                                    </ul>
+                                 </li>
+                                 <li><a href="javascript:void(0);"> <span>Level 2</span></a></li>
+                              </ul>
+                           </li>
+                           <li>
+                              <a href="javascript:void(0);"> <span>Level 1</span></a>
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+{#    <a href="/" class="list-group-item#}
+{#        {% if active == 'Dashboard' %} active {% endif %} waves-effect">#}
+{#        <i class="fa fa-pie-chart mr-3" aria-hidden="true"></i>Dashboard</a>#}
+{##}
+{#    <a href="{% url 'profile' %}" class="list-group-item#}
+{#        {% if active == 'Profile' %} active {% endif %} waves-effect">#}
+{#        <i class="fa fa-user mr-3" aria-hidden="true"></i>Profile</a>#}
+{##}
+{#    {% if request.user.is_superuser %}#}
+{#        <a href="{% url 'student_list' %}" class="list-group-item#}
+{#        {% if active == 'students' %} active {% endif %} waves-effect">#}
+{#            <i class="fa fa-users mr-3" aria-hidden="true"></i> Students</a>#}
+{#    {% endif %}#}
+
+{#    {% if request.user.is_lecturer or request.user.is_superuser %}#}
+{#        <a href="{% url 'student_list' %}" class="list-group-item#}
+{#        {% if active == 'students' %} active {% endif %} waves-effect">#}
+{#            <i class="fa fa-graduation-cap mr-3" aria-hidden="true"></i>View Students</a>#}
+{#    {% endif %}#}
+{##}
+{#    {% if request.user.is_lecturer or request.user.is_superuser %}#}
+{#        <a href="{% url 'student_attendance_list_by_class' %}" class="list-group-item#}
+{#        {% if active == 'students' %} active {% endif %} waves-effect">#}
+{#            <i class="fa fa-check-circle mr-3" aria-hidden="true"></i>Attendance</a>#}
+{#    {% endif %}#}
+{##}
+{##}
+{#    {% if request.user.is_superuser %}#}
+{#        <a href="{% url 'student_fees' %}" class="list-group-item#}
+{#        {% if active == 'manage_fees' %} active {% endif %} waves-effect">#}
+{#            <i class="fa fa-money mr-3" aria-hidden="true"></i>Fees Collection</a>#}
+{#    {% endif %}#}
+{##}
+{#    {% if request.user.is_superuser %}#}
+{#        <a href="{% url 'fees_structure_list' %}" class="list-group-item#}
+{#        {% if active == 'manage_fees' %} active {% endif %} waves-effect">#}
+{#            <i class="fa fa-money mr-3" aria-hidden="true"></i>Fees Structures</a>#}
+{#    {% endif %}#}
+
+{#    <!-- {% if request.user.is_superuser %}#}
+{#        <a href="" class="list-group-item#}
+{#        {% if active == 'manage_grades' %} active {% endif %} waves-effect">#}
+{#            <i class="fa fa-building mr-3" aria-hidden="true"></i>Pupil Levels</a>#}
+{#    {% endif %} -->#}
+{##}
+{#    {% if request.user.is_superuser %}#}
+{#        <a href="{% url 'manage_classes' %}" class="list-group-item#}
+{#        {% if active == 'manage_classes' %} active {% endif %} waves-effect">#}
+{#            <i class="fa fa-building mr-3" aria-hidden="true"></i>Manage Classes</a>#}
+{#    {% endif %}#}
+{##}
+{##}
+{#    {% if request.user.is_superuser %}#}
+{#        <a href="{% url 'staff_list' %}" class="list-group-item#}
+{#        {% if active == 'staff' %} active {% endif %} waves-effect">#}
+{#            <i class="fa  fa-users mr-3" aria-hidden="true"></i> Staff</a>#}
+{#    {% endif %}#}
+{##}
+{##}
+{#    {% if request.user.is_superuser %}#}
+{#        <a href="{% url 'staff_list' %}" class="list-group-item#}
+{#        {% if active == 'staff' %} active {% endif %} waves-effect">#}
+{#            <i class="fa  fa-users mr-3" aria-hidden="true"></i>View Staff</a>#}
+{#    {% endif %}#}
+{##}
+{#    {% if request.user.is_superuser %}#}
+{#        <a href="{% url 'course_list' %}" class="list-group-item#}
+{#        {% if active == 'course_list' %} active {% endif %} waves-effect">#}
+{#            <i class="fa fa-book mr-3" aria-hidden="true"></i> Courses</a>#}
+{##}
+{#    {% elif request.user.is_lecturer %}#}
+{#        <a href="{% url 'course_list' %}" class="list-group-item#}
+{#        {% if active == 'course_list' %} active {% endif %} waves-effect">#}
+{#            <i class="fa fa-book mr-3" aria-hidden="true"></i>View Courses</a>#}
+{#    {% endif %}#}
+
+{#    {% if request.user.is_superuser %}#}
+{#        <a href="{% url 'course_allocation' %}" class="list-group-item#}
+{#        {% if active == 'course_allocation_list' %} active {% endif %} waves-effect">#}
+{#            <i class="fa fa-book mr-3" aria-hidden="true"></i>Course Allocation</a>#}
+{#    {% endif %}#}
+{##}
+{#    {% if request.user.is_superuser or request.user.is_lecturer %}#}
+{#        <a href="{% url 'course_allocation_view' %}" class="list-group-item#}
+{#        {% if active == 'course_allocation_list' %} active {% endif %} waves-effect">#}
+{#            <i class="fa fa-book mr-3" aria-hidden="true"></i>Allocation List</a>#}
+{#    {% endif %}#}
+
+    {#    {% if request.user.is_superuser %}#}
+    {#        <a href="{% url 'student_course_registation' %}" class="list-group-item#}
+    {#        {% if active == 'course_list' %} active {% endif %} waves-effect">#}
+    {#            <i class="fa fa-book mr-3" aria-hidden="true"></i>Course Regstrtion</a>#}
+    {#    {% endif %}#}
+
+{#    {% if request.user.is_lecturer %}#}
+{#        <a href="{% url 'add_score' %}" class="list-group-item#}
+{#        {% if active == 'Add_Score' %} active {% endif %} waves-effect">#}
+{#            <i class="fa fa-book mr-3" aria-hidden="true"></i>#}
+{#            Manage Score#}
+{#        </a>#}
+{#    {% endif %}#}
+{##}
+{#    {% if request.user.is_student or request.user.is_parent %}#}
+{#        <a href="{% url 'view_results' %}" class="list-group-item#}
+{#        {% if active == 'view_results' %} active {% endif %} waves-effect">#}
+{#            <i class="fa fa-eye mr-3" aria-hidden="true"></i>#}
+{#            View Result</a>#}
+{#    {% endif %}#}
+{##}
+{#    {% if request.user.is_librarian or request.user.is_superuser  %}#}
+{#        <a href="{% url 'BookListView' %}" class="list-group-item#}
+{#        {% if active == 'books' %} active {% endif %} waves-effect">#}
+{#            <i class="fa  fa-book mr-3" aria-hidden="true"></i>Books</a>#}
+{#    {% endif %}#}
+{##}
+{#    {% if request.user.is_librarian or request.user.is_superuser  %}#}
+{#        <a href="{% url 'IssueBookView' %}" class="list-group-item#}
+{#        {% if active == 'issue_book' %} active {% endif %} waves-effect">#}
+{#            <i class="fa  fa-book mr-3" aria-hidden="true"></i>Issue Book</a>#}
+{#    {% endif %}#}
+{##}
+{#    {% if request.user.is_librarian or request.user.is_superuser  %}#}
+{#        <a href="{% url 'book_language_list' %}" class="list-group-item#}
+{#        {% if active == 'book_language' %} active {% endif %} waves-effect">#}
+{#            <i class="fa  fa-gear mr-3" aria-hidden="true"></i>Book Languages</a>#}
+{#    {% endif %}#}
+{##}
+{##}
+{#    {% if request.user.is_librarian or request.user.is_superuser  %}#}
+{#        <a href="{% url 'book_genre_list' %}" class="list-group-item#}
+{#        {% if active == 'book_genre' %} active {% endif %} waves-effect">#}
+{#            <i class="fa  fa-gear mr-3" aria-hidden="true"></i>Book Genres</a>#}
+{#    {% endif %}#}
+{##}
+{##}
+{#    {% if request.user.is_librarian or request.user.is_superuser  %}#}
+{#        <a href="{% url 'book_borrowers' %}" class="list-group-item#}
+{#        {% if active == 'borrowers' %} active {% endif %} waves-effect">#}
+{#            <i class="fa  fa-users mr-3" aria-hidden="true"></i>Borrowers</a>#}
+{#    {% endif %}#}
+{##}
+{##}
+{#    {% if request.user.is_student or request.user.is_parent %}#}
+{#        <a href="{% url 'pay_history' %}" class="list-group-item#}
+{#        {% if active == 'payment' %} active {% endif %} waves-effect">#}
+{#            <i class="fa  fa-cc-mastercard mr-3" aria-hidden="true"></i>Pay Records</a>#}
+{#    {% endif %}#}
+{##}
+{#    {% if request.user.is_student or request.user.is_parent %}#}
+{#        <a href="{% url 'student_attendance' %}" class="list-group-item#}
+{#        {% if active == 'student_attendance' %} active {% endif %} waves-effect">#}
+{#            <i class="fa  fa-book mr-3" aria-hidden="true"></i>Student Attendance</a>#}
+{#    {% endif %}#}
+{##}
+{#    {% if request.user.is_superuser %}#}
+{#        <a href="{% url 'librarian_list' %}" class="list-group-item#}
+{#        {% if active == 'librarian_list' %} active {% endif %} waves-effect">#}
+{#            <i class="fa  fa-book mr-3" aria-hidden="true"></i>Library</a>#}
+{#    {% endif %}#}
+{##}
+{#    {% if request.user.is_student or request.user.is_parent %}#}
+{#        <a href="{% url 'student_borrowed_books' %}" class="list-group-item#}
+{#        {% if active == 'library' %} active {% endif %} waves-effect">#}
+{#            <i class="fa  fa-book mr-3" aria-hidden="true"></i>Library Record</a>#}
+{#    {% endif %}#}
+{##}
+{#    {% if request.user.is_superuser %}#}
+{#        <a href="{% url 'parent_list' %}" class="list-group-item#}
+{#        {% if active == 'manage_parent' %} active {% endif %} waves-effect">#}
+{#            <i class="fa  fa-user mr-3" aria-hidden="true"></i>Parents</a>#}
+{#    {% endif %}#}
+{##}
+{#    {% if request.user.is_superuser %}#}
+{#        <a href="{% url 'manage_session' %}" class="list-group-item#}
+{#        {% if active == 'manage_session' %} active {% endif %} waves-effect">#}
+{#            <i class="fa  fa-cogs mr-3" aria-hidden="true"></i>Session Setting</a>#}
+{#    {% endif %}#}
+{##}
+{#    {% if request.user.is_superuser %}#}
+{#        <a href="{% url 'manage_semester' %}" class="list-group-item#}
+{#        {% if active == 'manage_semester' %} active {% endif %} waves-effect">#}
+{#            <i class="fa  fa-gear mr-3" aria-hidden="true"></i>Term Settings</a>#}
+{#    {% endif %}#}
+{##}
+{##}
+{#    <a href="{% url 'timetable_all' %}" class="list-group-item waves-effect">#}
+{#        <i class="fa  fa-times-rectangle mr-3" aria-hidden="true"></i>TimeTables</a>#}
+{##}
+{#    <a href="{% url 'change_password' %}" class="list-group-item#}
+{#        {% if active == 'change_password' %} active {% endif %} waves-effect">#}
+{#        <i class="fa  fa-key mr-3" aria-hidden="true"></i>Change Password</a>#}
+
+
+</div>

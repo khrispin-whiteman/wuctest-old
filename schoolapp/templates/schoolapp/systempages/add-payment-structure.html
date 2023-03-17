@@ -1,0 +1,81 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% block title %}Add Payment Structure{% endblock %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Add Payment Structure</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'payment_structures_list' %}">Payment Structure</a></li>
+                            <li class="breadcrumb-item active">Add Payment Structure</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{% url 'add_payment_structure' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h5 class="form-title"><span>Payment Structure Details</span></h5>
+                                    </div>
+
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>{{ add_payment_structure_form.payment_level.label_tag }}</label>
+                                            {{ add_payment_structure_form.payment_level }}
+                                            {{ add_payment_structure_form.payment_level.error_messages }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>{{ add_payment_structure_form.amount_to_be_paid.label_tag }}</label>
+                                            {{ add_payment_structure_form.amount_to_be_paid }}
+                                            {{ add_payment_structure_form.amount_to_be_paid.error_messages }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>{{ add_payment_structure_form.payment_description.label_tag }}</label>
+                                            {{ add_payment_structure_form.payment_description }}
+                                            {{ add_payment_structure_form.payment_description.error_messages }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>{{ add_payment_structure_form.program.label_tag }}</label>
+                                            {{ add_payment_structure_form.program }}
+                                            {{ add_payment_structure_form.program.error_messages }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>{{ add_payment_structure_form.semester.label_tag }}</label>
+                                            {{ add_payment_structure_form.semester }}
+                                            {{ add_payment_structure_form.semester.error_messages }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

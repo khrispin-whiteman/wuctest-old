@@ -1,0 +1,22 @@
+{% extends 'schoolapp/landingpages/base_landing_pages.html' %}
+
+{% load static %}
+
+{% block title %}Application Successful{% endblock %}
+
+{% block content %}
+    <br><br><br>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header text-center" style="padding-top: 20px; padding-left: 30px; color: #4cb214;">Application Successful!</div>
+            <div class="card-body text-center">
+                <img style="width: 50px;" src="{% static 'schoolapp/landingpages/images/check-mark-verified.gif' %}">
+                <p>Thank you for your application!</p>
+                <p>Please check your mailbox for further instructions on how you can edit your
+                    application and check its status.
+                </p>
+            </div>
+        </div>
+    </div>
+    <br>
+{% endblock %}

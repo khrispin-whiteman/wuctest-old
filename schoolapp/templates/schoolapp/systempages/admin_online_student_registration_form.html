@@ -1,0 +1,1835 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+{% load static %}
+
+{% block title %}Admin Student Registration{% endblock %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Register Student</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'list_students' %}">Student</a></li>
+                            <li class="breadcrumb-item active">Register Student</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="wrapper">
+                <!-- Content Wrapper -->
+                <div id="content-wrapper" class="container d-flex flex-column">
+                    <!-- Main Content -->
+                    <div id="content">
+                        <!-- Begin Page Content -->
+                        <div class="container-fluid">
+
+                            <div class="card">
+
+                                <br>
+                                <div class="d-flex justify-content-center">
+                                    <p>Admin Student Registration Form</p>
+                                </div>
+                                <hr>
+
+                                <div class="card-body">
+                                    <div class="tabControl">
+                                        <div class="container">
+                                            <ul class="nav nav-pills nav-fill" id="part-tab" role="tablist">
+                                                {% if not request.user.is_authenticated %}
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="prerequisites-tab" data-toggle="pill"
+                                                           href="#prerequisites"
+                                                           role="tab">INSTRUCTIONS</a>
+                                                    </li>
+                                                {% endif %}
+                                                {#                                        <li class="nav-item">#}
+                                                {#                                            <a class="nav-link" id="part-1-tab" data-toggle="pill" href="#part-1"#}
+                                                {#                                               role="tab">Part#}
+                                                {#                                                1</a>#}
+                                                {#                                        </li>#}
+                                                {#                                        <li class="nav-item">#}
+                                                {#                                            <a class="nav-link" id="part-2-tab" data-toggle="pill" href="#part-2"#}
+                                                {#                                               role="tab">Part#}
+                                                {#                                                2</a>#}
+                                                {#                                        </li>#}
+                                                {#                                        <li class="nav-item">#}
+                                                {#                                            <a class="nav-link" id="part-3-tab" data-toggle="pill" href="#part-3"#}
+                                                {#                                               role="tab">Part#}
+                                                {#                                                3</a>#}
+                                                {#                                        </li>#}
+                                                {#                                        <li class="nav-item">#}
+                                                {#                                            <a class="nav-link" id="part-3A-tab" data-toggle="pill" href="#part-3A"#}
+                                                {#                                               role="tab">Part 4</a>#}
+                                                {#                                        </li>#}
+                                                {#                                        <li class="nav-item">#}
+                                                {#                                            <a class="nav-link" id="part-3B-tab" data-toggle="pill" href="#part-3B"#}
+                                                {#                                               role="tab">Part 5</a>#}
+                                                {#                                        </li>#}
+                                                {#                                        <li class="nav-item">#}
+                                                {#                                            <a class="nav-link" id="part-4-tab" data-toggle="pill" href="#part-4"#}
+                                                {#                                               role="tab">Part#}
+                                                {#                                                6</a>#}
+                                                {#                                        </li>#}
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" style="pointer-events: none"
+                                                       id="part-1-tab" data-toggle="pill" href="#part-1"
+                                                       role="tab">Part 1</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" style="pointer-events: none" id="part-2-tab"
+                                                       data-toggle="pill" href="#part-2"
+                                                       role="tab">Part 2
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" style="pointer-events: none" id="part-3-tab"
+                                                       data-toggle="pill" href="#part-3"
+                                                       role="tab">Part 3</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" style="pointer-events: none" id="part-3A-tab"
+                                                       data-toggle="pill" href="#part-3A"
+                                                       role="tab">Part 4</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" style="pointer-events: none" id="part-3B-tab"
+                                                       data-toggle="pill" href="#part-3B"
+                                                       role="tab">Part 5</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" style="pointer-events: none" id="part-4-tab"
+                                                       data-toggle="pill" href="#part-4"
+                                                       role="tab">Part 6</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <form action="{% url 'admin_student_registration' %}" class="needs-validation"
+                                              novalidate
+                                              method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="tab-content" id="part-tabContent">
+                                                {% if not request.user.is_authenticated %}
+                                                    <div class="tab-pane fade" id="prerequisites" role="tabpanel"
+                                                         aria-labelledby="prerequisites-tab">
+                                                        {% if message %}
+                                                            <br>
+                                                            <div class="alert alert-danger">{{ message | capfirst }}</div>
+                                                        {% endif %}
+                                                        <br>
+                                                        <div class="card">
+                                                            <div class="card-header">
+                                                                <h5><b style="color: #0e72a2;">INSTRUCTIONS</b></h5>
+                                                            </div>
+                                                            <div class="card-title"></div>
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="card">
+                                                                            <div class="card-body">
+
+                                                                                <p>
+                                                                        <span class="fa fa-angle-double-right">Application and Interview fee should be deposited into Woodlands University College
+                                                                            Account <b>#02320330000400</b> at Indo Zambia Bank, Crossroad Branch clearly stating the name of the Applicant and then scan a copy and attach it to
+                                                                            the online application.
+                                                                        </span>
+                                                                                </p>
+                                                                                <p><span
+                                                                                        class="fa fa-angle-double-right">You need to scan the deposit slip for the application fee and attach it as part of your online application.</span>
+                                                                                </p>
+                                                                                <p>
+                                                                        <span class="fa fa-angle-double-right">
+                                                                            You need to scan and attach certified copies of your certificate or statement of results. <b>Please take note that your application will not be considered if you do not attach this document</b>
+                                                                        </span>
+                                                                                </p>
+                                                                                <p>
+                                                                        <span class="fa fa-angle-double-right">
+                                                                            If you have obtained academic or professional training after leaving school (eg diploma) and want
+                                                                            them to be used to support your application then you should scan and attach certified copies of your
+                                                                            diploma certificates.
+                                                                        </span>
+                                                                                </p>
+                                                                                <p>
+                                                                        <span class="fa fa-angle-double-right">
+                                                                            You need to scan and attach either a copy of your passport or National Registration Card (NRC) or any form of identification
+                                                                        </span>
+                                                                                </p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-footer">
+                                                                <div class="navbuttons">
+                                                                    <div class="text-right" id="btnNext">
+                                                                        <button type="button"
+                                                                                class="btn btn-outline-primary btnNext">
+                                                                            Proceed
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+
+                                                <div class="tab-pane fade show active" id="part-1" role="tabpanel"
+                                                     aria-labelledby="part-1-tab">
+                                                    <br>
+                                                    <div class="card">
+                                                        <div class="card-header"><h5><b style="color: #0e72a2;">PERSONAL
+                                                            PARTICULARS</b></h5></div>
+                                                        <div class="card-title"></div>
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="card">
+
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="col-xl-6">
+
+                                                                                    <div class="form-group">
+                                                                                        {{ form.first_name.label_tag }}
+                                                                                        <i>(required)</i>
+                                                                                        <input class="form-control"
+                                                                                               placeholder="enter first name here"
+                                                                                               type="text"
+                                                                                               name="first_name"
+                                                                                               id="first_name"
+                                                                                               onkeyup="manageFname(this)"/>
+                                                                                        <p hidden
+                                                                                           id="first_name_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="first_name_invalid_text">
+                                                                                            <i style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i>
+                                                                                        </p>
+                                                                                        <i style="color: red;">{{ form.first_name.errors }}</i>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.last_name.label_tag }}
+                                                                                        <i>(required)</i>
+                                                                                        <input class="form-control"
+                                                                                               placeholder="enter last name here"
+                                                                                               type="text"
+                                                                                               name="last_name"
+                                                                                               id="last_name"
+                                                                                               onkeyup="manageLname(this)"/>
+                                                                                        <p hidden
+                                                                                           id="last_name_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="last_name_invalid_text">
+                                                                                            <i
+                                                                                                    style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i></p>
+                                                                                        <i style="color: red;">{{ form.last_name.errors }}</i>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.other_names.label_tag }}
+                                                                                        {{ form.other_names }}
+                                                                                        <div class="invalid-feedback">
+                                                                                            <i>Please
+                                                                                                fill out this field.</i>
+                                                                                        </div>
+                                                                                        <i style="color: red;">{{ form.other_names.errors }}</i>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.nrc_no.label_tag }} <i>(required)</i>
+                                                                                        <input class="form-control"
+                                                                                               placeholder="enter NRC number here"
+                                                                                               type="text" name="nrc_no"
+                                                                                               id="nrc_no"
+                                                                                               onkeyup="manageNRCNO(this)"/>
+                                                                                        <p hidden
+                                                                                           id="nrc_no_valid_text"><small
+                                                                                                style="color: #2be12b;">Valid
+                                                                                            <i
+                                                                                                    class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="nrc_no_invalid_text"><i
+                                                                                                style="color: red;"><small>Please
+                                                                                            fill out this field</small></i>
+                                                                                        </p>
+                                                                                        <i style="color: red;">{{ form.nrc_no.errors }}</i>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.phone_number.label_tag }}
+                                                                                        <i>(required)</i>
+                                                                                        <input class="form-control"
+                                                                                               placeholder="enter phone number here"
+                                                                                               type="text"
+                                                                                               name="phone_number"
+                                                                                               id="phone_number"
+                                                                                               onkeyup="managePhoneNO(this)"/>
+                                                                                        <p hidden
+                                                                                           id="phone_number_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="phone_number_invalid_text">
+                                                                                            <i
+                                                                                                    style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small>.</i></p>
+                                                                                        <i style="color: red;">{{ form.phone_number.errors }}</i>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.email.label_tag }} <i>(required)</i>
+                                                                                        <input class="form-control"
+                                                                                               placeholder="enter a valid email here"
+                                                                                               type="text" name="email"
+                                                                                               id="email"
+                                                                                               onkeyup="manageEmail(this)"/>
+                                                                                        <p hidden id="email_valid_text">
+                                                                                            <small
+                                                                                                    style="color: #2be12b;">Valid
+                                                                                                <i
+                                                                                                        class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="email_invalid_text"><i
+                                                                                                style="color: red;"><small>Please
+                                                                                            fill out this field</small></i>
+                                                                                        </p>
+                                                                                        <i style="color: red;">{{ form.email.errors }}</i>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.state_of_any_disabilities.label_tag }}
+                                                                                        {{ form.state_of_any_disabilities }}
+                                                                                        <div class="invalid-feedback">
+                                                                                            <i>Please
+                                                                                                fill out this field.</i>
+                                                                                        </div>
+                                                                                        <i style="color: red;">{{ form.state_of_any_disabilities.errors }}</i>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-xl-6">
+                                                                                    <div class="form-group">
+                                                                                        {{ form.date_of_birth.label_tag }}
+                                                                                        <input class="form-control"
+                                                                                               readonly
+                                                                                               placeholder="Click here to pick date"
+                                                                                               name="date_of_birth"
+                                                                                               id="date_of_birth"
+                                                                                               onchange="return manageDateOfBirth(this)"/>
+                                                                                        <p hidden
+                                                                                           id="date_of_birth_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="date_of_birth_invalid_text">
+                                                                                            <i
+                                                                                                    style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i></p>
+                                                                                        <i style="color: red;">{{ form.date_of_birth.errors }}</i>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.gender.label_tag }}
+                                                                                        {{ form.gender }}
+                                                                                        <div class="invalid-feedback">
+                                                                                            <i>Please
+                                                                                                fill out this field.</i>
+                                                                                        </div>
+                                                                                        <i style="color: red;">{{ form.gender.errors }}</i>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.marital_status.label_tag }}
+                                                                                        {{ form.marital_status }}
+                                                                                        <div class="invalid-feedback">
+                                                                                            <i>Please
+                                                                                                fill out this field.</i>
+                                                                                        </div>
+                                                                                        <i style="color: red;">{{ form.marital_status.errors }}</i>
+                                                                                    </div>
+
+                                                                                    <div class="form-group">
+                                                                                        {{ form.physical_address.label_tag }}
+                                                                                        <i>(required)</i>
+                                                                                        <input class="form-control"
+                                                                                               placeholder="enter physical here"
+                                                                                               type="text"
+                                                                                               name="physical_address"
+                                                                                               id="physical_address"
+                                                                                               onkeyup="managePhysicalAddress(this)"/>
+                                                                                        <p hidden
+                                                                                           id="physical_address_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="physical_address_invalid_text">
+                                                                                            <i
+                                                                                                    style="color: red;"><small><small>Please
+                                                                                                fill out this
+                                                                                                field</small></small></i>
+                                                                                        </p>
+                                                                                        <i style="color: red;">{{ form.physical_address.errors }}</i>
+                                                                                    </div>
+
+                                                                                    <div class="form-group">
+                                                                                        {{ form.nationality.label_tag }}
+                                                                                        {{ form.nationality }}
+                                                                                        <div class="invalid-feedback">
+                                                                                            <i>Please
+                                                                                                fill out this field.</i>
+                                                                                        </div>
+                                                                                        <i style="color: red;">{{ form.nationality.errors }}</i>
+                                                                                    </div>
+
+                                                                                    <div class="form-group">
+                                                                                        {{ form.postal_address.label_tag }}
+                                                                                        {{ form.postal_address }}
+                                                                                        <div class="invalid-feedback">
+                                                                                            <i>Please
+                                                                                                fill out this field.</i>
+                                                                                        </div>
+                                                                                        <i style="color: red;">{{ form.postal_address.errors }}</i>
+                                                                                    </div>
+
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <button type="button"
+                                                                    class="btn btn-outline-primary btnPrevious float-start"
+                                                                    id="btnPrevious">
+                                                                Previous
+                                                            </button>
+                                                            <button type="button"
+                                                                    class="btn btn-outline-primary btnNextP1 float-right"
+                                                                    id="btnNextP1">Next
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="tab-pane fade" id="part-2" role="tabpanel"
+                                                     aria-labelledby="part-2-tab">
+                                                    <br>
+                                                    <div class="card">
+                                                        <div class="card-header"><h5><b style="color: #0e72a2;">FAMILY
+                                                            PARTICULARS</b></h5></div>
+                                                        <div class="card-title"></div>
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="card">
+
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="col-xl-6">
+                                                                                    <div class="form-group">
+                                                                                        {{ form.sponsors_name_or_next_of_kin.label_tag }}
+                                                                                        <i>(required)</i>
+                                                                                        <input class="form-control"
+                                                                                               placeholder="enter sponsor or next of kin's name here"
+                                                                                               type="text"
+                                                                                               name="sponsors_name_or_next_of_kin"
+                                                                                               id="sponsors_name_or_next_of_kin"
+                                                                                               onkeyup="manageSponsorNextOfKin(this)"/>
+                                                                                        <p hidden
+                                                                                           id="sponsors_name_or_next_of_kin_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="sponsors_name_or_next_of_kin_invalid_text">
+                                                                                            <i style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i>
+                                                                                        </p>
+                                                                                        <i style="color: red;">{{ form.sponsors_name_or_next_of_kin.errors }}</i>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.relationship_with_sponsor_or_next_of_kin.label_tag }}
+                                                                                        {{ form.relationship_with_sponsor_or_next_of_kin }}
+                                                                                        <div class="invalid-feedback">
+                                                                                            <small><i>Please fill out
+                                                                                                this
+                                                                                                field.</i></small>
+                                                                                        </div>
+                                                                                        <i style="color: red;">{{ form.relationship_with_sponsor_or_next_of_kin.errors }}</i>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <div class="col-xl-6">
+                                                                                    <div class="form-group">
+                                                                                        {{ form.sponsor_or_next_of_kin_cell_no.label_tag }}
+                                                                                        <i>(required)</i>
+                                                                                        <input class="form-control"
+                                                                                               placeholder="enter sponsor or next of kin's cell no here"
+                                                                                               type="text"
+                                                                                               name="sponsor_or_next_of_kin_cell_no"
+                                                                                               id="sponsor_or_next_of_kin_cell_no"
+                                                                                               onkeyup="manageSponsorNextOfKinCellNo(this)"/>
+                                                                                        <p hidden
+                                                                                           id="sponsor_or_next_of_kin_cell_no_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="sponsor_or_next_of_kin_cell_no_invalid_text">
+                                                                                            <i style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i>
+                                                                                        </p>
+                                                                                        <i style="color: red;">{{ form.sponsor_or_next_of_kin_cell_no.errors }}</i>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.sponsor_or_next_of_kin_address.label_tag }}
+                                                                                        {{ form.sponsor_or_next_of_kin_address }}
+                                                                                        <div class="invalid-feedback">
+                                                                                            <i>Please fill out this
+                                                                                                field.</i>
+                                                                                        </div>
+                                                                                        <i style="color: red;">{{ form.sponsor_or_next_of_kin_address.errors }}</i>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <button type="button"
+                                                                    class="btn btn-outline-primary btnPrevious float-start"
+                                                                    id="btnPrevious">
+                                                                Previous
+                                                            </button>
+                                                            <button type="button"
+                                                                    class="btn btn-outline-primary btnNextP2 float-right"
+                                                                    id="btnNextP2">Next
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="tab-pane fade" id="part-3" role="tabpanel"
+                                                     aria-labelledby="part-3-tab">
+                                                    <br>
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h1><h5><b style="color: #0e72a2;">PROGRAM OF
+                                                                CHOICE AND HIGH/SECONDARY SCHOOL ATTENDED</b></h5></h1>
+                                                        </div>
+                                                        <div class="card-title"></div>
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="card">
+                                                                        <div class="card-body">
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <h5><b style="color: #0e72a2;">PROGRAM
+                                                                                        OF
+                                                                                        CHOICE</b></h5>
+                                                                                    <hr>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.program_applied_for.label_tag }}
+                                                                                        <i>(required)</i>
+                                                                                        <select class="form-control"
+                                                                                                id="program_applied_for"
+                                                                                                name="program_applied_for"
+                                                                                                onchange="return manageProgramAppliedFor(this)">
+                                                                                            <option value="nothing_selected">
+                                                                                                ------------------
+                                                                                            </option>
+                                                                                            {% for p in programs %}
+                                                                                                <option value="{{ p.id }}">{{ p.program_name }}</option>
+                                                                                            {% endfor %}
+                                                                                        </select>
+                                                                                        <p hidden
+                                                                                           id="program_applied_for_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="program_applied_for_invalid_text">
+                                                                                            <i style="color: red;"><small>Please
+                                                                                                select a valid
+                                                                                                choice</small></i></p>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                    <h5><b style="color: #0e72a2;">HIGH/SECONDARY
+                                                                                        SCHOOL
+                                                                                        ATTENDED</b></h5>
+                                                                                    <hr>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.school_name.label_tag }}
+                                                                                        <i>(required)</i>
+                                                                                        <input class="form-control"
+                                                                                               placeholder="enter high/secondary school attended here"
+                                                                                               type="text"
+                                                                                               name="school_name"
+                                                                                               id="school_name"
+                                                                                               onkeyup="manageHighSchoolAttended(this)"/>
+                                                                                        <p hidden
+                                                                                           id="school_name_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="school_name_invalid_text">
+                                                                                            <i style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                {{ form.school_start_year.label_tag }}
+                                                                                                <i>(required)</i>
+                                                                                                <input class="form-control"
+                                                                                                        readonly
+                                                                                                        placeholder="Pick date"
+                                                                                                        name="school_start_year"
+                                                                                                        id="school_start_year"
+                                                                                                        onchange="return manageStartYear(this)"/>
+                                                                                                <p hidden
+                                                                                                   id="school_start_year_valid_text">
+                                                                                                    <small style="color: #2be12b;">Valid
+                                                                                                        <i class="fa fa-check-circle"></i></small>
+                                                                                                </p>
+                                                                                                <p hidden
+                                                                                                   id="school_start_year_invalid_text">
+                                                                                                    <i style="color: red;"><small>Please
+                                                                                                        choose start
+                                                                                                        year</small></i>
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                {{ form.school_end_year.label_tag }}
+                                                                                                <i>(required)</i>
+                                                                                                <input class="form-control"
+                                                                                                        readonly
+                                                                                                        placeholder="Pick date"
+                                                                                                        name="school_end_year"
+                                                                                                        id="school_end_year"
+                                                                                                        onchange="return manageEndYear(this)"/>
+                                                                                                <p hidden
+                                                                                                   id="school_end_year_valid_text">
+                                                                                                    <small style="color: #2be12b;">Valid
+                                                                                                        <i class="fa fa-check-circle"></i></small>
+                                                                                                </p>
+                                                                                                <p hidden
+                                                                                                   id="school_end_year_invalid_text">
+                                                                                                    <i style="color: red;"><small>Please
+                                                                                                        choose end
+                                                                                                        year</small></i>
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+
+                                                                                <div class="col-md-6">
+                                                                                    <h5><b style="color: #0e72a2;">PROFESSIONAL
+                                                                                        QUALIFICATION</b></h5>
+                                                                                    <hr>
+                                                                                    <div class="form-group">
+                                                                                        <label class="d-block">Select
+                                                                                            Professional Qualification
+                                                                                            If
+                                                                                            Any:</label>
+
+                                                                                        <div class="checkbox">
+                                                                                            {{ form.has_certificate.label_tag }}
+                                                                                            {{ form.has_certificate }}
+                                                                                            <div class="invalid-feedback">
+                                                                                                <i>Please
+                                                                                                    fill out this
+                                                                                                    field.</i></div>
+                                                                                        </div>
+                                                                                        <div class="checkbox">
+                                                                                            {{ form.has_diploma.label_tag }}
+                                                                                            {{ form.has_diploma }}
+                                                                                            <div class="invalid-feedback">
+                                                                                                <i>Please
+                                                                                                    fill out this
+                                                                                                    field.</i></div>
+                                                                                        </div>
+                                                                                        <div class="checkbox disabled">
+                                                                                            {{ form.has_degree.label_tag }}
+                                                                                            {{ form.has_degree }}
+                                                                                            <div class="invalid-feedback">
+                                                                                                <i>Please
+                                                                                                    fill out this
+                                                                                                    field.</i></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <button type="button"
+                                                                    class="btn btn-outline-primary btnPrevious float-start"
+                                                                    id="btnPrevious">
+                                                                Previous
+                                                            </button>
+                                                            <button type="button"
+                                                                    class="btn btn-outline-primary btnNext3 float-right"
+                                                                    id="btnNextP3">Next
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="tab-pane fade" id="part-3A" role="tabpanel"
+                                                     aria-labelledby="part-3A-tab">
+                                                    <br>
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h1><h5><b style="color: #0e72a2;">SUBJECTS & GRADES</b>
+                                                            </h5></h1>
+                                                        </div>
+                                                        <div class="card-title"></div>
+                                                        <div class="card-body">
+                                                            <h3 style="color: #0e72a2;">Enter grades for subjects
+                                                                taken</h3>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="card">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        {{ form.subject_english.label_tag }}
+                                                                                        <input class="form-control"
+                                                                                               width="10px;"
+                                                                                               type="number"
+                                                                                               name="subject_english"
+                                                                                               id="subject_english"/>
+                                                                                        <p hidden
+                                                                                           id="subject_english_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="subject_english_invalid_text">
+                                                                                            <i
+                                                                                                    style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i></p>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.subject_mathematics.label_tag }}
+                                                                                        <input class="form-control"
+                                                                                               width="10px;"
+                                                                                               type="number"
+                                                                                               name="subject_mathematics"
+                                                                                               id="subject_mathematics"/>
+                                                                                        <p hidden
+                                                                                           id="subject_mathematics_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="subject_mathematics_invalid_text">
+                                                                                            <i style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.subject_biology_human_and_social.label_tag }}
+                                                                                        <input class="form-control"
+                                                                                               width="10px;"
+                                                                                               type="number"
+                                                                                               name="subject_biology_human_and_social"
+                                                                                               id="subject_biology_human_and_social"/>
+                                                                                        <p hidden
+                                                                                           id="subject_biology_human_and_social_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="subject_biology_human_and_social_invalid_text">
+                                                                                            <i style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.subject_history.label_tag }}
+                                                                                        <input class="form-control"
+                                                                                               width="10px;"
+                                                                                               type="number"
+                                                                                               name="subject_history"
+                                                                                               id="subject_history"/>
+                                                                                        <p hidden
+                                                                                           id="subject_history_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="subject_history_invalid_text">
+                                                                                            <i
+                                                                                                    style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i></p>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.subject_religious_education.label_tag }}
+                                                                                        <input class="form-control"
+                                                                                               width="10px;"
+                                                                                               type="number"
+                                                                                               name="subject_religious_education"
+                                                                                               id="subject_religious_education"/>
+                                                                                        <p hidden
+                                                                                           id="subject_religious_education_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="subject_religious_education_invalid_text">
+                                                                                            <i style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.subject_commerce.label_tag }}
+                                                                                        <input class="form-control"
+                                                                                               width="10px;"
+                                                                                               type="number"
+                                                                                               name="subject_commerce"
+                                                                                               id="subject_commerce"/>
+                                                                                        <p hidden
+                                                                                           id="subject_commerce_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="subject_commerce_invalid_text">
+                                                                                            <i
+                                                                                                    style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i></p>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        {{ form.subject_home_economics.label_tag }}
+                                                                                        <input class="form-control"
+                                                                                               width="10px;"
+                                                                                               type="number"
+                                                                                               name="subject_home_economics"
+                                                                                               id="subject_home_economics"/>
+                                                                                        <p hidden
+                                                                                           id="subject_home_economics_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="subject_home_economics_invalid_text">
+                                                                                            <i style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.subject_geography.label_tag }}
+                                                                                        <input class="form-control"
+                                                                                               width="10px;"
+                                                                                               type="number"
+                                                                                               name="subject_geography"
+                                                                                               id="subject_geography"/>
+                                                                                        <p hidden
+                                                                                           id="subject_geography_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="subject_geography_invalid_text">
+                                                                                            <i style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.subject_physical_science.label_tag }}
+                                                                                        <input class="form-control"
+                                                                                               width="10px;"
+                                                                                               type="number"
+                                                                                               name="subject_physical_science"
+                                                                                               id="subject_physical_science"/>
+                                                                                        <p hidden
+                                                                                           id="subject_physical_science_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="subject_physical_science_invalid_text">
+                                                                                            <i style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.subject_chemistry.label_tag }}
+                                                                                        <input class="form-control"
+                                                                                               width="10px;"
+                                                                                               type="number"
+                                                                                               name="subject_chemistry"
+                                                                                               id="subject_chemistry"/>
+                                                                                        <p hidden
+                                                                                           id="subject_chemistry_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="subject_chemistry_invalid_text">
+                                                                                            <i style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.subject_physics.label_tag }}
+                                                                                        <input class="form-control"
+                                                                                               width="10px;"
+                                                                                               type="number"
+                                                                                               name="subject_physics"
+                                                                                               id="subject_physics"/>
+                                                                                        <p hidden
+                                                                                           id="subject_physics_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="subject_physics_invalid_text">
+                                                                                            <i
+                                                                                                    style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i></p>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        {{ form.subject_civic_education.label_tag }}
+                                                                                        <input class="form-control"
+                                                                                               width="10px;"
+                                                                                               type="number"
+                                                                                               name="subject_civic_education"
+                                                                                               id="subject_civic_education"/>
+                                                                                        <p hidden
+                                                                                           id="subject_civic_education_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="subject_civic_education_text">
+                                                                                            <i
+                                                                                                    style="color: red;"><small>Please
+                                                                                                fill out this
+                                                                                                field</small></i></p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <button type="button"
+                                                                    class="btn btn-outline-primary btnPrevious float-start"
+                                                                    id="btnPrevious">
+                                                                Previous
+                                                            </button>
+                                                            <button type="button"
+                                                                    class="btn btn-outline-primary btnNextP4 float-right"
+                                                                    id="btnNextP4">Next
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="tab-pane fade" id="part-3B" role="tabpanel"
+                                                     aria-labelledby="part-3B-tab">
+                                                    <br>
+                                                    <div class="card">
+                                                        <div class="card-header"><h5><b style="color: #0e72a2;">PROFESSIONAL
+                                                            QUALIFICATIONS &
+                                                            ACADEMIC DOCUMENTS</b></h5></div>
+                                                        <div class="card-title"></div>
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="card">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <h5>
+                                                                                        <b style="color: #0e72a2;">ATTACHMENTS</b>
+                                                                                    </h5>
+                                                                                    <hr>
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-form-label">
+                                                                                            Upload Scanned Grade 12
+                                                                                            Results or
+                                                                                            equivalent of Results: <i>(required)</i>
+                                                                                        </label>
+                                                                                        <input required
+                                                                                               id="scanned_statement_of_result"
+                                                                                               name="scanned_statement_of_result"
+                                                                                               type="file"
+                                                                                               class="form-control"
+                                                                                               onchange="return manageResults(this)">
+                                                                                        <p hidden
+                                                                                           id="scanned_statement_of_result_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="scanned_statement_of_result_invalid_text">
+                                                                                            <i style="color: red;"><small>This
+                                                                                                field is
+                                                                                                required</small></i>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-form-label">Upload
+                                                                                            Scanned National
+                                                                                            Registration Card
+                                                                                            (Front):
+                                                                                            <i>(required)</i></label>
+                                                                                        <input required
+                                                                                               id="scanned_nrc_front"
+                                                                                               name="scanned_nrc_front"
+                                                                                               type="file"
+                                                                                               class="form-control"
+                                                                                               onchange="return manageScannedNRCFront(this)">
+                                                                                        <p hidden
+                                                                                           id="scanned_nrc_front_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="scanned_nrc_front_invalid_text">
+                                                                                            <i style="color: red;"><small>This
+                                                                                                field is
+                                                                                                required</small></i>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-form-label">Upload
+                                                                                            Scanned National
+                                                                                            Registration Card
+                                                                                            (Back): <i>(required)</i>
+                                                                                        </label>
+                                                                                        <input required
+                                                                                               id="scanned_nrc_back"
+                                                                                               name="scanned_nrc_back"
+                                                                                               type="file"
+                                                                                               class="form-control"
+                                                                                               onchange="return manageScannedNRCBack(this)">
+                                                                                        <p hidden
+                                                                                           id="scanned_nrc_back_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="scanned_nrc_back_invalid_text">
+                                                                                            <i
+                                                                                                    style="color: red;"><small>This
+                                                                                                field is
+                                                                                                required</small></i></p>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-form-label">Upload
+                                                                                            Scanned Deposit Slip: <i>(required)</i>
+                                                                                        </label>
+                                                                                        <input required
+                                                                                               id="scanned_deposit_slip"
+                                                                                               name="scanned_deposit_slip"
+                                                                                               type="file"
+                                                                                               class="form-control"
+                                                                                               onchange="return manageScannedDepositSlip(this)">
+                                                                                        <p hidden
+                                                                                           id="scanned_deposit_slip_valid_text">
+                                                                                            <small style="color: #2be12b;">Valid
+                                                                                                <i class="fa fa-check-circle"></i></small>
+                                                                                        </p>
+                                                                                        <p hidden
+                                                                                           id="scanned_deposit_slip_invalid_text">
+                                                                                            <i style="color: red;"><small>This
+                                                                                                field is
+                                                                                                required</small></i>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <h5><b style="color: #0e72a2;">ACADEMIC
+                                                                                        DOCUMENTS</b></h5>
+                                                                                    <hr>
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-form-label">
+                                                                                            Upload Scanned Professional
+                                                                                            Certificate (Optional):
+                                                                                        </label>
+                                                                                        <input id="scanned_pq_certificate"
+                                                                                               name="scanned_pq_certificate"
+                                                                                               type="file"
+                                                                                               class="form-control">
+                                                                                        <div class="invalid-feedback">
+                                                                                            <i>Please
+                                                                                                fill out this field.</i>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-form-label">Upload
+                                                                                            Scanned Professional Diploma
+                                                                                            (Optional): </label>
+                                                                                        <input id="scanned_pq_diploma"
+                                                                                               name="scanned_pq_diploma"
+                                                                                               type="file"
+                                                                                               class="form-control">
+                                                                                        <div class="invalid-feedback">
+                                                                                            <i>Please
+                                                                                                fill out this field.</i>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-form-label">Upload
+                                                                                            Scanned Professional Degree
+                                                                                            (Optional): </label>
+                                                                                        <input id="scanned_pq_degree"
+                                                                                               name="scanned_pq_degree"
+                                                                                               type="file"
+                                                                                               class="form-control">
+                                                                                        <div class="invalid-feedback">
+                                                                                            <i>Please
+                                                                                                fill out this field.</i>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-form-label">Upload Scanned GCE Results (Optional): </label>
+                                                                    
+                                                                                        <input id="scanned_gce_results" multiple="multiple" name="scanned_gce_results" type="file" class="form-control">
+                                                                                        <div class="invalid-feedback">
+                                                                                            <i>Please fill out this field.</i>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    {#                                                                                <div class="form-group">#}
+                                                                                    {#                                                                                    {{ form.scanned_pq_certificate.label_tag }}#}
+                                                                                    {#                                                                                    {{ form.scanned_pq_certificate }}#}
+                                                                                    {#                                                                                    <div class="invalid-feedback"><i>Please fill out this field.</i></div>#}
+                                                                                    {#                                                                                </div>#}
+                                                                                    {#                                                                                <div class="form-group">#}
+                                                                                    {#                                                                                    {{ form.scanned_pq_diploma.label_tag }}#}
+                                                                                    {#                                                                                    {{ form.scanned_pq_diploma }}#}
+                                                                                    {#                                                                                    <div class="invalid-feedback"><i>Please fill out this field.</i></div>#}
+                                                                                    {#                                                                                </div>#}
+                                                                                    {#                                                                                <div class="form-group">#}
+                                                                                    {#                                                                                    {{ form.scanned_pq_degree.label_tag }}#}
+                                                                                    {#                                                                                    {{ form.scanned_pq_degree }}#}
+                                                                                    {#                                                                                    <div class="invalid-feedback"><i>Please fill out this field.</i></div>#}
+                                                                                    {#                                                                                </div>#}
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <button type="button"
+                                                                    class="btn btn-outline-primary btnPrevious float-start"
+                                                                    id="btnPrevious">
+                                                                Previous
+                                                            </button>
+                                                            <button type="button"
+                                                                    class="btn btn-outline-primary btnNextP5 float-right"
+                                                                    id="btnNextP5">Next
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="tab-pane fade" id="part-4" role="tabpanel"
+                                                     aria-labelledby="part-4-tab">
+                                                    <br>
+                                                    <div class="card">
+                                                        <div class="card-header"><h5><b style="color: #0e72a2;">INFORMATION CONFIRMATION</b>
+                                                        </h5>
+                                                        </div>
+                                                        <div class="card-title"></div>
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="card">
+                                                                        <div class="card-body">
+                                                                            <p>Ensure all the information entered is correct before submitting the form.
+                                                                            </p>
+                                                                            
+                              
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <br>
+                                                                                    <h5><b style="color: #0e72a2;">
+                                                                                        Confirmation</b>
+                                                                                    </h5>
+                                                                                    <hr>
+                                                                                    <div class="form-group form-check">
+                                                                                        <label class="form-check-label">
+                                                                                            <input class="form-check-input"
+                                                                                                   type="checkbox"
+                                                                                                   id="declaration_confirmation"
+                                                                                                   name="declaration_confirmation"
+                                                                                                   required> All details entered are correct.
+                                                                                            <div class="invalid-feedback">
+                                                                                                Check
+                                                                                                this check-box to
+                                                                                                continue.
+                                                                                            </div>
+                                                                                        </label>
+                                                                                    </div>
+
+                                                                                    {#                                                                                <div class="form-group">#}
+                                                                                    {#                                                                                    {{ form.declaration_confirmation.label_tag }}#}
+                                                                                    {#                                                                                    {{ form.declaration_confirmation }}#}
+                                                                                    {#                                                                                    <div class="invalid-feedback"><i>Please fill out this field.</i></div>#}
+                                                                                    {#                                                                                </div>#}
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <br>
+                                                                    <div class="text-center">
+                                                                        {#                                                                <small>Note that the <b>Submit Application</b> button#}
+                                                                        {#                                                                    will not work if some required fields are left#}
+                                                                        {#                                                                    blank!</small>#}
+                                                                        {#                                                                <br>#}
+                                                                        {#                                                                <small>Ensure that all required fields are populated#}
+                                                                        {#                                                                    with information!</small>#}
+                                                                        {#                                                                <br>#}
+                                                                        <button type="submit" id="btSubmitApplication"
+                                                                                disabled
+                                                                                class="btn btn-warning">
+                                                                            Submit Application
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <button type="button"
+                                                                    class="btn btn-outline-primary btnPrevious float-start"
+                                                                    id="btnPrevious">
+                                                                Previous
+                                                            </button>
+                                                            {#                                                        <button type="submit" class="btn btn-warning">#}
+                                                            {#                                                            Submit Application#}
+                                                            {#                                                        </button>#}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- Page Wrapper -->
+
+
+    <script>
+        //validate first name
+        function manageFname(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var fNameInvalidText = document.getElementById('first_name_invalid_text');
+            var validText = document.getElementById('first_name_valid_text');
+
+            if (txt.value === '') {
+                bt.disabled = true;
+                fNameInvalidText.hidden = false;
+                validText.hidden = true;
+            } else {
+                bt.disabled = false;
+                fNameInvalidText.hidden = true;
+                validText.hidden = false;
+            }
+        }
+
+        //validate last name
+        function manageLname(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var lNameInvalidText = document.getElementById('last_name_invalid_text');
+            var validText = document.getElementById('last_name_valid_text');
+
+            if (txt.value === '') {
+                bt.disabled = true;
+                lNameInvalidText.hidden = false;
+                validText.hidden = true;
+            } else {
+                bt.disabled = false;
+                lNameInvalidText.hidden = true;
+                validText.hidden = false;
+            }
+        }
+
+        //validate NRC no
+        function manageNRCNO(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var NRCNOInvalidText = document.getElementById('nrc_no_invalid_text');
+            var validText = document.getElementById('nrc_no_valid_text');
+
+            if (txt.value === '') {
+                bt.disabled = true;
+                NRCNOInvalidText.hidden = false;
+                validText.hidden = true;
+            } else {
+                bt.disabled = false;
+                NRCNOInvalidText.hidden = true;
+                validText.hidden = false;
+            }
+        }
+
+        //validate phone_number
+        function managePhoneNO(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var PhoneNumberInvalidText = document.getElementById('phone_number_invalid_text');
+            var validText = document.getElementById('phone_number_valid_text');
+
+            if (txt.value === '') {
+                bt.disabled = true;
+                PhoneNumberInvalidText.hidden = false;
+                validText.hidden = true;
+            } else {
+                bt.disabled = false;
+                PhoneNumberInvalidText.hidden = true;
+                validText.hidden = false;
+            }
+        }
+
+        //validate email
+        function manageEmail(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var EmailInvalidText = document.getElementById('email_invalid_text');
+            var EmailValidText = document.getElementById('email_valid_text');
+
+            if (txt.value === '') {
+                bt.disabled = true;
+                EmailInvalidText.hidden = false;
+                EmailValidText.hidden = true;
+            } else {
+                bt.disabled = false;
+                EmailInvalidText.hidden = true;
+                EmailValidText.hidden = false;
+            }
+        }
+
+        //validate physical address
+        function managePhysicalAddress(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var PhysicalAddressInvalidText = document.getElementById('physical_address_invalid_text');
+            var PhysicalAddressValidText = document.getElementById('physical_address_valid_text');
+
+            if (txt.value === '') {
+                bt.disabled = true;
+                PhysicalAddressInvalidText.hidden = false;
+                PhysicalAddressValidText.hidden = true;
+            } else {
+                bt.disabled = false;
+                PhysicalAddressInvalidText.hidden = true;
+                PhysicalAddressValidText.hidden = false;
+            }
+        }
+
+        //validate date of birth
+        function manageDateOfBirth(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var DOBInvalidText = document.getElementById('date_of_birth_invalid_text');
+            var DOBValidText = document.getElementById('date_of_birth_valid_text');
+
+            if (txt.value === '') {
+                bt.disabled = true;
+                DOBInvalidText.hidden = false;
+                DOBValidText.hidden = true;
+            } else {
+                bt.disabled = false;
+                DOBInvalidText.hidden = true;
+                DOBValidText.hidden = false;
+            }
+        }
+
+        //validate sponsors_name_or_next_of_kin
+        function manageSponsorNextOfKin(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var sponsorsNameOrNextOfKinInvalidText = document.getElementById('sponsors_name_or_next_of_kin_invalid_text');
+            var sponsorsNameOrNextOfKinValidText = document.getElementById('sponsors_name_or_next_of_kin_valid_text');
+
+            if (txt.value === '') {
+                bt.disabled = true;
+                sponsorsNameOrNextOfKinInvalidText.hidden = false;
+                sponsorsNameOrNextOfKinValidText.hidden = true;
+            } else {
+                bt.disabled = false;
+                sponsorsNameOrNextOfKinInvalidText.hidden = true;
+                sponsorsNameOrNextOfKinValidText.hidden = false;
+            }
+        }
+
+        //validate sponsors_name_or_next_of_kin
+        function manageSponsorNextOfKinCellNo(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var sponsorsNameOrNextOfKinCellNoInvalidText = document.getElementById('sponsor_or_next_of_kin_cell_no_invalid_text');
+            var sponsorsNameOrNextOfKinCellNoValidText = document.getElementById('sponsor_or_next_of_kin_cell_no_valid_text');
+
+            if (txt.value === '') {
+                bt.disabled = true;
+                sponsorsNameOrNextOfKinCellNoInvalidText.hidden = false;
+                sponsorsNameOrNextOfKinCellNoValidText.hidden = true;
+            } else {
+                bt.disabled = false;
+                sponsorsNameOrNextOfKinCellNoInvalidText.hidden = true;
+                sponsorsNameOrNextOfKinCellNoValidText.hidden = false;
+            }
+        }
+
+        //validate program applied for
+        function manageProgramAppliedFor(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var programAppliedForInvalidText = document.getElementById('program_applied_for_invalid_text');
+            var programAppliedForValidText = document.getElementById('program_applied_for_valid_text');
+
+            if (txt.value === 'nothing_selected') {
+                bt.disabled = true;
+                programAppliedForInvalidText.hidden = false;
+                programAppliedForValidText.hidden = true;
+            } else {
+                bt.disabled = false;
+                programAppliedForInvalidText.hidden = true;
+                programAppliedForValidText.hidden = false;
+            }
+        }
+
+        //validate high school
+        function manageHighSchoolAttended(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var schoolNameInvalidText = document.getElementById('school_name_invalid_text');
+            var schoolNameValidText = document.getElementById('school_name_valid_text');
+
+            if (txt.value === '') {
+                bt.disabled = true;
+                schoolNameInvalidText.hidden = false;
+                schoolNameValidText.hidden = true;
+            } else {
+                bt.disabled = false;
+                schoolNameInvalidText.hidden = true;
+                schoolNameValidText.hidden = false;
+            }
+        }
+
+        //validate school_start_year
+        function manageStartYear(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var schoolStartYearInvalidText = document.getElementById('school_start_year_invalid_text');
+            var schoolStartYearValidText = document.getElementById('school_start_year_valid_text');
+
+            if (txt.value === '') {
+                bt.disabled = true;
+                sschoolStartYearInvalidText.hidden = false;
+                schoolStartYearValidText.hidden = true;
+            } else {
+                bt.disabled = false;
+                schoolStartYearInvalidText.hidden = true;
+                schoolStartYearValidText.hidden = false;
+            }
+        }
+
+        //validate school_end_year
+        function manageEndYear(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var schoolEndYearInvalidText = document.getElementById('school_end_year_invalid_text');
+            var schoolEndYearValidText = document.getElementById('school_end_year_valid_text');
+
+            if (txt.value === '') {
+                bt.disabled = true;
+                schoolEndYearInvalidText.hidden = false;
+                schoolEndYearValidText.hidden = true;
+            } else {
+                bt.disabled = false;
+                schoolEndYearInvalidText.hidden = true;
+                schoolEndYearValidText.hidden = false;
+            }
+        }
+
+        //validate school_end_year
+        function manageResults(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var scanned_statement_of_resultInvalidText = document.getElementById('scanned_statement_of_result_invalid_text');
+            var scanned_statement_of_resultValidText = document.getElementById('scanned_statement_of_result_valid_text');
+
+            if (txt.value === '') {
+                bt.disabled = true;
+                scanned_statement_of_resultInvalidText.hidden = false;
+                scanned_statement_of_resultValidText.hidden = true;
+            } else {
+                bt.disabled = false;
+                scanned_statement_of_resultInvalidText.hidden = true;
+                scanned_statement_of_resultValidText.hidden = false;
+            }
+        }
+
+        //validate NRC front
+        function manageScannedNRCFront(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var scanned_nrc_frontInvalidText = document.getElementById('scanned_nrc_front_invalid_text');
+            var scanned_nrc_frontValidText = document.getElementById('scanned_nrc_front_valid_text');
+
+            if (txt.value === '') {
+                bt.disabled = true;
+                scanned_nrc_frontInvalidText.hidden = false;
+                scanned_nrc_frontValidText.hidden = true;
+            } else {
+                bt.disabled = false;
+                scanned_nrc_frontInvalidText.hidden = true;
+                scanned_nrc_frontValidText.hidden = false;
+            }
+        }
+
+        //validate NRC back
+        function manageScannedNRCBack(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var scanned_nrc_backInvalidText = document.getElementById('scanned_nrc_back_invalid_text');
+            var scanned_nrc_backValidText = document.getElementById('scanned_nrc_back_valid_text');
+
+            if (txt.value === '') {
+                bt.disabled = true;
+                scanned_nrc_backInvalidText.hidden = false;
+                scanned_nrc_backValidText.hidden = true;
+            } else {
+                bt.disabled = false;
+                scanned_nrc_backInvalidText.hidden = true;
+                scanned_nrc_backValidText.hidden = false;
+            }
+        }
+
+        //validate scanned deposit slip
+        function manageScannedDepositSlip(txt) {
+            var bt = document.getElementById('btSubmitApplication');
+            var scanned_deposit_slipInvalidText = document.getElementById('scanned_deposit_slip_invalid_text');
+            var scanned_deposit_slipValidText = document.getElementById('scanned_deposit_slip_valid_text');
+
+            if (txt.value === '') {
+                bt.disabled = true;
+                scanned_deposit_slipInvalidText.hidden = false;
+                scanned_deposit_slipValidText.hidden = true;
+            } else {
+                bt.disabled = false;
+                scanned_deposit_slipInvalidText.hidden = true;
+                scanned_deposit_slipValidText.hidden = false;
+            }
+        }
+    </script>
+
+
+
+    <script>
+        document.getElementById("btnNextP1").addEventListener("click", checkInputValidationPart1);
+        document.getElementById("btnNextP2").addEventListener("click", checkInputValidationPart2);
+        document.getElementById("btnNextP3").addEventListener("click", checkInputValidationPart3);
+        document.getElementById("btnNextP4").addEventListener("click", checkInputValidationPart4);
+        document.getElementById("btnNextP5").addEventListener("click", checkInputValidationPart5);
+
+        // controls for the tab buttons
+        // document.getElementById("part-1-tab").addEventListener("click", checkInputValidationPart1);
+
+        //get element ids for Part 1 inputs
+        var fName = document.getElementById("first_name");
+        var fNameInvalidText = document.getElementById('first_name_invalid_text');
+
+        var lName = document.getElementById("last_name");
+        var lNameInvalidText = document.getElementById('last_name_invalid_text');
+
+        var NRCNO = document.getElementById("nrc_no");
+        var NRCNOInvalidText = document.getElementById('nrc_no_invalid_text');
+
+        var phoneNumber = document.getElementById("phone_number");
+        var phoneNumberInvalidText = document.getElementById('phone_number_invalid_text');
+
+        var emailAddress = document.getElementById("email");
+        var emailInvalidText = document.getElementById('email_invalid_text');
+
+        var physicalAddress = document.getElementById("physical_address");
+        var physicalAddressInvalidText = document.getElementById('physical_address_invalid_text');
+
+
+        // get input ids for Part 2 elements
+        // get input ids for Part 2 elements
+        var sponsorsNameOrNextOfKin = document.getElementById("sponsors_name_or_next_of_kin");
+        var sponsorsNameOrNextOfKinInvalidText = document.getElementById('sponsors_name_or_next_of_kin_invalid_text');
+
+        var sponsorsNameOrNextOfKinCellNo = document.getElementById("sponsor_or_next_of_kin_cell_no");
+        var sponsorsNameOrNextOfKinCellNoInvalidText = document.getElementById('sponsor_or_next_of_kin_cell_no_invalid_text');
+
+
+        // get input ids for Part 3 elements
+        // get input ids for Part 3 elements
+        var programAppliedFor = document.getElementById("program_applied_for");
+        var programAppliedForInvalidText = document.getElementById('program_applied_for_invalid_text');
+        var programAppliedForValidText = document.getElementById('program_applied_for_valid_text');
+
+        var schoolName = document.getElementById("school_name");
+        var schoolNameInvalidText = document.getElementById('school_name_invalid_text');
+
+        var schoolStartYear = document.getElementById("school_start_year");
+        var schoolStartYearInvalidText = document.getElementById('school_start_year_invalid_text');
+
+        var schoolEndYear = document.getElementById("school_end_year");
+        var schoolEndYearInvalidText = document.getElementById('school_end_year_invalid_text');
+
+
+        // get input ids for Part 4 elements
+        // get input ids for Part 4 elements subject_english
+        var subject_english = document.getElementById("subject_english");
+        var subject_mathematics = document.getElementById("subject_mathematics");
+        var subject_biology_human_and_social = document.getElementById("subject_biology_human_and_social");
+        var subject_history = document.getElementById("subject_history");
+        var subject_religious_education = document.getElementById("subject_religious_education");
+        var subject_commerce = document.getElementById('subject_commerce');
+        var subject_home_economics = document.getElementById('subject_home_economics');
+        var subject_geography = document.getElementById('subject_geography');
+        var subject_physical_science = document.getElementById('subject_physical_science');
+        var subject_chemistry = document.getElementById('subject_chemistry');
+        var subject_physics = document.getElementById('subject_physics');
+        var subject_civic_education = document.getElementById('subject_civic_education');
+
+
+        // get ids for Part 5 elements
+        var scannedStatementOfResult = document.getElementById("scanned_statement_of_result");
+        var scannedStatementOfResultInvalidText = document.getElementById('scanned_statement_of_result_invalid_text');
+
+        var scannedNRCFront = document.getElementById("scanned_nrc_front");
+        var scannedNRCFrontInvalidText = document.getElementById('scanned_nrc_front_invalid_text');
+
+        var scannedNRCBack = document.getElementById("scanned_nrc_back");
+        var scannedNRCBackInvalidText = document.getElementById('scanned_nrc_back_invalid_text');
+
+        var scannedDepositSlip = document.getElementById("scanned_deposit_slip");
+        var scannedDepositSlipInvalidText = document.getElementById('scanned_deposit_slip_invalid_text');
+
+
+        // input validation for part 1
+        function checkInputValidationPart1() {
+            //Show a popup if any of the required fields has been left blank
+            if (fName.value === '' || lName.value === '' || NRCNO.value === '' || phoneNumber.value === '' || emailAddress.value === '' || physicalAddress.value === '') {
+                alert("Make sure that all the required fields are filled in.");
+            }
+            if (fName.value === '') {
+                fNameInvalidText.hidden = false;
+            }
+            if (lName.value === '') {
+                lNameInvalidText.hidden = false;
+            }
+            if (NRCNO.value === '') {
+                NRCNOInvalidText.hidden = false;
+            }
+            if (phoneNumber.value === '') {
+                phoneNumberInvalidText.hidden = false;
+            }
+            if (emailAddress.value === '') {
+                emailInvalidText.hidden = false;
+            }
+            if (physicalAddress.value === '') {
+                physicalAddressInvalidText.hidden = false;
+            }
+
+            //Go to the next tab if all required data is filled in
+            if (fName.value !== '' && lName.value !== '' && NRCNO.value !== '' && phoneNumber.value !== '' && emailAddress.value !== '' && physicalAddress.value !== '') {
+                $('.nav-pills .active').parent().next('li').find('a').trigger('click');
+            }
+        }
+
+        // input validation for part 2
+        function checkInputValidationPart2() {
+            //Show a popup if any of the required fields has been left blank
+            if (sponsorsNameOrNextOfKin.value === '' || sponsorsNameOrNextOfKinCellNo === '') {
+                alert("Make sure that all the required fields are filled in.");
+            }
+            if (sponsorsNameOrNextOfKin.value === '') {
+                sponsorsNameOrNextOfKinInvalidText.hidden = false;
+            }
+            if (sponsorsNameOrNextOfKinCellNo.value === '') {
+                sponsorsNameOrNextOfKinCellNoInvalidText.hidden = false;
+            }
+
+            //Go to the next tab if all required data is filled in
+            if (sponsorsNameOrNextOfKin.value !== '' && sponsorsNameOrNextOfKinCellNo.value !== '') {
+                $('.nav-pills .active').parent().next('li').find('a').trigger('click');
+            }
+        }
+
+        // input validation for part 3
+        function checkInputValidationPart3() {
+            //Show a popup if any of the required fields has been left blank
+            if (programAppliedFor.value === 'nothing_selected' || schoolName.value === '' || schoolStartYear.value === '' || schoolEndYear.value === '') {
+                alert("Make sure that all the required fields are filled in.");
+            }
+            if (programAppliedFor.value === 'nothing_selected') {
+                programAppliedForInvalidText.hidden = false;
+            }
+            if (schoolName.value === '') {
+                schoolNameInvalidText.hidden = false;
+            }
+            if (schoolStartYear.value === '') {
+                schoolStartYearInvalidText.hidden = false;
+            }
+            if (schoolEndYear.value === '') {
+                schoolEndYearInvalidText.hidden = false;
+            }
+
+            //Go to the next tab if all required data is filled in
+            if (programAppliedFor.value !== 'nothing_selected' && schoolName.value !== '' && schoolStartYear.value !== '' && schoolEndYear.value !== '') {
+                $('.nav-pills .active').parent().next('li').find('a').trigger('click');
+            }
+        }
+
+        // input validation for part 4
+        function checkInputValidationPart4() {
+            //Show a popup if any of the required fields has been left blank
+            //if(subject_english.value === '' || subject_physical_science.value === '' || subject_civic_education.value === '' || subject_physics.value === '' || subject_geography.value === '' || subject_home_economics.value === '' || subject_commerce.value === '' || subject_religious_education.value === '' || subject_mathematics.value === '' || subject_chemistry.value === '' || subject_biology_human_and_social.value === '' || subject_history.value === ''){
+            //    alert("Please enter grades for at least 5 subjects.");
+            //}
+
+            //Go to the next tab if all required data is filled in
+            //if(subject_english.value !== '' && subject_physical_science.value !== '' && subject_civic_education.value !== '' && subject_physics.value !== '' && subject_geography.value !== '' && subject_home_economics.value !== '' && subject_commerce.value !== '' && subject_religious_education.value !== '' && subject_mathematics.value !== '' && subject_chemistry.value !== '' && subject_biology_human_and_social.value !== '' && subject_history.value !== ''){
+            $('.nav-pills .active').parent().next('li').find('a').trigger('click');
+            //}
+        }
+
+        // input validation for part 5
+        function checkInputValidationPart5() {
+            //Show a popup if any of the required fields has been left blank
+            if (scannedStatementOfResult.value === '' || scannedDepositSlip.value === '' || scannedNRCFront.value === '' || scannedNRCBack.value === '') {
+                alert("Please ensure all required documents are selected.");
+            }
+            if (scannedStatementOfResult.value === '') {
+                scannedStatementOfResultInvalidText.hidden = false;
+            }
+            if (scannedDepositSlip.value === '') {
+                scannedDepositSlipInvalidText.hidden = false;
+            }
+            if (scannedNRCFront.value === '') {
+                scannedNRCFrontInvalidText.hidden = false;
+            }
+            if (scannedNRCBack.value === '') {
+                scannedNRCBackInvalidText.hidden = false;
+            }
+
+            //Go to the next tab if all required data is filled in
+            if (scannedStatementOfResult.value !== '' && scannedDepositSlip.value !== '' && scannedNRCFront.value !== '' && scannedNRCBack.value !== '') {
+                $('.nav-pills .active').parent().next('li').find('a').trigger('click');
+            }
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <script>
+        $('#date_of_birth').datepicker({
+            uiLibrary: 'bootstrap'
+        });
+    </script>
+    <script>
+        $('#school_start_year').datepicker({
+            uiLibrary: 'bootstrap'
+        });
+    </script>
+    <script>
+        $('#school_end_year').datepicker({
+            uiLibrary: 'bootstrap'
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/1b59bc20c8.js"></script>
+
+
+    <script>
+        // Disable form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Get the forms we want to add validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+
+    <script>
+        $('.btnNext').click(function () {
+            $('.nav-pills .active').parent().next('li').find('a').trigger('click');
+        });
+
+        $('.btnPrevious').click(function () {
+            $('.nav-pills .active').parent().prev('li').find('a').trigger('click');
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% block title %}Search Applicant{% endblock %}
+
+{% block content %}
+    <div class="main-wrapper">
+
+        <div class="page-wrapper">
+            <div class="content container-fluid">
+
+                <div class="page-header">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="page-title">Search Application</h3>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'admin_admissions_list' %}">Applications</a></li>
+                                <li class="breadcrumb-item active">Search Application</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                {% if error_message %}
+                                <div class="alert alert-danger text-center">{{ error_message }}</div>
+                            {% endif %}
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h5 class="form-title"><span>Search Application By Student Number</span></h5>
+                                        </div>
+                                            <div class="col-12 col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="student_number">Enter Student Number</label>
+                                                    <input class="form-control" type="text" name="student_number" id="student_number">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-primary">Search</button>
+                                            </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

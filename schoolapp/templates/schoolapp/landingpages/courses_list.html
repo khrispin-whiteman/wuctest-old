@@ -1,0 +1,24 @@
+{% extends 'schoolapp/landingpages/base_landing_pages.html' %}
+
+{% block title %}All Courses{% endblock %}
+
+{% block content %}
+    <div style="padding-top: 100px; padding-bottom: 100px;" class="content">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><a href="{% url 'programs' %}">PROGRAMS</a> | <a href="{% url 'courses' %}"> COURSES</a> | {{ program.program_name | upper }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                     {% for course in courses %}
+                        <a href="{% url 'course_details' course.id %}" class="list-group-item list-group-item-action">{{ course.course_code }} - {{ course.course_name }}, {{ course.level }}</a>
+                        {% empty %}
+                            <a href="#" class="list-group-item list-group-item-action"><i class="alert-warning">No Details Found</i></a>
+                     {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

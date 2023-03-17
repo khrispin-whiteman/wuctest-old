@@ -1,0 +1,45 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% load static %}
+
+{% block title %}Registration Successful{% endblock %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Registration Successful</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Registration Successful</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-header text-center"
+                                 style="padding-top: 20px; padding-left: 30px; color: #4cb214;">Registration Successful!
+                            </div>
+                            <div class="card-body text-center">
+                                <img style="width: 50px;"
+                                     src="{% static 'schoolapp/landingpages/images/check-mark-verified.gif' %}">
+                                {#                <p>Thank you for your application!</p>#}
+                                <p>The Student can now check his/her mailbox for further instructions on how his/her can
+                                    edit their
+                                    application and check its status.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

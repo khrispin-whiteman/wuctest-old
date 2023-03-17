@@ -1,0 +1,76 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% block title %}Assessment{% endblock %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Assessments</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Assessments</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-table">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="table_assessments" class="table table-hover table-bordered table-striped">
+                                    <thead>
+                                    {% if success_message %}
+                                        <div class="alert alert-success">{{ success_message }}</div>
+                                    {% endif %}
+                                    {% if error_message %}
+                                        <div class="alert alert-success">{{ error_message }}</div>
+                                    {% endif %}
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Course</th>
+                                        <!-- <th>Assessment Type</th> -->
+                                        <th>Total Marks</th>
+                                        <th>Date Of Assessment</th>
+                                        {% if not request.user.is_student %}
+                                        <th class="text-right">Action</th>
+                                        {% endif %}
+                                    </tr>
+
+                                    </thead>
+                                    <tbody>
+                                    {% for assessment in assessments %}
+                                    <tr>
+                                        <td>{{ assessment.assessment_name }}</td>
+                                        <td>{{ assessment.course }}</td>
+                                        <!-- <td>{{ assessment.assessment_type }}</td> -->
+                                        <td>{{ assessment.total_marks }}</td>
+                                        <td>{{ assessment.date }}</td>
+                                        {% if not request.user.is_student %}
+                                            <td><a href="{% url 'add_score_for' assessment.id assessment.course.id %}" class="btn btn-outline-primary">Add Scores</a> </td>
+                                        {% endif %}
+                                    </tr>
+                                    {% empty %}
+                                        No data in table
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Copyright © {% now 'Y' %}.</p>
+        </footer>
+
+    </div>
+{% endblock %}

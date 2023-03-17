@@ -1,0 +1,75 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% load static %}
+
+{% block title %}Final Results{% endblock %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="page-title">Final Results</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item active"><a href="{% url 'dashboard' %}"> Dashboard</a>
+                                /Final Results
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <!-- <h5 class="card-title mb-2">Admissions Office</h5> -->
+                        </div>
+                        <div class="card-body">
+                            {% if success_message %}
+                                <i class="d-flex justify-content-center alert alert-success">{{ success_message }}</i>
+                            {% endif %}
+                            {% if error_message %}
+                                <i class="d-flex justify-content-center alert alert-danger">{{ error_message }}</i>
+                            {% endif %}
+                            <div class="table-responsive">
+                                <table id="" class="datatable table table-stripped">
+                                    <thead>
+                                    <tr>
+                                        <th>Course Name</th>
+                                        <th>Semester</th>
+                                        <th>Total</th>
+                                        <th>Grade</th>
+                                        <th>Comment</th>
+                                        <th>Action</th>
+                                       
+                                    </tr>
+                                    </thead>
+                                    {% for result in results reversed %}
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ result.course }}</td>
+                                            <td>{{ result.semester }}</td>
+                                            <td>{{ result.total }}</td>
+                                            <td>{{ result.grade }}</td>
+                                            <td>{{ result.comment }}</td>
+                                            <td><a href="" class="btn btn-sm btn-primary">View <i class="fa fa-eye"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                    {% empty %}
+                                        <i class="d-flex justify-content-center alert alert-info">No results have been uploaded for the current semester.</i><br>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <footer>
+            <p>Copyright © {% now 'Y' %}.</p>
+        </footer>
+    </div>
+{% endblock %}

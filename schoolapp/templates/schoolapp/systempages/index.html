@@ -1,0 +1,260 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+{% if student_courses == 0 %}
+   <script type="text/javascript">
+      $(document).ready(function(){
+         $("#acceptCourseModal").modal('show');
+      });
+   </script>
+{% endif %}
+
+     <div class="page-wrapper">
+            <div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row">
+                     <div class="col-sm-12">
+                        <h3 class="page-title">Welcome {{ request.user | capfirst }}!</h3>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item active">Dashboard</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+
+
+               {% if request.user.is_student %}
+                  <div class="row">
+                     <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                        <div class="card bg-one w-100">
+                           <div class="card-body">
+                              <div class="db-widgets d-flex justify-content-between align-items-center">
+                                 <div class="db-icon">
+                                    <i class="fas fa-user-graduate"></i>
+                                 </div>
+                                 <div class="db-info">
+                                    <h6>{{ student.student_admission_details.program_applied_for }}</h3>
+                                    <!-- <h3>Program Of Study</h6> -->
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                        <div class="card bg-two w-100">
+                           <div class="card-body">
+                              <div class="db-widgets d-flex justify-content-between align-items-center">
+                                 <div class="db-icon">
+                                    <i class="fas fa-book"></i>
+                                 </div>
+                                 <div class="db-info">
+                                    <h3>{{ student.level }}</h3>
+                                    <h6>Year Of Study</h6>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                        <div class="card bg-three w-100">
+                           <div class="card-body">
+                              <div class="db-widgets d-flex justify-content-between align-items-center">
+                                 <div class="db-icon">
+                                    <i class="fas fa-book-reader"></i>
+                                 </div>
+                                 <div class="db-info">
+                                    <h3>{{ student_registered_dashbord_count | length }}</h3>
+                                    <h6>Registered Courses</h6>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                        <div class="card bg-four w-100">
+                           <div class="card-body">
+                              <div class="db-widgets d-flex justify-content-between align-items-center">
+                                 <div class="db-icon">
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                 </div>
+                                 <div class="db-info">
+                                    <h3>{{ student_written_assessments | length }}</h3>
+                                    <h6>Completed Assessments</h6>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               {% endif %}
+
+
+               {% if not request.user.is_student %}
+                  <div class="row">
+                     <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                        <div class="card bg-one w-100">
+                           <div class="card-body">
+                              <div class="db-widgets d-flex justify-content-between align-items-center">
+                                 <div class="db-icon">
+                                    <i class="fas fa-user-graduate"></i>
+                                 </div>
+                                 <div class="db-info">
+                                    <h3>{{ students | length }}</h3>
+                                    <h6>All Students</h6>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                        <div class="card bg-two w-100">
+                           <div class="card-body">
+                              <div class="db-widgets d-flex justify-content-between align-items-center">
+                                 <div class="db-icon">
+                                    <i class="fas fa-book"></i>
+                                 </div>
+                                 <div class="db-info">
+                                    <h3>{{ courses | length }}</h3>
+                                    <h6>Courses</h6>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                        <div class="card bg-three w-100">
+                           <div class="card-body">
+                              <div class="db-widgets d-flex justify-content-between align-items-center">
+                                 <div class="db-icon">
+                                    <i class="fas fa-book-reader"></i>
+                                 </div>
+                                 <div class="db-info">
+                                    <h3>{{ programs | length }}</h3>
+                                    <h6>Progams</h6>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                        <div class="card bg-four w-100">
+                           <div class="card-body">
+                              <div class="db-widgets d-flex justify-content-between align-items-center">
+                                 <div class="db-icon">
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                 </div>
+                                 <div class="db-info">
+                                    <h3>{{ staff | length }}</h3>
+                                    <h6>Staff</h6>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+           
+
+                  <div class="row">
+                     <div class="col-md-12 col-lg-6">
+                        <div class="card card-chart">
+                           <div class="card-header">
+                              <div class="row align-items-center">
+                                 <div class="col-6">
+                                    <h5 class="card-title">Revenue</h5>
+                                 </div>
+                                 <div class="col-6">
+                                    <ul class="list-inline-group text-right mb-0 pl-0">
+                                       <li class="list-inline-item">
+                                          <div class="form-group mb-0 amount-spent-select">
+                                             <select class="form-control form-control-sm">
+                                                <option>Today</option>
+                                                <option>Last Week</option>
+                                                <option>Last Month</option>
+                                             </select>
+                                          </div>
+                                       </li>
+                                    </ul>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="card-body">
+                              <div id="apexcharts-area"></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-12 col-lg-6">
+                        <div class="card card-chart">
+                           <div class="card-header">
+                              <div class="row align-items-center">
+                                 <div class="col-6">
+                                    <h5 class="card-title">Number of Students</h5>
+                                 </div>
+                                 <div class="col-6">
+                                    <ul class="list-inline-group text-right mb-0 pl-0">
+                                       <li class="list-inline-item">
+                                          <div class="form-group mb-0 amount-spent-select">
+                                             <select class="form-control form-control-sm">
+                                                <option>Clinical Medicine</option>
+                                                <option>Registered Nursing</option>
+                                                <option>Bachelor of Science Public Health</option>
+                                             </select>
+                                          </div>
+                                       </li>
+                                    </ul>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="card-body">
+                              <div id="bar"></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               {% endif %}
+
+               
+            </div>
+            <footer>
+               <p>Copyright © {% now 'Y' %}.</p>
+            </footer>
+         </div>
+
+
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="acceptCourseModal" tabindex="-1" role="dialog" aria-labelledby="acceptCourseModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel"><div class="text-center alert alert-danger">Confirm Courses For The Current Semester To Proceed!</div></h5>
+         <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button> -->
+       </div>
+       <div class="modal-body">
+         <form method="POST" action="{% url 'auto_course_registration' %}">
+           {% csrf_token %}
+           <div class="form-group form-check">
+               {% for course in courses_in_program %}
+                   <input type="checkbox" checked class="form-check-input" name="{{ course.id }}" id="{{ course.id }}">
+                   <label class="form-check-label" for="exampleCheck1">{{ course.course_name }}</label><br>
+               {% endfor %}
+             </div>
+             <button type="submit" class="btn btn-block btn-outline-primary">Confirm Course Registration</button>
+         </form>
+       </div>
+       <!-- <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         <button type="button" class="btn btn-primary">Accept</button>
+       </div> -->
+     </div>
+   </div>
+ </div>
+{% endblock %}

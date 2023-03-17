@@ -1,0 +1,29 @@
+{% extends 'schoolapp/landingpages/base_landing_pages.html' %}
+{% load static %}
+
+{% block title %}Check Application Status{% endblock %}
+
+{% block content %}
+    <br><br><br>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header text-center" style="padding-top: 20px; padding-left: 30px;">APPLICATION STATUS FOR:
+                <strong style="color: blue;">{{ application_detail.first_name }} {{ application_detail.last_name }}</strong>
+                WITH NRC NUMBER: <strong style="color: blue;">{{ application_detail.nrc_no }}</strong>
+            </div>
+            <div class="card-body text-center">
+                <img style="width: 120px;" src="{% static 'schoolapp/landingpages/images/loaderImg.gif' %}"><br>
+                YOUR APPLICATION STATUS IS: <strong style="color: blue;">{{ application_detail.application_status }}</strong>
+                <p><strong>Note</strong> that an email will be sent to you once your application has been processed and /finalized.
+                </p>
+                <a href="{% url 'updateonlineapplication' student_no %}" class="btn btn-outline-primary">
+                    Update Application Details <i class="fa fa-pencil"></i>
+                </a>
+                <a href="{% url 'generate_pdf_for_student_application' application_detail.id  %}" type="button" class="btn btn-outline-primary">
+                    Download Application <i class="fa fa-print"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <br>
+{% endblock %}

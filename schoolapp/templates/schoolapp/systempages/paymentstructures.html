@@ -1,0 +1,73 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% block title %}Payment Structures | WUC{% endblock %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Payment Structures</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Payment Structures</li>
+                        </ul>
+                        <div class="text-right">
+                            <a href="{% url 'add_payment_structure' %}" class="btn btn-outline-primary">Add New Payment Structure</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-table">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="table_payment_structures" class="table table-hover table-center table-bordered table-stripped">
+                                    <thead>
+                                    {% if success_message %}
+                                        <div class="alert alert-success">{{ success_message }}</div>
+                                    {% endif %}
+                                    {% if error_message %}
+                                        <div class="alert alert-success">{{ error_message }}</div>
+                                    {% endif %}
+                                    <tr>
+                                        <th>Payment Level</th>
+                                        <th>Amount Due</th>
+                                        <th>Payment Type</th>
+                                        <th>Action</th>
+                                    </tr>
+
+                                    </thead>
+                                    <tbody>
+
+                                    {% for ps in paymentstructures %}
+                                    <tr>
+                                        <td>{{ ps.payment_level }}</td>
+                                        <td>{{ ps.amount_to_be_paid }}</td>
+                                        <td>{{ ps.payment_description }}</td>
+                                        <td><a href="" class="btn btn-outline-success">Edit</a> </td>
+                                        <!-- <td><a href="" class="btn btn-outline-danger">Delete</a> </td> -->
+                                    </tr>
+                                    {% empty %}
+                                        No data in table
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Copyright © {% now 'Y' %}.</p>
+        </footer>
+
+    </div>
+{% endblock %}

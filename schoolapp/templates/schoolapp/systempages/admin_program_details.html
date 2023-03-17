@@ -1,0 +1,81 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% block title %}Courses{% endblock %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Courses</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                            <!-- <li class="breadcrumb-item"><a href="{% url 'admin_list_years_of_study' %}">Years Of Study</a></li> -->
+                            <li class="breadcrumb-item active"><a href="{% url 'admin_list_programs' %}">Programs List</a></li>
+                            <li class="breadcrumb-item active"><a href="{% url 'program_details_admin' program.id %}">{{ program }} </a></li>
+                            <li class="breadcrumb-item active">Courses</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-table">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="table_courses" class="table table-hover table-bordered table-striped">
+                                    <thead>
+                                    {% if success_message %}
+                                        <div class="alert alert-success">{{ success_message }}</div>
+                                    {% endif %}
+                                    {% if error_message %}
+                                        <div class="alert alert-success">{{ error_message }}</div>
+                                    {% endif %}
+                                    <tr>
+                                        <th>Course Name</th>
+                                        <th>Course Code</th>
+                                        <!-- <th>Program</th>
+                                        <th>Description</th> -->
+                                        <th>Semester</th>
+                                        <th>Year Of Study</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+
+                                    </thead>
+                                    <tbody>
+                                    {% for course in courses %}
+                                    <tr>
+                                        <td>{{ course.course_name }}</td>
+                                        <td>{{ course.course_code }}</td>
+                                        <!-- <td>{{ course.course_program }}</td>
+                                        <td>{{ course.course_description | truncatechars:15 | safe }}</td> -->
+                                        <td>{{ course.semester }}</td>
+                                        <td>{{ course.level }}</td>
+                                        <td>
+                                            <a href="{% url 'create_assessment' course.id %}" class="btn btn-outline-primary">Create Assessment</a> 
+                                            <a href="{% url 'admin_list_assessments_incourse' course.id %}" class="btn btn-outline-primary">View Assessments</a> 
+                                            <!-- <a href="{% url 'admin_generate_final_result_for' program.id course.id %}" class="btn btn-outline-primary">Generate Final Score</a>  -->
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                        No data in table
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Copyright © {% now 'Y' %}.</p>
+        </footer>
+
+    </div>
+{% endblock %}

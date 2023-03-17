@@ -1,0 +1,61 @@
+{% extends 'schoolapp/landingpages/base_landing_pages.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+   <!-- Mirrored from preschool.dreamguystech.com/html-template/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 28 Oct 2021 11:11:39 GMT -->
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+      <title>WUC - Login</title>
+      <link rel="shortcut icon" href="{% static 'schoolapp/landingpages/images/logo.png' %}">
+
+    <link href="{% static 'schoolapp/systempages/assets/plugins/fontawesome/css/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'schoolapp/systempages/assets/css/style.css' %}" rel="stylesheet">
+   </head>
+   <body>
+      <div class="main-wrapper login-body">
+         <div class="login-wrapper">
+            <div class="container">
+               <div class="loginbox">
+                  <div class="login-left">
+                     <img class="img-fluid" src="{% static 'schoolapp/landingpages/images/logo.png' %}" alt="Logo">
+                  </div>
+                  <div class="login-right">
+                     <div class="login-right-wrap">
+                        <h1>Login</h1>
+                        <p class="account-subtitle">Access to our dashboard</p>
+                        <form action="{% url 'login' %}" method="post">
+                            {% csrf_token %}
+                           <div class="form-group">
+                              <input class="form-control" name="username" id="username" type="text" placeholder="Username">
+                           </div>
+                           <div class="form-group">
+                              <input class="form-control" name="password" id="password" type="password" placeholder="Password">
+                           </div>
+                           <div class="form-group">
+                              <button class="btn btn-primary btn-block" type="submit">Login</button>
+                           </div>
+                            <input type="hidden" name="next" value="{{ next }}" />
+
+                        </form>
+                        <div class="text-center forgotpass"><a href="{% url 'user_forgot_password' %}">Forgot Password?</a></div>
+{#                        <div class="login-or">#}
+{#                           <span class="or-line"></span>#}
+{#                           <span class="span-or">or</span>#}
+{#                        </div>#}
+{#                        <div class="social-login">#}
+{#                           <span>Login with</span>#}
+{#                           <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a><a href="#" class="google"><i class="fab fa-google"></i></a>#}
+{#                        </div>#}
+{#                        <div class="text-center dont-have">Don’t have an account? <a href="../schoolapp/systempages/register.html">Register</a></div>#}
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
+{% endblock %}

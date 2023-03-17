@@ -1,0 +1,75 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% block title %}Add Payment{% endblock %}
+
+{% block content %}
+    <div class="main-wrapper">
+
+        <div class="page-wrapper">
+            <div class="content container-fluid">
+
+                <div class="page-header">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="page-title">Add Payment</h3>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'payment_collections_list' %}">Payments</a></li>
+                                <li class="breadcrumb-item active">Add Payment</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="{% url 'payment_collect' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h5 class="form-title"><span>Payment Details</span></h5>
+                                        </div>
+                                            <div class="col-12 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>{{ add_payment_form.student.label_tag }}</label>
+                                                    {{ add_payment_form.student }}
+                                                    {{ add_payment_form.student.error_messages }}
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>{{ add_payment_form.semester.label_tag }}</label>
+                                                    {{ add_payment_form.semester }}
+                                                    {{ add_payment_form.semester.error_messages }}
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>{{ add_payment_form.paymentstructure.label_tag }}</label>
+                                                    {{ add_payment_form.paymentstructure }}
+                                                    {{ add_payment_form.paymentstructure.error_messages }}
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>{{ add_payment_form.amountpaid.label_tag }}</label>
+                                                    {{ add_payment_form.amountpaid }}
+                                                    {{ add_payment_form.amountpaid.error_messages }}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

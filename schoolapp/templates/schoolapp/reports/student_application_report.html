@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <title>Student Application Form</title>
+</head>
+<body>
+    
+    <div class="text-center">
+        <img src="http://127.0.0.1:8000/media/img/logo.png" width="100px">
+        <br>
+        <h4 style="color: #022677;">WOODLANDS UNIVERISTY COLLEGE</h4>
+        <p>Ibex Hill 2457 Main Street, Lusaka.</p>
+        <strong>College Application Form</strong>
+    </div>
+
+    <br>
+    <p>Application Status: <strong>{{ application_details.application_status }}</strong></p>
+    <hr>
+    <div class="container">
+    <div class="">
+        <table class="table  table-bordered">
+            <thead >
+            <tr>
+                <strong style="color: #0e72a2;"><h5>Personal Particulars</h5></strong>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Student Number: <br>
+                        <b style="color: black">
+                            {{ application_details.student_number }}
+                        </b>
+                    </td>
+                    <td>Email Address: <br>
+                        <b style="color: black">
+                            <a href="mailto://{{ application_details.email }}"> {{ application_details.email }}</a>
+                        </b>
+                    </td>
+                    <td>Nationality: <br>
+                        <b style="color: black">
+                            {{ application_details.nationality }}
+                        </b>
+                    </td>
+                </tr>
+        
+                <tr>
+                    <td>Full Name: <br>
+                        <b style="color: black">
+                            {{ application_details.first_name | capfirst }}
+                            {{ application_details.other_names | capfirst }}
+                            {{ application_details.last_name | capfirst }}
+                        </b>
+                    </td>
+                    <td>Date Of Birth: <br>
+                        <b style="color: black">
+                            {{ application_details.date_of_birth | capfirst }}
+                        </b>
+                    </td>
+                    <td>Physical Address: <br>
+                        <b style="color: black">
+                            {{ application_details.physical_address | capfirst }}
+                        </b>
+                    </td>
+                </tr>
+        
+                <tr>
+                    <td>NRC Number: <br>
+                        <b style="color: black">
+                            {{ application_details.nrc_no | capfirst }}
+                        </b>
+                    </td>
+                    <td>Gender: <br>
+                        <b style="color: black">
+                            {{ application_details.gender | capfirst }}
+                        </b>
+                    </td>
+                    <td>Postal Address: <br>
+                        <b style="color: black">
+                            {{ application_details.postal_address | capfirst }}
+                        </b>
+                    </td>
+                </tr>
+        
+                <tr>
+                    <td>Phone Number: <br>
+                        <b style="color: black">
+                            {{ application_details.phone_number | capfirst }}
+                        </b>
+                    </td>
+                    <td>Marital Status: <br>
+                        <b style="color: black">
+                            {{ application_details.marital_status | capfirst }}
+                        </b>
+                    </td>
+                    <td>Disabilities: <br>
+                        {% if application_details.state_of_any_disabilities %}
+                        <b style="color: black">
+                            {{ application_details.state_of_any_disabilities | capfirst }}
+                        </b>
+                        {% else %}
+                            <i>N/A</i>
+                        {% endif %}
+                    </td>
+                </tr>
+        
+                <tr>
+                    <td>Intake: <br>
+                        <b style="color: black">
+                            {{ application_details.intake }}
+                        </b>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+            
+<br>
+
+    <!-- FAMILY PARTICULARS TABLE -->
+    <table class="table  table-bordered">
+        <thead >
+        <tr>
+            <strong style="color: #0e72a2;"><h5>Family Particulars</h5></strong>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Sponsor’s Name Or Next of Kin: <br>
+                    <b style="color: black">
+                        {{ application_details.sponsors_name_or_next_of_kin }}
+                    </b>
+                </td>
+                <td>Sponsor Or Next of Kin Cell No: <br>
+                    <b style="color: black">
+                        {{ application_details.sponsor_or_next_of_kin_cell_no }}
+                    </b>
+                </td>
+            </tr>
+    
+            <tr>
+                <td>Relationship With Sponsor Or Next of Kin Below: <br>
+                    <b style="color: black">
+                        {{ application_details.relationship_with_sponsor_or_next_of_kin | capfirst }}
+                    </b>
+                </td>
+                <td>Sponsor Or Next of Kin Address: <br>
+                    <b style="color: black">
+                        {{ application_details.sponsor_or_next_of_kin_address | capfirst }}
+                    </b>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+<br>
+
+        <!-- Program Of Choice And Schools Attended TABLE -->
+        <table class="table  table-bordered">
+            <thead >
+            <tr>
+                <strong style="color: #0e72a2;"><h5>Program Of Choice And Schools Attended</h5></strong>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Program Selected: <br>
+                        <b style="color: black">
+                            {{ application_details.program_applied_for }}
+                        </b>
+                    </td>
+                    <td>Professional Qualifications: <br>
+                        
+                        {% if application_details.has_certificate %}
+                            <b style="color: black">
+                                Has Certificate
+                            </b>
+                        {% else %}
+                        {% endif %}
+                        {% if application_details.has_diploma %}
+                            <b style="color: black">
+                                Has Diploma
+                            </b>
+                        {% else %}
+                        {% endif %}
+                        {% if application_details.has_degree %}
+                            <b style="color: black">
+                                Has Degree
+                            </b>
+                        {% else %}
+                        {% endif %}
+                    </td>
+                </tr>
+        
+                <tr>
+                    <td>School Name: <br>
+                        <b style="color: black">
+                            {{ application_details.school_name | capfirst }}
+                        </b>
+                    </td>
+                    <td>School Start And End Year: <br>
+                        <b style="color: black">
+                            {{ application_details.school_start_year | capfirst }} - {{ application_details.school_end_year | capfirst }}
+                        </b>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+
+            <!-- ATTACHMENTS TABLE -->
+    <table class="table  table-bordered">
+        <thead >
+        <tr>
+            <strong style="color: #0e72a2;"><h5>Attachments</h5></strong>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Deposit Slip: <br>
+                    {% if application_details.scanned_deposit_slip %}
+                        <b style="color: black">
+                            SUBMITTED
+                        </b>
+                        {% else %}
+                            <i>Not Submitted</i>
+                    {% endif %}
+                </td>
+                <td>Grade 12 Result: <br>
+                    {% if application_details.scanned_statement_of_result %}
+                        <b style="color: black">
+                            SUBMITTED
+                        </b>
+                        {% else %}
+                            <i>Not Submitted</i>
+                    {% endif %}
+                </td>
+                <td>Identity Card: <br>
+                    {% if application_details.scanned_nrc_front %}
+                        <b style="color: black">
+                            SUBMITTED
+                        </b>
+                        {% else %}
+                            <i>Not Submitted</i>
+                    {% endif %}
+                </td>
+            </tr>
+    
+
+            {% if application_details.scanned_pq_certificate or application_details.scanned_pq_diploma or application_details.scanned_pq_degree %}
+                <tr>
+                    <td>Certificate: <br>
+                        {% if application_details.scanned_pq_certificate %}
+                            <b style="color: black">
+                                SUBMITTED
+                            </b>
+                            {% else %}
+                            <i>Nil</i>
+                        {% endif %}
+                    </td>
+                    <td>Diploma: <br>
+                        {% if application_details.scanned_pq_diploma %}
+                            <b style="color: black">
+                                SUBMITTED
+                            </b>
+                            {% else %}
+                            <i>Nil</i>
+                        {% endif %}
+                    </td>
+                    <td>Degree: <br>
+                        {% if application_details.scanned_pq_degree %}
+                            <b style="color: black">
+                                SUBMITTED
+                            </b>
+                            {% else %}
+                            <i>Nil</i>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+
+        </tbody>
+    </table>
+
+    <br>
+    <p class="text-center">---------------------------------End!---------------------------------</p>
+    </div>
+</body>
+</html>

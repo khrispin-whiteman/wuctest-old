@@ -1,0 +1,118 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% load static %}
+
+{% block title %}Registered Courses{% endblock %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="page-title">Course Management</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item active"><a href="{% url 'dashboard' %}"> Dashboard</a>
+                                /Course Management
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header" >
+                            {% if taken_courses.count != 0 %}
+                            <div class="alert alert-info text-center">All Current Semester Courses Registered!</div>
+                            {% endif %}
+                            <div class="btn-group mr-2" role="group">
+                                <div class="text-left">
+                                    {% if taken_courses.count == 0 %}
+                                    <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#acceptCourseModal">
+                                        Accept Current Semester Courses
+                                      </button>
+                                    {% else %}
+                                        
+                                    {% endif %}
+                                </div>
+                                <div class="text-right">
+                                    <a href="{% url 'student_register_course' %}" class="btn btn-sm btn-outline-primary">Register A Repeat Course</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {% if success_message %}
+                                <i class="d-flex justify-content-center alert alert-success">{{ success_message }}</i>
+                            {% endif %}
+                            {% if error_message %}
+                                <i class="d-flex justify-content-center alert alert-danger">{{ error_message }}</i>
+                            {% endif %}
+                            <div class="table-responsive">
+                                <h4>Registered Courses</h4><br>
+                                <table id="table_students_registered_course" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Course Name</th>
+                                        <th>Registration Type</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                    </thead>
+                                    {% for taken_course in taken_courses reversed %}
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ taken_course.course }}</td>
+                                            <td>{{ taken_course.registration_type }}</td>
+                                            <td><a href="{% url 'admin_list_assessments_incourse' taken_course.course.id %}" class="btn btn-sm btn-primary">View Assessments <i class="fa fa-eye"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                    {% empty %}
+                                        <i class="d-flex justify-content-center alert alert-info">No registered courses found.</i><br>
+                                    {% endfor %}
+                                </table>
+                                <a href="">View All Past Courses</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <footer>
+            <p>Copyright © {% now 'Y' %}.</p>
+        </footer>
+    </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="acceptCourseModal" tabindex="-1" role="dialog" aria-labelledby="acceptCourseModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><div class="text-center alert alert-danger">Confirm Courses For The Current Semester To Proceed!</div></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="{% url 'auto_course_registration' %}">
+            {% csrf_token %}
+            <div class="form-group form-check">
+                {% for course in courses_in_program %}
+                    <input type="checkbox" checked class="form-check-input" name="{{ course.id }}" id="{{ course.id }}">
+                    <label class="form-check-label" for="exampleCheck1">{{ course.course_name }}</label><br>
+                {% endfor %}
+              </div>
+              <button type="submit" class="btn btn-block btn-outline-primary">Confirm Course Registration</button>
+          </form>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Accept</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,882 @@
+{% extends 'schoolapp/landingpages/base_landing_pages.html' %}
+{% load static %}
+
+{% block title %}Update Online Application Details{% endblock %}
+
+{% block content %}
+    <nav class="navbar">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <div class="sidebar-brand-logo">
+                <img src="" class="logo-full"></div>
+        </a>
+    </nav>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="container d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <div class="card">
+
+                        <br>
+                        <div class="d-flex justify-content-center">
+                            <p>Update Your Application Details</p>
+                        </div>
+                        <hr>
+
+                        <div class="card-body">
+                            <div class="tabControl">
+                                <div class="container">
+                                    <ul class="nav nav-pills nav-fill" id="part-tab" role="tablist">
+                                        {#                                        <li class="nav-item">#}
+                                        {#                                            <a class="nav-link active" id="prerequisites-tab" data-toggle="pill"#}
+                                        {#                                               href="#prerequisites"#}
+                                        {#                                               role="tab">INSTRUCTIONS</a>#}
+                                        {#                                        </li>#}
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="part-1-tab" data-toggle="pill" href="#part-1"
+                                               role="tab">Part
+                                                1</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="part-2-tab" data-toggle="pill" href="#part-2"
+                                               role="tab">Part
+                                                2</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="part-3-tab" data-toggle="pill" href="#part-3"
+                                               role="tab">Part
+                                                3</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="part-3A-tab" data-toggle="pill" href="#part-3A"
+                                               role="tab">Part 4</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="part-3B-tab" data-toggle="pill" href="#part-3B"
+                                               role="tab">Part 5</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="part-4-tab" data-toggle="pill" href="#part-4"
+                                               role="tab">Part
+                                                6</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <form action="{% url 'updateonlineapplication' application.student_number %}"
+                                      class="needs-validation" novalidate method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="tab-content" id="part-tabContent">
+                                        <div class="tab-pane fade" id="prerequisites" role="tabpanel"
+                                             aria-labelledby="prerequisites-tab">
+                                            {% if message %}
+                                                <br>
+                                                <div class="alert alert-danger">{{ message | capfirst }}</div>
+                                            {% endif %}
+                                            <br>
+                                            {#                                                <div class="card">#}
+                                            {#                                                    <div class="card-header">#}
+                                            {#                                                        <h5><b style="color: #0e72a2;">INSTRUCTIONS</b></h5>#}
+                                            {#                                                    </div>#}
+                                            {#                                                    <div class="card-title"></div>#}
+                                            {#                                                    <div class="card-body">#}
+                                            {#                                                        <div class="row">#}
+                                            {#                                                            <div class="col-md-12">#}
+                                            {#                                                                <div class="card">#}
+                                            {#                                                                    <div class="card-body">#}
+                                            {##}
+                                            {#                                                                        <p>#}
+                                            {#                                                                        <span class="fa fa-angle-double-right">Application and Interview fee should be deposited into Woodlands University College#}
+                                            {#                                                                            Account <b>#02320330000400</b> at Indo Zambia Bank, Crossroad Branch clearly stating the name of the Applicant and then scan a copy and attach it to#}
+                                            {#                                                                            the online application.#}
+                                            {#                                                                        </span>#}
+                                            {#                                                                        </p>#}
+                                            {#                <p><span class="fa fa-angle-double-right">You need to scan the deposit slip for the application fee and attach it as part of your online application.</span>#}
+                                            {#                </p>#}
+                                            {#                                                                        <p>#}
+                                            {#                                                                        <span class="fa fa-angle-double-right">#}
+                                            {#                                                                            You need to scan and attach certified copies of your certificate or statement of results. <b>Please note your application will not be considered if you do not attach this document</b>#}
+                                            {#                                                                        </span>#}
+                                            {#                                                                        </p>#}
+                                            {#                                                                        <p>#}
+                                            {#                                                                        <span class="fa fa-angle-double-right">#}
+                                            {#                                                                            If you have obtained academic or professional training after leaving school (eg diploma) and want#}
+                                            {#                                                                            them to be used to support your application then you should scan and attach certified copies of your#}
+                                            {#                                                                            diploma certificates.#}
+                                            {#                                                                        </span>#}
+                                            {#                                                                        </p>#}
+                                            {#                                                                        <p>#}
+                                            {#                                                                        <span class="fa fa-angle-double-right">#}
+                                            {#                                                                            You need to scan and attach either a copy of your passport or National Registration Card (NRC) or any form of identification#}
+                                            {#                                                                        </span>#}
+                                            {#                                                                        </p>#}
+                                            {##}
+                                            {#                                                                    </div>#}
+                                            {#                                                                </div>#}
+                                            {#                                                            </div>#}
+                                            {#                                                        </div>#}
+                                            {#                                                    </div>#}
+                                            {#                                                    <div class="card-footer">#}
+                                            {#                                                        <div class="navbuttons">#}
+                                            {#                                                            <div class="text-right" id="btnNext">#}
+                                            {#                                                                <button type="button" class="btn btn-outline-primary btnNext">Proceed#}
+                                            {#                                                                </button>#}
+                                            {#                                                            </div>#}
+                                            {#                                                        </div>#}
+                                            {#                                                    </div>#}
+                                            {#                                                </div>#}
+                                        </div>
+
+                                        <div class="tab-pane fade show active" id="part-1" role="tabpanel"
+                                             aria-labelledby="part-1-tab">
+                                            <br>
+                                            <div class="card">
+                                                <div class="card-header"><h5><b style="color: #0e72a2;">PERSONAL
+                                                    PARTICULARS</b></h5></div>
+                                                <div class="card-title"></div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card">
+
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-xl-6">
+
+                                                                            <div class="form-group">
+                                                                                {{ form.first_name.label_tag }}
+                                                                                {{ form.first_name }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.first_name.errors }}</i>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.last_name.label_tag }}
+                                                                                {{ form.last_name }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.last_name.errors }}</i>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.other_names.label_tag }}
+                                                                                {{ form.other_names }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.other_names.errors }}</i>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.nrc_no.label_tag }}
+                                                                                {{ form.nrc_no }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.nrc_no.errors }}</i>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.phone_number.label_tag }}
+                                                                                {{ form.phone_number }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.phone_number.errors }}</i>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.email.label_tag }}
+                                                                                {{ form.email }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.email.errors }}</i>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.state_of_any_disabilities.label_tag }}
+                                                                                {{ form.state_of_any_disabilities }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.state_of_any_disabilities.errors }}</i>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xl-6">
+                                                                            <div class="form-group">
+                                                                                {{ form.date_of_birth.label_tag }}
+                                                                                {{ form.date_of_birth }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.date_of_birth.errors }}</i>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.gender.label_tag }}
+                                                                                {{ form.gender }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.gender.errors }}</i>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.marital_status.label_tag }}
+                                                                                {{ form.marital_status }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.marital_status.errors }}</i>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.nationality.label_tag }}
+                                                                                {{ form.nationality }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.nationality.errors }}</i>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.physical_address.label_tag }}
+                                                                                {{ form.physical_address }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.physical_address.errors }}</i>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.postal_address.label_tag }}
+                                                                                {{ form.postal_address }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.postal_address.errors }}</i>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.temp_password.label_tag }}
+                                                                                {{ form.temp_password }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.temp_password.errors }}</i>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <button type="button"
+                                                            class="btn btn-outline-primary btnPrevious float-start"
+                                                            id="btnPrevious">
+                                                        Previous
+                                                    </button>
+                                                    <button type="button"
+                                                            class="btn btn-outline-primary btnNext float-right"
+                                                            id="btnNext">Next
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="part-2" role="tabpanel"
+                                             aria-labelledby="part-2-tab">
+                                            <br>
+                                            <div class="card">
+                                                <div class="card-header"><h5><b style="color: #0e72a2;">FAMILY
+                                                    PARTICULARS</b></h5></div>
+                                                <div class="card-title"></div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card">
+
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-xl-6">
+                                                                            <div class="form-group">
+                                                                                {{ form.sponsors_name_or_next_of_kin.label_tag }}
+                                                                                {{ form.sponsors_name_or_next_of_kin }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.sponsors_name_or_next_of_kin.errors }}</i>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.relationship_with_sponsor_or_next_of_kin.label_tag }}
+                                                                                {{ form.relationship_with_sponsor_or_next_of_kin }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.relationship_with_sponsor_or_next_of_kin.errors }}</i>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-xl-6">
+                                                                            <div class="form-group">
+                                                                                {{ form.sponsor_or_next_of_kin_cell_no.label_tag }}
+                                                                                {{ form.sponsor_or_next_of_kin_cell_no }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.sponsor_or_next_of_kin_cell_no.errors }}</i>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.sponsor_or_next_of_kin_address.label_tag }}
+                                                                                {{ form.sponsor_or_next_of_kin_address }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                                <i style="color: red;">{{ form.sponsor_or_next_of_kin_address.errors }}</i>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <button type="button"
+                                                            class="btn btn-outline-primary btnPrevious float-start"
+                                                            id="btnPrevious">
+                                                        Previous
+                                                    </button>
+                                                    <button type="button"
+                                                            class="btn btn-outline-primary btnNext float-right"
+                                                            id="btnNext">Next
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="tab-pane fade" id="part-3" role="tabpanel"
+                                             aria-labelledby="part-3-tab">
+                                            <br>
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h1><h5><b style="color: #0e72a2;">PROGRAM OF
+                                                        CHOICE AND HIGH SCHOOL ATTENDED</b></h5></h1>
+                                                </div>
+                                                <div class="card-title"></div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card">
+                                                                <div class="card-body">
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <h5><b style="color: #0e72a2;">PROGRAM OF
+                                                                                CHOICE</b></h5>
+                                                                            <hr>
+                                                                            <div class="form-group">
+                                                                                {{ form.program_applied_for.label_tag }}
+                                                                                {{ form.program_applied_for }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                            </div>
+                                                                            <br>
+                                                                            <h5><b style="color: #0e72a2;">HIGH SCHOOL
+                                                                                ATTENDED</b></h5>
+                                                                            <hr>
+                                                                            <div class="form-group">
+                                                                                {{ form.school_name.label_tag }}
+                                                                                {{ form.school_name }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        {{ form.school_start_year.label_tag }}
+                                                                                        {{ form.school_start_year }}
+                                                                                        <div class="invalid-feedback">
+                                                                                            <i>Please fill out this
+                                                                                                field.</i></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        {{ form.school_end_year.label_tag }}
+                                                                                        {{ form.school_end_year }}
+                                                                                        <div class="invalid-feedback">
+                                                                                            <i>Please fill out this
+                                                                                                field.</i></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="col-md-6">
+                                                                            <h5><b style="color: #0e72a2;">PROFESSIONAL
+                                                                                QUALIFICATION</b></h5>
+                                                                            <hr>
+                                                                            <div class="form-group">
+                                                                                <label class="d-block">Select
+                                                                                    Professional Qualification If
+                                                                                    Any:</label>
+
+                                                                                <div class="checkbox">
+                                                                                    {{ form.has_certificate.label_tag }}
+                                                                                    {{ form.has_certificate }}
+                                                                                    <div class="invalid-feedback"><i>Please
+                                                                                        fill out this field.</i></div>
+                                                                                </div>
+                                                                                <div class="checkbox">
+                                                                                    {{ form.has_diploma.label_tag }}
+                                                                                    {{ form.has_diploma }}
+                                                                                    <div class="invalid-feedback"><i>Please
+                                                                                        fill out this field.</i></div>
+                                                                                </div>
+                                                                                <div class="checkbox disabled">
+                                                                                    {{ form.has_degree.label_tag }}
+                                                                                    {{ form.has_degree }}
+                                                                                    <div class="invalid-feedback"><i>Please
+                                                                                        fill out this field.</i></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <button type="button"
+                                                            class="btn btn-outline-primary btnPrevious float-start"
+                                                            id="btnPrevious">
+                                                        Previous
+                                                    </button>
+                                                    <button type="button"
+                                                            class="btn btn-outline-primary btnNext float-right"
+                                                            id="btnNext">Next
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="part-3A" role="tabpanel"
+                                             aria-labelledby="part-3A-tab">
+                                            <br>
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h1><h5><b style="color: #0e72a2;">SUBJECTS & GRADES</b></h5></h1>
+                                                </div>
+                                                <div class="card-title"></div>
+                                                <div class="card-body">
+{#                                                    <h3 style="color: #0e72a2;">Enter grades for subjects taken</h3>#}
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                {{ form.subject_english.label_tag }}
+                                                                                {{ form.subject_english }}
+                                                                                <div class="invalid-feedback">
+                                                                                    <i>Please fill out this field.<br>
+                                                                                        Enter 0 if subject not taken
+                                                                                    </i>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.subject_mathematics.label_tag }}
+                                                                                {{ form.subject_mathematics }}
+                                                                                <div class="invalid-feedback">
+                                                                                    <i>Please fill out this field.<br>
+                                                                                        Enter 0 if subject not taken
+                                                                                    </i>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.subject_biology_human_and_social.label_tag }}
+                                                                                {{ form.subject_biology_human_and_social }}
+                                                                                <div class="invalid-feedback">
+                                                                                    <i>Please fill out this field.<br>
+                                                                                        Enter 0 if subject not taken
+                                                                                    </i>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.subject_history.label_tag }}
+                                                                                {{ form.subject_history }}
+                                                                                <div class="invalid-feedback">
+                                                                                    <i>Please fill out this field.<br>
+                                                                                        Enter 0 if subject not taken
+                                                                                    </i>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.subject_religious_education.label_tag }}
+                                                                                {{ form.subject_religious_education }}
+                                                                                <div class="invalid-feedback">
+                                                                                    <i>Please fill out this field.<br>
+                                                                                        Enter 0 if subject not taken
+                                                                                    </i>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.subject_commerce.label_tag }}
+                                                                                {{ form.subject_commerce }}
+                                                                                <div class="invalid-feedback">
+                                                                                    <i>Please fill out this field.<br>
+                                                                                        Enter 0 if subject not taken
+                                                                                    </i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                {{ form.subject_home_economics.label_tag }}
+                                                                                {{ form.subject_home_economics }}
+                                                                                <div class="invalid-feedback">
+                                                                                    <i>Please fill out this field.<br>
+                                                                                        Enter 0 if subject not taken
+                                                                                    </i>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.subject_geography.label_tag }}
+                                                                                {{ form.subject_geography }}
+                                                                                <div class="invalid-feedback">
+                                                                                    <i>Please fill out this field.<br>
+                                                                                        Enter 0 if subject not taken
+                                                                                    </i>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.subject_physical_science.label_tag }}
+                                                                                {{ form.subject_physical_science }}
+                                                                                <div class="invalid-feedback">
+                                                                                    <i>Please fill out this field.<br>
+                                                                                        Enter 0 if subject not taken
+                                                                                    </i>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.subject_chemistry.label_tag }}
+                                                                                {{ form.subject_chemistry }}
+                                                                                <div class="invalid-feedback">
+                                                                                    <i>Please fill out this field.<br>
+                                                                                        Enter 0 if subject not taken
+                                                                                    </i>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.subject_physics.label_tag }}
+                                                                                {{ form.subject_physics }}
+                                                                                <div class="invalid-feedback">
+                                                                                    <i>Please fill out this field.<br>
+                                                                                        Enter 0 if subject not taken
+                                                                                    </i>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                {{ form.subject_civic_education.label_tag }}
+                                                                                {{ form.subject_civic_education }}
+                                                                                <div class="invalid-feedback">
+                                                                                    <i>Please fill out this field.<br>
+                                                                                        Enter 0 if subject not taken
+                                                                                    </i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <button type="button"
+                                                            class="btn btn-outline-primary btnPrevious float-start"
+                                                            id="btnPrevious">
+                                                        Previous
+                                                    </button>
+                                                    <button type="button"
+                                                            class="btn btn-outline-primary btnNext float-right"
+                                                            id="btnNext">Next
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="part-3B" role="tabpanel"
+                                             aria-labelledby="part-3B-tab">
+                                            <br>
+                                            <div class="card">
+                                                <div class="card-header"><h5><b style="color: #0e72a2;">PROFESSIONAL
+                                                    QUALIFICATIONS &
+                                                    ACADEMIC DOCUMENTS</b></h5></div>
+                                                <div class="card-title"></div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <h5>
+                                                                                <b style="color: #0e72a2;">ATTACHMENTS</b>
+                                                                            </h5>
+                                                                            <hr>
+                                                                            <div class="form-group">
+                                                                                <label class="col-form-label">Upload
+                                                                                    Scanned Grade 12 Results or
+                                                                                    equivalent of Results: </label>
+                                                                                {{ form.scanned_statement_of_result }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label class="col-form-label">Upload
+                                                                                    Scanned National Registration Card
+                                                                                    (Front): </label>
+                                                                                {{ form.scanned_nrc_front }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label class="col-form-label">Upload
+                                                                                    Scanned National Registration Card
+                                                                                    (Back): </label>
+                                                                                {{ form.scanned_nrc_back }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label class="col-form-label">Upload
+                                                                                    Scanned Deposit Slip: </label>
+                                                                                {{ form.scanned_deposit_slip }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            <h5><b style="color: #0e72a2;">ACADEMIC
+                                                                                DOCUMENTS</b></h5>
+                                                                            <hr>
+                                                                            <div class="form-group">
+                                                                                <label class="col-form-label">Upload
+                                                                                    Scanned Professional Certificate
+                                                                                    (Optional): </label>
+                                                                                {{ form.scanned_pq_certificate }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label class="col-form-label">Upload
+                                                                                    Scanned Professional Diploma
+                                                                                    (Optional): </label>
+                                                                                {{ form.scanned_pq_diploma }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label class="col-form-label">Upload
+                                                                                    Scanned Professional Degree
+                                                                                    (Optional): </label>
+                                                                                {{ form.scanned_pq_degree }}
+                                                                                <div class="invalid-feedback"><i>Please
+                                                                                    fill out this field.</i></div>
+                                                                            </div>
+                                                                            {#                                                                                <div class="form-group">#}
+                                                                            {#                                                                                    {{ form.scanned_pq_certificate.label_tag }}#}
+                                                                            {#                                                                                    {{ form.scanned_pq_certificate }}#}
+                                                                            {#                                                                                    <div class="invalid-feedback"><i>Please fill out this field.</i></div>#}
+                                                                            {#                                                                                </div>#}
+                                                                            {#                                                                                <div class="form-group">#}
+                                                                            {#                                                                                    {{ form.scanned_pq_diploma.label_tag }}#}
+                                                                            {#                                                                                    {{ form.scanned_pq_diploma }}#}
+                                                                            {#                                                                                    <div class="invalid-feedback"><i>Please fill out this field.</i></div>#}
+                                                                            {#                                                                                </div>#}
+                                                                            {#                                                                                <div class="form-group">#}
+                                                                            {#                                                                                    {{ form.scanned_pq_degree.label_tag }}#}
+                                                                            {#                                                                                    {{ form.scanned_pq_degree }}#}
+                                                                            {#                                                                                    <div class="invalid-feedback"><i>Please fill out this field.</i></div>#}
+                                                                            {#                                                                                </div>#}
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <button type="button"
+                                                            class="btn btn-outline-primary btnPrevious float-start"
+                                                            id="btnPrevious">
+                                                        Previous
+                                                    </button>
+                                                    <button type="button"
+                                                            class="btn btn-outline-primary btnNext float-right"
+                                                            id="btnNext">Next
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="part-4" role="tabpanel"
+                                             aria-labelledby="part-4-tab">
+                                            <br>
+                                            <div class="card">
+                                                <div class="card-header"><h5><b style="color: #0e72a2;">DECLARATION</b>
+                                                </h5>
+                                                </div>
+                                                <div class="card-title"></div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <p>1. I declare that the information provided by me
+                                                                        in
+                                                                        this application is
+                                                                        correct and complete. I
+                                                                        authorize Woodlands University College to
+                                                                        reserve
+                                                                        the right to waive or
+                                                                        reverse any offer of
+                                                                        admission made for incorrect or incomplete
+                                                                        information.
+                                                                    </p>
+                                                                    <p>
+                                                                        2. I shall undergo evaluation process required
+                                                                        by
+                                                                        the school, after
+                                                                        consideration of results,
+                                                                        other information provided and obtained. In
+                                                                        accordance with admission
+                                                                        policy, the school
+                                                                        shall be the sole judge of whether a place is
+                                                                        offered to me or not.
+                                                                    </p>
+                                                                    <p>
+                                                                        3. If I am offered a place at Woodlands
+                                                                        University
+                                                                        College, and subsequently
+                                                                        it is discovered
+                                                                        that the information provided on the application
+                                                                        form was false at the time
+                                                                        it was provided,
+                                                                        the school authority has the right to reconsider
+                                                                        the
+                                                                        decision.
+                                                                    </p>
+
+                                                                    {#                              <h5 class="card-title">Personal Information</h5>#}
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <br>
+                                                                            <h5><b style="color: #0e72a2;">Declaration
+                                                                                Confirmation</b>
+                                                                            </h5>
+                                                                            <hr>
+                                                                            <div class="form-group form-check">
+{#                                                                                <label class="form-check-label">#}
+{#                                                                                    <input class="form-check-input"#}
+{#                                                                                           type="checkbox"#}
+{#                                                                                           id="declaration_confirmation"#}
+{#                                                                                           name="declaration_confirmation"#}
+{#                                                                                           required> I have read the#}
+{#                                                                                    declaration and agree.#}
+{#                                                                                    <div class="invalid-feedback">Check#}
+{#                                                                                        this checkbox to continue.#}
+{#                                                                                    </div>#}
+{#                                                                                </label>#}
+                                                                                <label>{{ form.declaration_confirmation.label_tag }}</label>
+                                                                                {{ form.declaration_confirmation }}
+                                                                                {{ form.declaration_confirmation.errors }}
+                                                                            </div>
+
+                                                                            {#                                                                                <div class="form-group">#}
+                                                                            {#                                                                                    {{ form.declaration_confirmation.label_tag }}#}
+                                                                            {#                                                                                    {{ form.declaration_confirmation }}#}
+                                                                            {#                                                                                    <div class="invalid-feedback"><i>Please fill out this field.</i></div>#}
+                                                                            {#                                                                                </div>#}
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <div class="text-center">
+                                                                <!-- <small>Note that the <b>Submit Application</b> button
+                                                                    will not work if some required fields are left
+                                                                    blank!</small>
+                                                                <br>
+                                                                <small>Ensure that all required fields are populated
+                                                                    with information!
+                                                                </small> -->
+
+                                                                
+                                                                <br>
+                                                                <button type="submit" class="btn btn-warning">
+                                                                    Save Application <i class="fa fa-save"></i>
+                                                                </button>
+                                                                <a href="{% url 'generate_pdf_for_student_application' application.id  %}" type="button" class="btn btn-primary">
+                                                                    Download Application <i class="fa fa-print"></i>
+                                                                </a>
+                                                                  
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <button type="button"
+                                                            class="btn btn-outline-primary btnPrevious float-start"
+                                                            id="btnPrevious">
+                                                        Previous
+                                                    </button>
+                                                    {#                                                        <button type="submit" class="btn btn-warning">#}
+                                                    {#                                                            Submit Application#}
+                                                    {#                                                        </button>#}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/1b59bc20c8.js"></script>
+    <script>
+        // Disable form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Get the forms we want to add validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+
+    <script>
+        $('.btnNext').click(function () {
+            $('.nav-pills .active').parent().next('li').find('a').trigger('click');
+        });
+
+        $('.btnPrevious').click(function () {
+            $('.nav-pills .active').parent().prev('li').find('a').trigger('click');
+        });
+    </script>
+{% endblock %}

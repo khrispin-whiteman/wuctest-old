@@ -1,0 +1,68 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% block title %}Years Of Study{% endblock %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Years Of Study</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item active"><a href="">Years Of Study</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-table">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-center mb-0 datatable">
+                                    <thead>
+                                    {% if success_message %}
+                                        <div class="alert alert-success">{{ success_message }}</div>
+                                    {% endif %}
+                                    {% if error_message %}
+                                        <div class="alert alert-success">{{ error_message }}</div>
+                                    {% endif %}
+                                    <tr>
+                                        <th>Year Of Study</th>
+                                        <th class="text-left">Action</th>
+                                    </tr>
+
+                                    </thead>
+                                    <tbody>
+                                    {% for year_of_study in years_of_study %}
+                                    <tr>
+                                        <td>{{ year_of_study.level }}</td>
+                                        
+                                        <td>
+                                            <a href="{% url 'admin_list_school_years_details' year_of_study.id %}" class="btn btn-outline-primary">View Programs</a> 
+
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                        No data in table
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Copyright © {% now 'Y' %}.</p>
+        </footer>
+
+    </div>
+{% endblock %}

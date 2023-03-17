@@ -1,0 +1,51 @@
+{% extends 'schoolapp/systempages/base_systempages.html' %}
+
+{% block title %}Add Payment Type{% endblock %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Add Payment Type</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'payment_types_list' %}">Payment Types</a></li>
+                            <li class="breadcrumb-item active">Add Payment Type</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{% url 'add_payment_type' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h5 class="form-title"><span>Payment Type Details</span></h5>
+                                    </div>
+
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>{{ add_payment_type_form.payment_type_name.label_tag }}</label>
+                                            {{ add_payment_type_form.payment_type_name }}
+                                            {{ add_payment_type_form.payment_type_name.error_messages }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
