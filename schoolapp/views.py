@@ -106,14 +106,17 @@ def dashboard(request):
     departments = Department.objects.all()
 
     if request.user.is_student:
-        student = Student.objects.get(user=request.user)
-        student_courses = TakenCourse.objects.filter(student=student).count()
-        student_registered_dashbord_count = TakenCourse.objects.filter(student=student)
-        print('COURSE COUNT: ', student_courses)
-        student_written_assessments = WrittenAssessment.objects.filter(student=student)
-        # student_details = Admission.objects.get(user=student.user)
-        # get courses for current semester for a specific programme
-        courses_in_program = Course.objects.filter(semester=current_semester.semester, course_program=student.student_admission_details.program_applied_for)
+        try:
+            student = Student.objects.get(user=request.user)
+            student_courses = TakenCourse.objects.filter(student=student).count()
+            student_registered_dashbord_count = TakenCourse.objects.filter(student=student)
+            print('COURSE COUNT: ', student_courses)
+            student_written_assessments = WrittenAssessment.objects.filter(student=student)
+            # student_details = Admission.objects.get(user=student.user)
+            # get courses for current semester for a specific programme
+            courses_in_program = Course.objects.filter(semester=current_semester.semester, course_program=student.student_admission_details.program_applied_for)
+        except Student.DoesNotExist:
+            return redirect('login')
     else:
         student = ''
         student_courses = ''
@@ -704,6 +707,53 @@ def admin_admissions_list(request):
 
 
 @login_required()
+def admin_approved_admissions_list(request):
+    global admissions
+    # get current semester
+    try:
+        current_semester = Semester.objects.get(is_current_semester=True)
+    except Semester.DoesNotExist:
+        return HttpResponse('Semester does not exist, contact support for help.')
+    
+    users = User.objects.all()
+
+    if request.user.user_group == 'Admissions Office':
+        print('Admissions Office')
+        admissions = Admission.objects.filter(is_active=True, application_status='Approved')
+
+    elif request.user.user_group == 'Accounts Office':
+        print('Accounts Office')
+        admissions = Admission.objects.filter(is_active=True, application_status='Approved')
+
+    elif request.user.user_group == 'Dean Of Students Affairs Office':
+        print('Dean Of Students Affairs Office')
+        admissions = Admission.objects.filter(is_active=True, application_status='Approved', application_stage='Dean Of Students Affairs Office')
+
+    elif request.user.user_group == 'ICT Office':
+        print('ICT Office')
+        admissions = Admission.objects.filter(is_active=True, application_status='Approved')
+
+    elif request.user.user_group == 'Program Coordinator or Principal Lecturer Office':
+        print('Program Coordinator or Principal Lecturer Office')
+        admissions = Admission.objects.filter(is_active=True, application_status='Approved', application_stage='Program Coordinator or Principal Lecturer Office')
+
+    elif request.user.user_group == 'Registrar Office':
+        print('Registrar Office')
+        admissions = Admission.objects.filter(application_status='Approved', is_active=True,)
+        print('DETAILS: ', admissions)
+
+    elif request.user.is_staff or request.user.is_superuser:
+        print('Super User')
+        admissions = Admission.objects.filter(is_active=True, application_status='Approved',)
+
+    return render(request, 'schoolapp/systempages/admin_approved_admissions_list.html',
+                  {
+                      'admissions': admissions,
+                      'current_semester': current_semester
+                  })
+
+
+@login_required()
 def admin_admissions_detail(request, admission_id):
         # get current semester
     try:
@@ -958,6 +1008,8 @@ def add_staff(request):
             print('FORM VALID')
             letters = string.ascii_lowercase
             result_str = ''.join(random.choice(letters) for i in range(5))
+            generated_username = ''.join(random.choice(letters) for i in range(4))
+            generated_username = "".join(['mos-', generated_username])
 
             form = add_staff_form.save(commit=False)
             print('USERNAME: ', add_staff_form.cleaned_data.get('first_name'))
@@ -966,7 +1018,7 @@ def add_staff(request):
             print('EMAIL: ', email)
             # form.username = request.POST.get('first_name')
             # form.username = f_name.lower()
-            form.username = email.lower()
+            form.username = generated_username.lower()
             form.is_member_of_staff = True
             form.is_staff = True
 
@@ -982,9 +1034,9 @@ def add_staff(request):
             message = 'Dear, ' + str(f_name) + '\n\n' \
                                                'Your account on Woodlands University College web portal was successfully created.\n\n' \
                                                'Your Login credentials are below:\n\n' \
-                                               'USERNAME: ' + str(email.lower()) + '\n' \
-                                                                            'PASSWORD: ' + str(result_str) + '\n\n' \
-                                                                                                             'Log into your account by Visiting the link below:\n\n' \
+                                               'USERNAME: ' + str(generated_username.lower()) + '\n' \
+                                                'PASSWORD: ' + str(result_str) + '\n\n' \
+                                                'Log into your account by Visiting the link below:\n\n' \
                       + request.get_host()
 
             from_email = 'chrispinkay@gmail.com'
@@ -1090,7 +1142,7 @@ def add_student(request, application_id):
         
         # check if user already exists
         try:
-            user_object = User.objects.get(username=request.POST.get('first_name'))
+            user_object = User.objects.get(username=request.POST.get('email'))
             print('USER EXISTS:', user_object)
         except User.DoesNotExist:
             print('USER DOES NOT EXISTS:')

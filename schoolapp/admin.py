@@ -115,6 +115,7 @@ class AdmissionAdmin(ImportExportModelAdmin):
     list_per_page = 10
     search_fields = ('first_name', 'last_name', 'nrc_no', 'phone_number', 'student_number__full_student_no', 'email', 'gender', 'program_applied_for__program_name')
     date_hierarchy = 'admission_date'
+    list_filter = ('application_status', 'gender', 'is_active')
 
 
 #  accounts modules

@@ -796,7 +796,7 @@
 
 
 
-                                        {% if admission_details.scanned_gce_results %}
+                                        {% if admission_details.scanned_gce_results == 'true' %}
                                         <br>
                                                 <p>GENERAL CERTIFICATE RESULTS</p>
                                                 <hr>
@@ -1047,7 +1047,7 @@
                                             </label>
                                             <hr>
                                             <div class="d-flex justify-content-center">
-                                                <a href="{% url 'application_report' admission_details.id %}"
+                                                <a href="{% url 'view_pdf_for_student_application' admission_details.id %}" target="_blank"
                                                    class="btn btn-primary mr-2">
                                                     <i class="fa fa-print"></i> Print Application</a>
 

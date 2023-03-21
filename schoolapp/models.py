@@ -376,7 +376,7 @@ class User(AbstractUser):
     phone = models.CharField(max_length=60, blank=True, null=True)
     # address = models.CharField(max_length=60, blank=True, null=True)
     picture = models.ImageField(upload_to="users/pictures/%Y/%m/%d'", blank=True, null=True)
-    email = models.EmailField(unique=True, blank=True, null=True)
+    email = models.EmailField(unique=False, blank=True, null=True)
 
     def get_picture(self):
         no_picture = f'{settings.STATIC_URL}schoolapp/systempages/assets/img/img_avatar.png'

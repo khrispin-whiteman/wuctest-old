@@ -25,7 +25,9 @@
                     <div class="card">
                         <div class="card-header" >
                             {% if taken_courses.count != 0 %}
-                            <div class="alert alert-info text-center">All Current Semester Courses Registered!</div>
+                            <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+                                All Current Semester Courses Registered!
+                            </div>
                             {% endif %}
                             <div class="btn-group mr-2" role="group">
                                 <div class="text-left">

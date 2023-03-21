@@ -309,10 +309,13 @@
                     {% if request.user.is_superuser or request.user.user_group == 'Lecturer' or request.user.user_group == 'Admissions Office' or request.user.user_group == 'Registrar Office' or request.user.user_group == 'Program Coordinator or Principal Lecturer Office' or request.user.user_group == 'ICT Office' or request.user.user_group == 'Accounts Office' or request.user.user_group == 'Dean Of Students Affairs Office' %}
 
                         <li class="menu-title">
-                            <span>Management</span>
+                            <span><strong>Management</strong></span>
                         </li>
                         <li>
                             <a href="{% url 'admin_admissions_list' %}"><i class="fas fa-holly-berry"></i> <span>Applications</span></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'admin_approved_admissions_list' %}"><i class="fas fa-holly-berry"></i> <span>Approved Applications</span></a>
                         </li>
                     {% endif %}
 
@@ -952,6 +955,50 @@
                 },
 
             ],
+        });
+    });
+
+    $(document).ready(function () {
+        $('#table_admissions_list').DataTable({
+            dom: 'Bfrtip',
+
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [1, 2, 3, 4, 5, 6]
+                    }
+                },
+
+            ],
+
         });
     });
 

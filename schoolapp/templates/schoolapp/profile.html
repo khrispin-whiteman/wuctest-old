@@ -32,6 +32,17 @@
                                 {#                        </a>#}
                             </div>
 
+                            {% if request.user.user_group == 'Admissions Office' %}
+                                <!-- Card content -->
+                                <div class="card-body card-body-cascade text-center">
+                                    <small class="card-title">Name: {{ request.user.get_full_name|capfirst }}</small>
+                                    <br>
+                                    <small class="card-title">Role: Admissions Office</small>
+                                    <br>
+                                    <a href="" class="btn btn-primary">Edit Profile</a>
+                                </div>
+                            {% endif %}
+
                             {% if request.user.user_group == 'Lecturer' %}
                                 <!-- Card content -->
                                 <div class="card-body card-body-cascade text-center">
@@ -39,6 +50,30 @@
                                     <small class="card-title">Name: {{ request.user.get_full_name|capfirst }}</small>
                                     <br>
                                     <small class="card-title">Role: Lecturer</small>
+                                    <br>
+                                    <a href="" class="btn btn-primary">Edit Profile</a>
+                                </div>
+                            {% endif %}
+
+                            {% if request.user.user_group == 'Dean Of Students Affairs Office' %}
+                                <!-- Card content -->
+                                <div class="card-body card-body-cascade text-center">
+
+                                    <small class="card-title">Name: {{ request.user.get_full_name|capfirst }}</small>
+                                    <br>
+                                    <small class="card-title">Role: Deans Office</small>
+                                    <br>
+                                    <a href="" class="btn btn-primary">Edit Profile</a>
+                                </div>
+                            {% endif %}
+
+                            {% if request.user.user_group == 'Program Coordinator or Principal Lecturer Office' %}
+                                <!-- Card content -->
+                                <div class="card-body card-body-cascade text-center">
+
+                                    <small class="card-title">Name: {{ request.user.get_full_name|capfirst }}</small>
+                                    <br>
+                                    <small class="card-title">Role: Program Coordinator Office</small>
                                     <br>
                                     <a href="" class="btn btn-primary">Edit Profile</a>
                                 </div>
@@ -75,7 +110,7 @@
                                 <div class="card-body card-body-cascade text-center">
                                     <small>Name: {{ request.user.get_full_name|capfirst }}</small>
                                     <br>
-                                    <small>Role: Member Of Staff</small>
+                                    <small>Role: Accounts Office</small>
                                     <br>
                                     <a href="" class="btn btn-primary">Edit Profile</a>
                                 </div>
@@ -87,6 +122,17 @@
                                     <small>Name: {{ request.user.get_full_name|capfirst }}</small>
                                     <br>
                                     <small>Role: Examinations Office</small>
+                                    <br>
+                                    <a href="" class="btn btn-primary">Edit Profile</a>
+                                </div>
+                            {% endif %}
+
+                            {% if request.user.user_group == 'Registrar Office' %}
+                                <!-- Card content -->
+                                <div class="card-body card-body-cascade text-center">
+                                    <small>Name: {{ request.user.get_full_name|capfirst }}</small>
+                                    <br>
+                                    <small>Role: Registrars Office</small>
                                     <br>
                                     <a href="" class="btn btn-primary">Edit Profile</a>
                                 </div>
@@ -239,6 +285,52 @@
                                     </tbody>
                                 </table>
                             </div> -->
+                        </div>
+                    {% endif %}
+
+                    {% if request.user.user_group == 'Registrar Office' %}
+                        <div class="col-md-7 text-center">
+                            <p>All staff list</p>
+                            <div class="table-wrapper-scroll-y">
+
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Picture</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for staff in staff %}
+                                        <tr>
+                                            <th scope="row">{{ forloop.counter }}</th>
+                                            <td>{{ staff.get_full_name|capfirst }}</td>
+                                            <td>{{ staff.address }}</td>
+                                            <td>{{ staff.get_picture.url }}</td>
+                                            <td>
+                                                <span class="table-remove">
+                                                <a href="" class="btn btn-info btn-rounded btn-sm my-0">View</a>
+                                                </span>
+
+                                                                                        <span class="table-remove">
+                                                <a href="" class="btn btn-info btn-rounded btn-sm my-0">Delete</a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>No Staff to show !</td>
+                                            <td></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     {% endif %}
 

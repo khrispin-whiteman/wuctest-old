@@ -37,6 +37,7 @@ urlpatterns = [
     path('api/forgot-password/', views.user_forgot_password, name='user_forgot_password'),
     path('api/change-password/', views.ChangePasswordView.as_view(), name='change-password'),
     path('admin-admissions/', views.admin_admissions_list, name='admin_admissions_list'),
+    path('admin-approved-admissions/', views.admin_approved_admissions_list, name='admin_approved_admissions_list'),
     path('admin-admissions/<int:admission_id>/', views.admin_admissions_detail, name='admin_admissions_detail'),
     path('update-online-application/<str:student_no>/', views.updateonlineapplication, name='updateonlineapplication'),
     path('admin-admissions/<int:admission_id>/approve/', views.admin_approve_application, name='admin_approve_application'),
