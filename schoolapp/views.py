@@ -115,6 +115,38 @@ def dashboard(request):
             # student_details = Admission.objects.get(user=student.user)
             # get courses for current semester for a specific programme
             courses_in_program = Course.objects.filter(semester=current_semester.semester, course_program=student.student_admission_details.program_applied_for)
+
+            # get all payment structures for current semester for the logged in student
+            payment_structure_total = 0
+            payment_structure = PaymentStructure.objects.filter(semester=current_semester.semester)
+            print('PAYMENT STRUCTURE: %s' % payment_structure)
+            for ps in payment_structure:
+                payment_structure_total = payment_structure_total + ps.amount_to_be_paid
+            print('PAYMENT STRUCTURE TOTAL: ', payment_structure_total)
+            payment_balance = 0
+            payments = Payment.objects.filter(semester__semester=current_semester.semester, student=student)
+            print()
+            
+            if payments:
+                print('PAYMENT RECORD FOUND!')
+                for p in payments:
+                    payment_balance = payment_balance + p.actualamountpaid
+                    print('PAYMENT BALANCE IN FOR LOOP: ', payment_balance)
+                print('PAYMENT BALANCE: ', payment_balance)
+            else:
+                print('PAYMENT RECORD NOT FOUND!')
+            
+            balance = 0
+            if payment_structure_total > payment_balance:
+                print('GOT BALANCE!')
+                balance = payment_structure_total - payment_balance
+                print('BALANCE: ', balance)
+                
+            else:
+                print('GOT NO BALANCE!')
+                balance = payment_structure_total - payment_balance
+                print('BALANCE: ', balance)
+
         except Student.DoesNotExist:
             return redirect('login')
     else:
@@ -124,6 +156,8 @@ def dashboard(request):
         student_written_assessments = ''
         student_details = ''
         courses_in_program = ''
+        payment_balance = ''
+        balance = ''
     
 
     # Get list of schools
@@ -142,6 +176,7 @@ def dashboard(request):
                       'student_written_assessments': student_written_assessments,
                       'courses_in_program': courses_in_program,
                       'staff': staff,
+                      'balance': balance,
                     #   'student_details': student_details,
                   })
 
@@ -262,6 +297,33 @@ def generateStudentNumberRandomDigits():
         return student_number
 
 
+def generateUsernameLastRandomDigits():
+    # get the length of the last digits from the database
+    # ss = SystemSettings.objects.all().first()
+    # print('LENGTH: ', ss.staff_username_last_digits_length)
+    # if ss:
+    #     length = ss.staff_username_last_digits_length
+    # else:
+    length = 4
+    random_digits = ''.join(
+        random.choice(string.digits) for _ in range(length)
+    )
+
+    # random_str = int(random_str) + 1
+    # txt = str(random_str)
+    # x = txt.zfill(length)
+    # username = random_str.zfill(length)
+
+    # username = 'wuc-' + username
+    print('USERNAME: ', random_digits)
+    # check if random number already taken
+    if User.objects.filter(username__icontains=random_digits):
+        print('Username Already Taken!')
+        generateUsernameLastRandomDigits()
+    else:
+        return random_digits
+
+
 # generate student number
 # def generateStudentNumber(request):
 #     student_number = arrow.now().format('YYMM')
@@ -356,11 +418,11 @@ def online_admission(request):
                                                                                        'Your application for the program ' + str(
                 application_form.cleaned_data.get('program_applied_for')) + \
                       ' has been successfully submitted, you will be notified once it has been reviewed by the school' \
-                      ' administration. You can check the status of your application via this link https://wucsmstest.pythonanywhere.com/application-status/ \n' \
+                      ' administration. You can check the status of your application via this link https://woodlandsunicollegesms.pythonanywhere.com/application-status/ \n' \
                       'You will be required to provide your Student Number and the temporal system generated password.\n\n' \
                       'STUDENT NO.: ' + sn_obj.full_student_no + '\n' \
                       'PASSWORD: ' + tmp_password + '\n' \
-                       'LINK: https://wucsmstest.pythonanywhere.com/application-status/\n\n' \
+                       'LINK: https://woodlandsunicollegesms.pythonanywhere.com/application-status/\n\n' \
                        'Keep the information above safe or you will be unable to see your application status.\n\n' \
                        'You can go back and make changes to your application details before close of application,\n' \
                        'For more information, contact the academic office on: 0900000000 or 0700000000'
@@ -804,7 +866,7 @@ def admin_approve_application(request, admission_id):
                 admission_details.application_stage = 'Accounts Office'
                 admission_details.admissions_office = True
                 admission_details.admissions_office_user = request.user
-                print('ADMINISTER USER: ', request.user)
+                print('ADMISSIONS USER: ', request.user)
                 admission_details.save()
 
     if request.user.user_group == 'Accounts Office':
@@ -1008,8 +1070,8 @@ def add_staff(request):
             print('FORM VALID')
             letters = string.ascii_lowercase
             result_str = ''.join(random.choice(letters) for i in range(5))
-            generated_username = ''.join(random.choice(letters) for i in range(4))
-            generated_username = "".join(['mos-', generated_username])
+            generated_username = generateUsernameLastRandomDigits()
+            generated_username = "".join(['wuc-%s' %generated_username])
 
             form = add_staff_form.save(commit=False)
             print('USERNAME: ', add_staff_form.cleaned_data.get('first_name'))
@@ -1725,11 +1787,11 @@ def admin_online_student_registration(request):
                 'Your application for the program ' + str(
                 application_form.cleaned_data.get('program_applied_for')) + \
                       ' has been successfully submitted, you will be notified once it has been reviewed by the school' \
-                      ' administration. You can check the status of your application via this link https://wucsmstest.pythonanywhere.com/application-status/ \n' \
+                      ' administration. You can check the status of your application via this link https://woodlandsunicollegesms.pythonanywhere.com/application-status/ \n' \
                       'You will be required to provide your Student Number and the temporal system generated password.\n\n' \
                       'STUDENT NO.: ' + sn_obj.full_student_no + '\n' \
                       'PASSWORD: ' + tmp_password + '\n' \
-                       'LINK: https://wucsmstest.pythonanywhere.com/application-status/\n\n' \
+                       'LINK: https://woodlandsunicollegesms.pythonanywhere.com/application-status/\n\n' \
                        'Keep the information above safe or you will be unable to see your application status.\n\n' \
                        'You can go back and make changes to your application details before close of application,\n' \
                        'For more information, contact the academic office on: 0900000000 or 0700000000'
@@ -1884,7 +1946,7 @@ def add_score_for(request, assessment_id, course_id):
             # REQUIREMENTS: Selected Assessment object, current Student object in the loop
             # 
             # Get the selected assessment instance
-            retrieved_assessment_obj = Assessment.objects.get(pk=id)
+            retrieved_assessment_obj = Assessment.objects.get(pk=assessment_id)
             print("RETRIEVED ASSESSMENT OBJ: ", str(retrieved_assessment_obj))
             # 
             # Get the Student object currently in the loop
@@ -1968,8 +2030,8 @@ def add_score_for(request, assessment_id, course_id):
             # except:
             #     Result.objects.get_or_create(student=student.student, gpa=gpa, semester=current_semester, level=student.student.level)
         messages.success(request, 'Successfully Recorded! ')
-        return HttpResponseRedirect(reverse_lazy('add_score_for', kwargs={'assessment_id': id, 'course_id': course_id}))
-    return HttpResponseRedirect(reverse_lazy('add_score_for', kwargs={'assessment_id': id, 'course_id': course_id}))
+        return HttpResponseRedirect(reverse_lazy('add_score_for', kwargs={'assessment_id': assessment_id, 'course_id': course_id}))
+    return HttpResponseRedirect(reverse_lazy('add_score_for', kwargs={'assessment_id': assessment_id, 'course_id': course_id}))
 
 
 @login_required()
@@ -2567,11 +2629,12 @@ def student_view_payment_history(request):
     # check if logged in user is a student
     if request.user.is_student:
         payment_history = Payment.objects.filter(student__user=request.user)
-        current_semester_balances = Payment.objects.filter(student__user=request.user, semester=current_semester)
+        print('PAYMENT HISTORY: ', payment_history)
+        # current_semester_balances = Payment.objects.filter(student__user=request.user, semester__semester=current_semester.semester)
     else:
         payment_history = Payment.objects.all()
     return render(request, 'schoolapp/systempages/student_view_payment_history.html', 
                   {
                     'payment_history': payment_history,
-                    'current_semester_balances': current_semester_balances,
+                    # 'current_semester_balances': current_semester_balances,
                   })

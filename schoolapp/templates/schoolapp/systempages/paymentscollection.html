@@ -33,6 +33,7 @@
                                     {% endif %}
                                     <tr>
                                         <th>Student</th>
+                                        <th>Actual Amt Paid</th>
                                         <th>Total Amt Paid</th>
                                         <th>Payment Structure</th>
                                         <th>Balance</th>
@@ -49,6 +50,7 @@
                                     {% for payment in payments %}
                                     <tr>
                                         <td>{{ payment.student.user.get_full_name }}</td>
+                                        <td>{{ payment.actualamountpaid }}</td>
                                         <td>{{ payment.amountpaid }}</td>
                                         <td>{{ payment.paymentstructure }}</td>
                                         <td>{{ payment.balance }}</td>

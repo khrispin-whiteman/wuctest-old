@@ -127,8 +127,8 @@ class PaymentTypeAdmin(ImportExportModelAdmin):
 
 
 class PaymentStructureAdmin(ImportExportModelAdmin):
-    list_display = ('payment_level', 'amount_to_be_paid', 'payment_description')
-    list_display_links = ('payment_level', 'amount_to_be_paid', 'payment_description')
+    list_display = ('payment_level', 'amount_to_be_paid', 'semester', 'payment_description')
+    list_display_links = ('payment_level', 'amount_to_be_paid', 'semester', 'payment_description')
     list_per_page = 10
     search_fields = ('payment_level__level', 'amount_to_be_paid', 'payment_description__payment_type_name',)
 

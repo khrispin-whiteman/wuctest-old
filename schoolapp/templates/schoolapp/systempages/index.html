@@ -38,12 +38,36 @@
                            <div class="card-body">
                               <div class="db-widgets d-flex justify-content-between align-items-center">
                                  <div class="db-icon">
-                                    <i class="fas fa-file-invoice-dollar"></i>
+                                    <i class="fas fa-file-invoice-dollar">  </i>
                                  </div>
-                                 <div class="db-info text-center">
-                                    <h3>K0</h3>
-                                    <h6>Balance</h6>
+                                 <div class="text-center">
+                                    <div class="row">
+                                       <br>
+                                       <h6 class="text-center">  Financial Status</h6>
+                                       <div class="col-sm-6 text-center">
+                                          {% if balance > 0 %}
+                                             <small><strong>OWING: </strong></small>
+                                             {% elif balance == 0 %}
+                                             <small><strong>CLEARED</strong></small>
+                                             {% elif balance < 0 %}
+                                             <small><strong>OVER PAID</strong></small>
+                                          {% endif %}
+                                       </div>
+                                       <div class="col-sm-6">
+                                          <div class="db-info text-center">
+                                             <!-- <h6>Amount</h6> -->
+                                             {% if balance > 0 %}
+                                                <small><strong>K{{ balance }}</strong></small>
+                                                {% elif balance == 0 %}
+                                                {% elif balance < 0 %}
+                                                <small><strong>K{{ balance }}</strong></small>
+                                             {% endif %}
+                                          </div>
+                                       </div>
+                                    </div>
+                                    
                                  </div>
+                                 
                               </div>
                            </div>
                         </div>
@@ -71,8 +95,8 @@
                                     <i class="fas fa-book"></i>
                                  </div>
                                  <div class="db-info text-center">
-                                    <h3>{{ student.level }}</h3>
                                     <h6>Year Of Study</h6>
+                                    <small><strong>{{ student.level }}</strong></small>
                                  </div>
                               </div>
                            </div>
@@ -86,8 +110,8 @@
                                     <i class="fas fa-book-reader"></i>
                                  </div>
                                  <div class="db-info text-center">
-                                    <h3>{{ student_registered_dashbord_count | length }}</h3>
                                     <h6>Registered Courses</h6>
+                                    <small><strong>{{ student_registered_dashbord_count | length }}</strong></small>
                                  </div>
                               </div>
                            </div>
@@ -101,8 +125,8 @@
                                     <i class="fas fa-book-reader"></i>
                                  </div>
                                  <div class="db-info text-center">
-                                    <h3>{{ student_written_assessments | length }}</h3>
                                     <h6>Completed Assessments</h6>
+                                    <small><strong>{{ student_written_assessments | length }}</strong></small>
                                  </div>
                               </div>
                            </div>

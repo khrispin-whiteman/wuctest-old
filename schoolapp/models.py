@@ -668,8 +668,11 @@ class Admission(models.Model):
         return f'{self.first_name} {self.last_name}'
 
 class SystemSettings(models.Model):
-    student_no_last_digits_length = models.IntegerField('Last Digits Length',
+    student_no_last_digits_length = models.IntegerField('Student No. Last Digits Length',
                                                         help_text='The number of digits after the date on the student number: YYMMdigits',
+                                                        blank=True, null=True)
+    staff_username_last_digits_length = models.IntegerField('Staff Username Last Digits Length',
+                                                        help_text='',
                                                         blank=True, null=True)
 
     def __str__(self):
@@ -1088,6 +1091,6 @@ class Payment(models.Model):
             super(Payment, self).save()
 
     def __str__(self):
-        return str(self.student) + ' - ' + str(self.paymentstructure)
+        return str(self.student) + ' - ' + str(self.amountpaid)
 
     
