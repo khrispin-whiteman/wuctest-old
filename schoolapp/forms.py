@@ -711,7 +711,7 @@ class OnlineAdmissionForm(forms.ModelForm):
             attrs={
                 'type': 'text',
                 'class': 'form-control',
-                'placeholder': 'enter your postal address here',
+                'placeholder': 'optional',
             }
         ),
         label="Postal Address",
@@ -2145,7 +2145,7 @@ class AdminOnlineAdmissionForm(forms.ModelForm):
             attrs={
                 'type': 'text',
                 'class': 'form-control',
-                'placeholder': 'enter your postal address here',
+                'placeholder': 'optional',
             }
         ),
         label="Postal Address",
