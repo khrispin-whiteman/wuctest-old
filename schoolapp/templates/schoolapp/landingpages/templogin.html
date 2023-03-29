@@ -12,7 +12,7 @@
             </div>
             <div class="card-body text-center">
                 <img style="width: 90px;" src="{% static 'schoolapp/landingpages/images/security.gif' %}">
-                <p>Enter your Student Number and the password sent to your mailbox during application</p>
+                <p>Enter your NRC Number and the password sent to your mailbox during application</p>
                 <hr>
                 <form method="post" action="{% url 'templogintocheckapplicationstatus' %}">
                     {% csrf_token %}
@@ -22,8 +22,8 @@
                                 <div class="alert alert-danger">{{ message }}</div>
                             {% endif %}
                             <div class="form-group">
-                                <label class="d-flex justify-content-start">Student Number:</label>
-                                <input class="form-control" type="text" id="student_no" name="student_no">
+                                <label class="d-flex justify-content-start">NRC Number:</label>
+                                <input class="form-control" type="text" id="nrc_no" name="nrc_no">
                             </div>
                             <div class="form-group">
                                 <label class="d-flex justify-content-start">Password:</label>

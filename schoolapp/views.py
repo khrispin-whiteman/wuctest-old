@@ -233,18 +233,19 @@ def testtemplate(request):
 def templogintocheckapplicationstatus(request):
     print('Method Called')
     if request.method == 'POST':
-        student_no = request.POST.get('student_no')
+        nrc_no = request.POST.get('nrc_no')
         tmp_password = request.POST.get('tmp_password')
-        print('STUDENT NO: ', student_no)
+        print('NRC NO: ', nrc_no)
         print('PASSWORD: ', tmp_password)
-        if Admission.objects.filter(student_number__full_student_no=student_no, temp_password__exact=tmp_password):
+        # if Admission.objects.filter(student_number__full_student_no=student_no, temp_password__exact=tmp_password):
+        if Admission.objects.filter(nrc_no=nrc_no, temp_password__exact=tmp_password):
             print('FOUND')
-            application_details = Admission.objects.get(student_number__full_student_no=student_no,
+            application_details = Admission.objects.get(nrc_no=nrc_no,
                                                         temp_password__exact=tmp_password)
             return render(request, 'schoolapp/landingpages/checkapplicationstatus.html',
                           {
                               'application_detail': application_details,
-                              'student_no': student_no
+                              'nrc_no': nrc_no
                           })
         else:
             return render(request, 'schoolapp/landingpages/templogin.html',
@@ -483,9 +484,9 @@ def online_admission(request):
                       })
 
 
-def updateonlineapplication(request, student_no):
+def updateonlineapplication(request, nrc_no):
     if request.method == 'POST':
-        application = Admission.objects.get(student_number__full_student_no=student_no)
+        application = Admission.objects.get(nrc_no=nrc_no)
         form = UpdateOnlineApplicationForm(request.POST, request.FILES, instance=application)
         print('INSIDE POST')
         print(form.errors)
@@ -498,17 +499,17 @@ def updateonlineapplication(request, student_no):
             return render(request, 'schoolapp/landingpages/checkapplicationstatus.html',
                           {
                               'application_detail': application,
-                              'student_no': student_no
+                              'nrc_no': nrc_no
                           })
         else:
             return render(request, 'schoolapp/landingpages/update_application.html',
                           {
                               'form': form,
                               'application': application,
-                              'student_no': student_no
+                              'nrc_no': nrc_no
                           })
 
-    application = Admission.objects.get(student_number__full_student_no=student_no)
+    application = Admission.objects.get(nrc_no=nrc_no)
     form = UpdateOnlineApplicationForm(instance=application)
     return render(request, 'schoolapp/landingpages/update_application.html',
                   {
@@ -1161,10 +1162,10 @@ def search_applicant_by_student_no(request):
     
     if request.method == 'POST':
         try:
-            application_id = Admission.objects.get(student_number__full_student_no=request.POST.get('student_number'))
+            application_id = Admission.objects.get(nrc_no=request.POST.get('nrc_no'))
             # redirect to the add student form
             if application_id:
-                print('Student Found: %s' %application_id)
+                print('NRC Found: %s' %application_id)
             return redirect('add_student', application_id=application_id.id)
         except Admission.DoesNotExist:
             return render(request, 'schoolapp/systempages/search_applicant_by_student_no.html',
