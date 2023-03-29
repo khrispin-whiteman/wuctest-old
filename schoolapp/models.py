@@ -301,6 +301,14 @@ APPLICATION_STATUS_CHOICES = (
     ('Rejected', "Rejected"),
 )
 
+
+REGISTRATION_STATUS_CHOICES = (
+    ('Reported', "Reported"),
+    ('Not Reported', "Not Reported"),
+    ('Other', "Other"),
+)
+
+
 USER_GROUPS = (
     ('Admissions Office', 'Admissions Office'),
     ('Accounts Office', 'Accounts Office'),
@@ -596,6 +604,14 @@ class Admission(models.Model):
     subject_physics = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Physics')
     subject_civic_education = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Civic Education')
 
+    subject_art = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Art')
+    subject_gmd = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Geometric And Mechanical Drawing (GMD)')
+    subject_adma = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Additional Mathematics (ADMA)')
+    subject_literature = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Literature')
+    subject_agric_science = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Agriculture Science')
+
+    # add other 
+
     has_certificate = models.BooleanField(max_length=200, default=False, verbose_name='Certificate')
     has_diploma = models.BooleanField(max_length=200, default=False, verbose_name='Diploma')
     has_degree = models.BooleanField(max_length=200, default=False, verbose_name='Degree')
@@ -622,6 +638,8 @@ class Admission(models.Model):
                                        on_delete=models.CASCADE)
     application_status = models.CharField(max_length=200, default='Pending', blank=True, null=True, choices=APPLICATION_STATUS_CHOICES,
                                           verbose_name='Application Status')
+    registration_status = models.CharField(max_length=200, default='Reported', blank=True, null=True, choices=REGISTRATION_STATUS_CHOICES,
+                                          verbose_name='Registration Status')
     application_stage = models.CharField(max_length=200, default='Admissions Office', choices=USER_GROUPS,
                                          verbose_name='Application Stage')
 

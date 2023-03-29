@@ -2445,6 +2445,71 @@ class AdminOnlineAdmissionForm(forms.ModelForm):
         help_text='enter 0 if subject not taken'
     )
 
+    subject_art = forms.IntegerField(
+        required=False,
+        widget=forms.NumberInput(
+            attrs={
+                    'style': 'width:6ch',
+                    'oninput': 'limit_input()',
+                    'class': 'form-control',
+            }
+        ),
+        label="Art:",
+        help_text='enter 0 if subject not taken'
+    )
+
+    subject_adma = forms.IntegerField(
+        required=False,
+        widget=forms.NumberInput(
+            attrs={
+                    'style': 'width:6ch',
+                    'oninput': 'limit_input()',
+                    'class': 'form-control',
+            }
+        ),
+        label="Additional Mathematics:",
+        help_text='enter 0 if subject not taken'
+    )
+
+    subject_gmd = forms.IntegerField(
+        required=False,
+        widget=forms.NumberInput(
+            attrs={
+                    'style': 'width:6ch',
+                    'oninput': 'limit_input()',
+                    'class': 'form-control',
+            }
+        ),
+        label="Geometric And Mechanical Drawing:",
+        help_text='enter 0 if subject not taken'
+    )
+
+    subject_agric_science = forms.IntegerField(
+        required=False,
+        widget=forms.NumberInput(
+            attrs={
+                    'style': 'width:6ch',
+                    'oninput': 'limit_input()',
+                    'class': 'form-control',
+            }
+        ),
+        label="Agriculture Science:",
+        help_text='enter 0 if subject not taken'
+    )
+
+    subject_literature = forms.IntegerField(
+        required=False,
+        widget=forms.NumberInput(
+            attrs={
+                    'style': 'width:6ch',
+                    'oninput': 'limit_input()',
+                    'class': 'form-control',
+            }
+        ),
+        label="Literature:",
+        help_text='enter 0 if subject not taken'
+    )
+
     # application_status = forms.CharField(
     #     max_length=200,
     #     required=False,
@@ -2650,6 +2715,7 @@ class AdminOnlineAdmissionForm(forms.ModelForm):
                   'subject_history', 'subject_religious_education', 'subject_commerce', 'subject_home_economics',
                   'subject_geography',
                   'subject_physical_science', 'subject_chemistry', 'subject_physics', 'subject_civic_education',
+                  'subject_art', 'subject_adma', 'subject_gmd', 'subject_literature', 'subject_agric_science',
                   'has_certificate', 'has_diploma', 'has_degree', 'has_gce', 'scanned_deposit_slip', 'scanned_nrc_front', 'scanned_nrc_back', 'scanned_statement_of_result',
                   'scanned_pq_certificate', 'scanned_pq_diploma', 'scanned_pq_degree', 'scanned_gce_results', 'declaration_confirmation',
                   'temp_password', 'application_status',
