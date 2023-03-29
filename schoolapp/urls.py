@@ -78,6 +78,8 @@ urlpatterns = [
     path('student-list-final-results/', views.student_view_final_results, name='student_view_final_results'),
     path('student-auto-course-registration/', views.auto_course_registration, name='auto_course_registration'),
     path('student-view-payment-history/', views.student_view_payment_history, name='student_view_payment_history'),
+    path('student-view-payment-structures/', views.student_view_payment_structure, name='student_view_payment_structures'),
+    path('student-view-payment-previous-structures/', views.student_view_previous_academic_sessions_payment_structures, name='student_view_previous_academic_sessions_payment_structures'),
 
     # reports
     path('student-application-report/<int:id>/', views.generate_pdf_for_student_application, name='generate_pdf_for_student_application'),

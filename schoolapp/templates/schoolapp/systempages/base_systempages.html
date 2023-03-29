@@ -196,7 +196,7 @@
                         <li><a href="{% url 'student_view_payment_history' %}" class=""><i class="fas fa-file-invoice-dollar"></i>
                             <span>Payment History</span></a></li>
                         </li>
-                        <li><a href="" class=""><i class="fas fa-file-invoice-dollar"></i>
+                        <li><a href="{% url 'student_view_payment_structures' %}" class=""><i class="fas fa-file-invoice-dollar"></i>
                             <span>Payment Structures</span></a></li>
                         </li>
                         <!-- <li><a href="{% url 'student_view_final_results' %}" class=""><i class="fas fa-book-reader"></i>
@@ -875,6 +875,7 @@
         });
     });
 
+
     $(document).ready(function () {
         $('#table_payment_structures').DataTable({
             dom: 'Bfrtip',
@@ -918,6 +919,49 @@
 
         });
     });
+
+
+    $(document).ready(function () {
+        $('#table_student_payment_structures').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    footer: true,
+                    alignment: "center",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    footer: true,
+                    exportOptions: {
+                        alignment: "center",
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+            ],
+        });
+    });
+
 
     $(document).ready(function () {
         $('#table_collected_payments').DataTable({

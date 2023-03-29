@@ -4,7 +4,7 @@
 
 {% load custom_filters %}
 
-{% block title %}Payment History - {{ request.user | capfirst }} | WUC{% endblock %}
+{% block title %}Current Payment Structures - {{ request.user | capfirst }} | WUC{% endblock %}
 
 {% block content %}
     <div class="page-wrapper">
@@ -12,10 +12,10 @@
             <div class="page-header">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h3 class="page-title">Payment History</h3>
+                        <h3 class="page-title">Payment Structures</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item active"><a href="{% url 'dashboard' %}"> Dashboard</a>
-                                /Payment History 
+                                /Current Payment Structures 
                             </li>
                         </ul>
                     </div>
@@ -26,12 +26,11 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <!-- <p class="text-left">Balance Status: {{ current_semester }}</p>
-                            <p class="text-left">Balance Due: K {{ current_semester }}</p> -->
+                            Showing Payment Structures for: {{ current_semester }}
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="table_collected_payments" class="table table-hover table-center table-bordered table-stripped">
+                                <table id="table_student_payment_structures" class="table table-hover table-center table-bordered table-stripped">
                                     <thead>
                                         {% if success_message %}
                                             <div class="alert alert-success">{{ success_message }}</div>
@@ -40,29 +39,23 @@
                                             <div class="alert alert-success">{{ error_message }}</div>
                                         {% endif %}
                                     <tr>
-                                        <th class="text-left" rowspan='1' colspan="1">Student</th>
                                         <th rowspan='1' colspan="1">Semester</th>
-                                        <th rowspan='1' colspan="1">Structure</th>
-                                        <th rowspan='1' colspan="1">Amt Paid</th>
-                                        <th rowspan='1' colspan="1">Balance</th>
-                                        <th rowspan='1' colspan="1">Status</th>
-                                        <th rowspan='1' colspan="1">Date</th>
-                                        <th rowspan='1' colspan="1">Amt Due</th>
+                                        <th rowspan='1' colspan="1">Programme</th>
+                                        <th rowspan='1' colspan="1">Year Of Study</th>
+                                        <th rowspan='1' colspan="1">Amount</th>
+                                        <th rowspan='1' colspan="1">Payment Type</th>
                                     </tr>
             
                                     </thead>
                                     <tbody>
-                                        {% for ph in payment_history %}
+                                        {% for ps in payment_structures %}
                                         
                                             <tr>
-                                                <td>{{ ph.student }}</td>
-                                                <td>{{ ph.semester }}</td>
-                                                <td>{{ ph.paymentstructure }}</td>
-                                                <td>K{{ ph.amountpaid }}</td>
-                                                <td>K{{ ph.balance }}</td>
-                                                <td>{{ ph.paymentstatus }}</td>
-                                                <td>{{ ph.paymentdate }}</td>
-                                                <td>K{{ ph.total_amount_to_be_paid }}</td>
+                                                <td>{{ ps.semester }}</td>
+                                                <td>{{ ps.program }}</td>
+                                                <td>{{ ps.payment_level }}</td>
+                                                <td>K{{ ps.amount_to_be_paid }}</td>
+                                                <td>{{ ps.payment_description }}</td>
                                             </tr>
                                         
                                         {% empty %}
@@ -71,6 +64,10 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <br>
+                            <a href="{% url 'student_view_previous_academic_sessions_payment_structures' %}" class="btn btn-sm btn-outline-primary">
+                                View All Including Previous Payment Structures
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -1759,8 +1759,8 @@ def admin_online_student_registration(request):
             program = Program.objects.get(id=request.POST.get('program_applied_for'))
 
             # generate student number
-            student_no = generateStudentNumberRandomDigits()
-            sn_obj = StudentNumber.objects.create(full_student_no=student_no)
+            # student_no = generateStudentNumberRandomDigits()
+            sn_obj = StudentNumber.objects.create(full_student_no=request.POST.get('student_number'))
             print('STUDENT NO: ', sn_obj.full_student_no)
 
             obj = application_form.save(commit=False)
@@ -1789,8 +1789,8 @@ def admin_online_student_registration(request):
                 application_form.cleaned_data.get('program_applied_for')) + \
                       ' has been successfully submitted, you will be notified once it has been reviewed by the school' \
                       ' administration. You can check the status of your application via this link https://woodlandsunicollegesms.pythonanywhere.com/application-status/ \n' \
-                      'You will be required to provide your Student Number and the temporal system generated password.\n\n' \
-                      'STUDENT NO.: ' + sn_obj.full_student_no + '\n' \
+                      'You will be required to provide your NRC Number and the temporal system generated password.\n\n' \
+                      'NRC NO.: ' + str(application_form.cleaned_data.get("nrc_no")) + '\n' \
                       'PASSWORD: ' + tmp_password + '\n' \
                        'LINK: https://woodlandsunicollegesms.pythonanywhere.com/application-status/\n\n' \
                        'Keep the information above safe or you will be unable to see your application status.\n\n' \
@@ -2637,5 +2637,53 @@ def student_view_payment_history(request):
     return render(request, 'schoolapp/systempages/student_view_payment_history.html', 
                   {
                     'payment_history': payment_history,
+                    # 'current_semester_balances': current_semester_balances,
+                  })
+
+
+@login_required
+def student_view_payment_structure(request):
+    # get current semester
+    try:
+        current_semester = Semester.objects.get(is_current_semester=True)
+    except Semester.DoesNotExist:
+        return HttpResponse('Semester does not exist, contact support for help.')
+    
+    # check if logged in user is a student
+    if request.user.is_student:
+        # get logged in student program
+        student_detaails = Admission.objects.get(student__user=request.user)
+        payment_structures = PaymentStructure.objects.filter(semester=current_semester.semester, program=student_detaails.program_applied_for)
+        print('PAYMENT STRUCTURES: ', payment_structures)
+        # current_semester_balances = Payment.objects.filter(student__user=request.user, semester__semester=current_semester.semester)
+    else:
+        payment_structure = PaymentStructure.objects.all()
+    return render(request, 'schoolapp/systempages/student_view_payment_structure.html', 
+                  {
+                    'payment_structures': payment_structures,
+                    # 'current_semester_balances': current_semester_balances,
+                  })
+
+
+@login_required
+def student_view_previous_academic_sessions_payment_structures(request):
+    # get current semester
+    try:
+        current_semester = Semester.objects.get(is_current_semester=True)
+    except Semester.DoesNotExist:
+        return HttpResponse('Semester does not exist, contact support for help.')
+    
+    # check if logged in user is a student
+    if request.user.is_student:
+        # get logged in student program
+        student_detaails = Admission.objects.get(student__user=request.user)
+        payment_structures = PaymentStructure.objects.filter(semester=current_semester.semester, program=student_detaails.program_applied_for)
+        print('ALL PAYMENT STRUCTURES: ', payment_structures)
+        # current_semester_balances = Payment.objects.filter(student__user=request.user, semester__semester=current_semester.semester)
+    else:
+        payment_structure = PaymentStructure.objects.all()
+    return render(request, 'schoolapp/systempages/student_view_payment_structure.html', 
+                  {
+                    'payment_structures': payment_structures,
                     # 'current_semester_balances': current_semester_balances,
                   })
