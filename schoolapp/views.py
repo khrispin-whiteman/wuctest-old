@@ -378,9 +378,9 @@ def online_admission(request):
             program = Program.objects.get(id=request.POST.get('program_applied_for'))
 
             # generate student number
-            student_no = generateStudentNumberRandomDigits()
-            sn_obj = StudentNumber.objects.create(full_student_no=student_no)
-            print('STUDENT NO: ', sn_obj.full_student_no)
+            # student_no = generateStudentNumberRandomDigits()
+            # sn_obj = StudentNumber.objects.create(full_student_no=student_no)
+            # print('STUDENT NO: ', sn_obj.full_student_no)
 
             obj = application_form.save(commit=False)
             print('CREATED FORM INSTANCE:', obj)
@@ -391,7 +391,7 @@ def online_admission(request):
             # print('FILES LIST:', files_list)
             # obj.scanned_gce_results = request.FILES.getlist('scanned_gce_results')
             obj.program_applied_for = program
-            obj.student_number = sn_obj
+            # obj.student_number = sn_obj
             obj.temp_password = tmp_password
             try:
                 obj.intake = Session.objects.get(is_current_session=True)
@@ -416,12 +416,11 @@ def online_admission(request):
             subject = 'WUC Online Application'
             message = 'Dear, ' + application_form.cleaned_data.get(
                 "first_name") + ' ' + application_form.cleaned_data.get("last_name") + '\n\n' \
-                                                                                       'Your application for the program ' + str(
+                        'Your application for the program ' + str(
                 application_form.cleaned_data.get('program_applied_for')) + \
                       ' has been successfully submitted, you will be notified once it has been reviewed by the school' \
                       ' administration. You can check the status of your application via this link https://woodlandsunicollegesms.pythonanywhere.com/application-status/ \n' \
-                      'You will be required to provide your Student Number and the temporal system generated password.\n\n' \
-                      'STUDENT NO.: ' + sn_obj.full_student_no + '\n' \
+                      'You will be required to provide your NRC Number and the temporal system generated password.\n\n' \
                       'PASSWORD: ' + tmp_password + '\n' \
                        'LINK: https://woodlandsunicollegesms.pythonanywhere.com/application-status/\n\n' \
                        'Keep the information above safe or you will be unable to see your application status.\n\n' \
@@ -486,7 +485,7 @@ def online_admission(request):
 
 def updateonlineapplication(request, nrc_no):
     if request.method == 'POST':
-        application = Admission.objects.get(nrc_no=nrc_no)
+        application = Admission.objects.get(nrc_no=request.POST.get('nrc_no'))
         form = UpdateOnlineApplicationForm(request.POST, request.FILES, instance=application)
         print('INSIDE POST')
         print(form.errors)
@@ -782,7 +781,7 @@ def admin_approved_admissions_list(request):
 
     if request.user.user_group == 'Admissions Office':
         print('Admissions Office')
-        admissions = Admission.objects.filter(is_active=True, application_status='Approved')
+        admissions = Admission.objects.filter(application_status='Approved')
 
     elif request.user.user_group == 'Accounts Office':
         print('Accounts Office')
@@ -790,15 +789,15 @@ def admin_approved_admissions_list(request):
 
     elif request.user.user_group == 'Dean Of Students Affairs Office':
         print('Dean Of Students Affairs Office')
-        admissions = Admission.objects.filter(is_active=True, application_status='Approved', application_stage='Dean Of Students Affairs Office')
+        admissions = Admission.objects.filter(application_status='Approved', application_stage='Dean Of Students Affairs Office')
 
     elif request.user.user_group == 'ICT Office':
         print('ICT Office')
-        admissions = Admission.objects.filter(is_active=True, application_status='Approved')
+        admissions = Admission.objects.filter(application_status='Approved')
 
     elif request.user.user_group == 'Program Coordinator or Principal Lecturer Office':
         print('Program Coordinator or Principal Lecturer Office')
-        admissions = Admission.objects.filter(is_active=True, application_status='Approved', application_stage='Program Coordinator or Principal Lecturer Office')
+        admissions = Admission.objects.filter(application_status='Approved', application_stage='Program Coordinator or Principal Lecturer Office')
 
     elif request.user.user_group == 'Registrar Office':
         print('Registrar Office')
@@ -848,7 +847,7 @@ def admin_admissions_detail(request, admission_id):
 
 @login_required()
 def admin_approve_application(request, admission_id):
-        # get current semester
+    # get current semester
     try:
         current_semester = Semester.objects.get(is_current_semester=True)
     except Semester.DoesNotExist:
@@ -935,23 +934,23 @@ def admin_approve_application(request, admission_id):
             admission_details.save()
 
             # notify applicant via mail
-            subject = 'Admission Confirmation'
+            subject = 'Admission Rejection'
 
             message = 'Dear Mr./Mrs./Ms. ' + str(admission_details.last_name) + '\n' \
-                                                                                'Thank you for your application for admission to [name of college]. \n' \
-                                                                                'After reviewing your application and supporting documentation, we regret that we must decline your application at this time. \n' \
-                                                                                'The applicant pool for this academic year has exceeded our available openings for admission. \n' \
-                                                                                'The decision has been difficult, and although you show outstanding potential as a student, the competition is intense. \n' \
-                                                                                'You are welcome to apply after you complete your GRE testing, which was not included in this year’s application. \n' \
-                                                                                'It is a requirement for admission at Woodlands University College.\n\n' \
-                                                                                'We appreciate your consideration of Woodlands University College, along with the time and effort you put into your application. \n' \
-                                                                                'We wish you the best of success in your academic endeavors. We encourage you to continue pursuit of your academic goals.\n\n' \
+                    'Thank you for your application for admission to [name of college]. \n' \
+                    'After reviewing your application and supporting documentation, we regret that we must decline your application at this time. \n' \
+                    'The applicant pool for this academic year has exceeded our available openings for admission. \n' \
+                    'The decision has been difficult, and although you show outstanding potential as a student, the competition is intense. \n' \
+                    'You are welcome to apply after you complete your GRE testing, which was not included in this year’s application. \n' \
+                    'It is a requirement for admission at Woodlands University College.\n\n' \
+                    'We appreciate your consideration of Woodlands University College, along with the time and effort you put into your application. \n' \
+                    'We wish you the best of success in your academic endeavors. We encourage you to continue pursuit of your academic goals.\n\n' \
  \
             'Sincerely,\n\n' \
  \
             '' + request.user.get_full_name()
 
-        from_email = 'chrispinkay@gmail.com'
+        from_email = 'woodlandsuniversitycollegesms@gmail.com'
 
         try:
             if request.POST['application_status'] == 'Rejected':
@@ -975,28 +974,37 @@ def admin_approve_application(request, admission_id):
         admission_details.application_stage = 'Approved'
         admission_details.registrar_office = True
         admission_details.registrar_office_user = request.user
+
+        # generate student number
+        student_no = generateStudentNumberRandomDigits()
+        sn_obj = StudentNumber.objects.create(full_student_no=student_no)
+        print('STUDENT NO: ', sn_obj.full_student_no)
+
+        admission_details.student_number = student_no
         admission_details.save()
 
         # notify applicant via mail
         subject = 'Admission Confirmation'
 
         message = 'Dear ' + str(admission_details.first_name) + ', \n\n' \
-                                                                'This is ' + request.user.get_full_name() + ' from the registrars office of Woodlands University College, ' \
-                                                                                                            'I want to congratulate you that you have been qualified for Admission ' + str(
-            admission_details.program_applied_for) + ', and you ' \
-                                                     'are requested to contact the administration department for further process. Your first semester classes ' \
-                                                     'will start on (Date). \n\n' \
-                                                     'Kindly meet the concerned person for fee structure, and course details, etc. ' \
-                                                     'You are among those lucky people who have got the chance to study in such a renowned university. ' \
-                                                     'Looking forward to your action against this letter and hope that you will contact us as early as possible.\n\n ' \
-                                                     'You can go back and make changes before close of application.\n\n' \
-                                                     'Yours sincerely, \n\n' \
-                                                     'Name… \n' \
-                                                     'Registrars Office \n\n' \
-                                                     'Woodlands University College \n\n' \
-                                                     '09777777777 or 09888888888'
+                  'This is ' + request.user.get_full_name() + ' from the registrars office of Woodlands University College, ' \
+                  'I want to congratulate you that you have been qualified for Admission ' + str(
+                    admission_details.program_applied_for) + ', and you ' \
+                    'are requested to contact the admissions department for further process. Your first semester classes ' \
+                    'will start on (Date). \n\n' \
+                    'Kindly meet the concerned person for fee structure, and course details, etc. ' \
+                    'You are among those lucky people who have got the chance to study in such a renowned university. ' \
+                    'Looking forward to your action against this letter and hope that you will contact us as early as possible.\n\n ' \
+                    'You can go back and make changes before close of application.\n\n' \
+                    'YOUR STUDENT NUMBER IS: \n\n'\
+                    'PLEASE NOTE THAT YOUR STUDENT NUMBER WILL BE REQUIRED TO MAKE PAYMENTS AT THE BANK.\n\n'\
+                    'Yours sincerely, \n\n' \
+                    'Name… \n' \
+                    'Registrars Office \n\n' \
+                    'Woodlands University College \n\n' \
+                    '09777777777 or 09888888888'
 
-        from_email = 'chrispinkay@gmail.com'
+        from_email = 'woodlandsuniversitycollegesms@gmail.com'
 
         try:
             if request.POST['application_status'] == 'Approved':
@@ -1010,7 +1018,7 @@ def admin_approve_application(request, admission_id):
             print('CONNECTION ERROR')
             return HttpResponse('Check Your Internet Connection And Try Again. Email not sent')
         except IntegrityError:
-            return redirect('list_teacher')
+            return redirect('admin_admissions_list')
 
     # get all admissions
     global admissions
@@ -1170,7 +1178,7 @@ def search_applicant_by_student_no(request):
         except Admission.DoesNotExist:
             return render(request, 'schoolapp/systempages/search_applicant_by_student_no.html',
                           {
-                              'error_message': 'Student number not found',
+                              'error_message': 'NRC number not found',
                               'current_semester': current_semester
                           })
     else:

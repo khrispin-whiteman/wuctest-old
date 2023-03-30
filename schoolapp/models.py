@@ -303,8 +303,8 @@ APPLICATION_STATUS_CHOICES = (
 
 
 REGISTRATION_STATUS_CHOICES = (
-    ('Reported', "Reported"),
-    ('Not Reported', "Not Reported"),
+    ('Registered', "Registered"),
+    ('Not Registered', "Not Registered"),
     ('Other', "Other"),
 )
 
@@ -634,11 +634,11 @@ class Admission(models.Model):
     # Applicant
     declaration_confirmation = models.BooleanField(default=False, verbose_name='I have read the declaration')
 
-    student_number = models.ForeignKey(StudentNumber, max_length=200, default='', verbose_name='Student Number',
+    student_number = models.ForeignKey(StudentNumber, max_length=200, null=True, default='', verbose_name='Student Number',
                                        on_delete=models.CASCADE)
     application_status = models.CharField(max_length=200, default='Pending', blank=True, null=True, choices=APPLICATION_STATUS_CHOICES,
                                           verbose_name='Application Status')
-    registration_status = models.CharField(max_length=200, default='Reported', blank=True, null=True, choices=REGISTRATION_STATUS_CHOICES,
+    registration_status = models.CharField(max_length=200, default='Registered', blank=True, null=True, choices=REGISTRATION_STATUS_CHOICES,
                                           verbose_name='Registration Status')
     application_stage = models.CharField(max_length=200, default='Admissions Office', choices=USER_GROUPS,
                                          verbose_name='Application Stage')

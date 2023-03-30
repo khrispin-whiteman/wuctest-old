@@ -10,7 +10,7 @@
             <div class="page-header">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h3 class="page-title">Approved Registrations</h3>
+                        <h3 class="page-title">Approved/Accepted Registrations</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item active"><a href="{% url 'dashboard' %}"> Dashboard</a>
                                 /Registrations
@@ -44,11 +44,12 @@
                                         <th>Email</th>
                                         <th>Gender</th>
                                         <th>Program</th>
+                                        <th>Application Status</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
-                                    {% for admission in admissions reversed %}
                                     <tbody>
+                                        {% for admission in admissions reversed %}
                                         <tr>
                                             <td>{{ admission.first_name }}</td>
                                             <td>{{ admission.last_name }}</td>
@@ -57,12 +58,13 @@
                                             <td>{{ admission.email }}</td>
                                             <td>{{ admission.gender }}</td>
                                             <td>{{ admission.program_applied_for }}</td>
+                                            <td>{{ admission.application_status }}</td>
                                             <td><a href="{% url 'admin_admissions_detail' admission.id %}" class="btn btn-outline-primary">VIEW</a></td>
                                         </tr>
+                                        {% empty %}
+                                            <i class="d-flex justify-content-center alert alert-info">No Registration found.</i><br>
+                                        {% endfor %}
                                     </tbody>
-                                    {% empty %}
-                                        <i class="d-flex justify-content-center alert alert-info">No Registration found.</i><br>
-                                    {% endfor %}
                                 </table>
                             </div>
                         </div>
