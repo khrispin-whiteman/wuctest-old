@@ -16,7 +16,7 @@
                 YOUR APPLICATION STATUS IS: <strong style="color: blue;">{{ application_detail.application_status }}</strong>
                 <p><strong>Note</strong> that an email will be sent to you once your application has been processed and /finalized.
                 </p>
-                <a href="{% url 'updateonlineapplication' nrc_no %}" class="btn btn-outline-primary">
+                <a href="{% url 'updateonlineapplication' application_detail.nrc_no %}" class="btn btn-outline-primary">
                     Update Application Details <i class="fa fa-pencil"></i>
                 </a>
                 <a href="{% url 'view_pdf_for_student_application' application_detail.id  %}" target="_blank" type="button" class="btn btn-outline-primary">

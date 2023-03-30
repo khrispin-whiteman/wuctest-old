@@ -851,7 +851,6 @@
                                                                                 {{ form.subject_art.label_tag }}
                                                                                 <input class="form-control"
                                                                                        width="10px;" type="number"
-                                                                                       placeholder="Art"
                                                                                        name="subject_art"
                                                                                        id="subject_art"/>
                                                                                 <p hidden
@@ -870,7 +869,6 @@
                                                                                 {{ form.subject_adma.label_tag }}
                                                                                 <input class="form-control"
                                                                                        width="10px;" type="number"
-                                                                                       placeholder="subject_adma"
                                                                                        name="subject_adma"
                                                                                        id="subject_adma"/>
                                                                                 <p hidden
@@ -889,7 +887,6 @@
                                                                                 {{ form.subject_gmd.label_tag }}
                                                                                 <input class="form-control"
                                                                                        width="10px;" type="number"
-                                                                                       placeholder="GMD"
                                                                                        name="subject_gmd"
                                                                                        id="subject_gmd"/>
                                                                                 <p hidden
@@ -909,7 +906,6 @@
                                                                                 <input class="form-control"
                                                                                        width="10px;" type="number"
                                                                                        name="subject_agric_science"
-                                                                                       placeholder="Agriculture Science"
                                                                                        id="subject_agric_science"/>
                                                                                 <p hidden
                                                                                    id="subject_agric_science_valid_text">
@@ -928,7 +924,6 @@
                                                                                 <input class="form-control"
                                                                                        width="10px;" type="number"
                                                                                        name="subject_literature"
-                                                                                       placeholder="Literature"
                                                                                        id="subject_literature"/>
                                                                                 <p hidden
                                                                                    id="subject_literature_valid_text">
@@ -940,24 +935,9 @@
                                                                                         style="color: red;"><small>Please
                                                                                     fill out this field</small></i></p>
                                                                             </div>
-
-                                                                            <!-- <div class="form-group">
-                                                                                {{ form.subject_civic_education.label_tag }}
-                                                                                <input class="form-control"
-                                                                                       width="10px;" type="number"
-                                                                                       name="subject_civic_education"
-                                                                                       id="subject_civic_education"/>
-                                                                                <p hidden
-                                                                                   id="subject_civic_education_valid_text">
-                                                                                    <small style="color: #2be12b;">Valid
-                                                                                        <i class="fa fa-check-circle"></i></small>
-                                                                                </p>
-                                                                                <p hidden
-                                                                                   id="subject_civic_education_text"><i
-                                                                                        style="color: red;"><small>Please
-                                                                                    fill out this field</small></i></p>
-                                                                            </div> -->
                                                                         </div>
+
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1642,6 +1622,7 @@
         var subject_chemistry = document.getElementById('subject_chemistry');
         var subject_physics = document.getElementById('subject_physics');
         var subject_civic_education = document.getElementById('subject_civic_education');
+        var subject_art = document.getElementById('subject_art');
 
 
         // get ids for Part 5 elements

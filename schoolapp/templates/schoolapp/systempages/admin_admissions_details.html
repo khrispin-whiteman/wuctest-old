@@ -421,7 +421,7 @@
                                             <hr>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <br>
                                                 <table class="table">
                                                     <tbody>
@@ -482,9 +482,9 @@
                                                     {% endif %}
                                                     </tbody>
                                                 </table>
-
                                             </div>
-                                            <div class="col-md-4">
+                                            
+                                            <div class="col-md-3">
                                                 <br>
                                                 <table class="table">
                                                     <tbody>
@@ -544,9 +544,9 @@
                                                     {% endif %}
                                                     </tbody>
                                                 </table>
-
                                             </div>
-                                            <div class="col-md-4">
+
+                                            <div class="col-md-3">
                                                 <br>
                                                 <table class="table">
                                                     <tbody>
@@ -563,7 +563,6 @@
 
                                                         </tr>
                                                     {% else %}
-
                                                     {% endif %}
 
                                                     {% if admission_details.subject_civic_education %}
@@ -579,7 +578,6 @@
 
                                                         </tr>
                                                     {% else %}
-
                                                     {% endif %}
 
                                                     {% if admission_details.subject_religious_education %}
@@ -595,7 +593,6 @@
 
                                                         </tr>
                                                     {% else %}
-
                                                     {% endif %}
 
                                                     {% if admission_details.subject_home_economics %}
@@ -611,12 +608,95 @@
 
                                                         </tr>
                                                     {% else %}
-
                                                     {% endif %}
                                                     </tbody>
                                                 </table>
-
                                             </div>
+
+                                            <div class="col-md-3">
+                                                <br>
+                                                <table class="table">
+                                                    <tbody>
+                                                    {% if admission_details.subject_art %}
+                                                        <tr>
+                                                            <th>Art</th>
+                                                            <td>
+
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_art | capfirst }}
+                                                                </b>
+
+                                                            </td>
+
+                                                        </tr>
+                                                    {% else %}
+                                                    {% endif %}
+
+                                                    {% if admission_details.subject_adma %}
+                                                        <tr>
+                                                            <th>Additional Mathematics</th>
+                                                            <td>
+
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_adma | capfirst }}
+                                                                </b>
+
+                                                            </td>
+
+                                                        </tr>
+                                                    {% else %}
+                                                    {% endif %}
+
+                                                    {% if admission_details.subject_gmd %}
+                                                        <tr>
+                                                            <th>GMD</th>
+                                                            <td>
+
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_gmd | capfirst }}
+                                                                </b>
+
+                                                            </td>
+
+                                                        </tr>
+                                                    {% else %}
+                                                    {% endif %}
+
+                                                    {% if admission_details.subject_literature %}
+                                                        <tr>
+                                                            <th>Literature</th>
+                                                            <td>
+
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_literature | capfirst }}
+                                                                </b>
+
+                                                            </td>
+
+                                                        </tr>
+                                                    {% else %}
+                                                    {% endif %}
+
+                                                    {% if admission_details.subject_agric_science %}
+                                                        <tr>
+                                                            <th>Agriculture Science</th>
+                                                            <td>
+
+                                                                <b style="color: #1c7430">
+                                                                    {{ admission_details.subject_agric_science | capfirst }}
+                                                                </b>
+
+                                                            </td>
+
+                                                        </tr>
+                                                    {% else %}
+                                                    {% endif %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+
+
                                         </div>
                                     </div>
                                 {% endif %}
